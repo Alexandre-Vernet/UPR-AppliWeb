@@ -1,0 +1,10 @@
+<form [formGroup]="form" (ngSubmit)="form.valid && signUp()">
+    <input type="text" formControlName="firstName" placeholder="FirstName">
+    <input type="text" formControlName="lastName" placeholder="LastName">
+    <input type="email" formControlName="email" placeholder="Email">
+    <input type="password" formControlName="password" placeholder="password">
+    <input type="password" formControlName="confirmPassword" placeholder="confirmPassword">
+    <input type="submit" [disabled]="!form.valid" value="Submit">
+</form>
+
+<input type="button" value="Google connexion" (click)="googleSignUp()">
