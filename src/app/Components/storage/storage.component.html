@@ -165,23 +165,16 @@
                                                                 </li>
                                                                 <li class="d-lg-none">
                                                                     <div class="dropdown">
-                                                                        <a href="#" class="btn btn-trigger btn-icon"
-                                                                            data-toggle="dropdown"><em
-                                                                                class="icon ni ni-plus"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a href="#file-upload"
-                                                                                        data-toggle="modal"><em
-                                                                                            class="icon ni ni-upload-cloud"></em><span>Upload
-                                                                                            File</span></a></li>
-                                                                                <li><a href="#"><em
-                                                                                            class="icon ni ni-file-plus"></em><span>Create
-                                                                                            File</span></a></li>
-                                                                                <li><a href="#"><em
-                                                                                            class="icon ni ni-folder-plus"></em><span>Create
-                                                                                            Folder</span></a></li>
-                                                                            </ul>
-                                                                        </div>
+                                                                        <a class="btn btn-trigger btn-icon"
+                                                                            data-toggle="dropdown"
+                                                                            (click)="focusUpload()"><em
+                                                                                class="icon ni ni-plus"></em>
+
+                                                                            <input type="file"
+                                                                                (change)="uploadFile($event)"
+                                                                                id="file_upload"
+                                                                                style="display: none"></a>
+
                                                                     </div>
                                                                 </li>
                                                                 <li class="d-lg-none mr-n1"><a href="#"
@@ -236,9 +229,6 @@
                                                                     <div class="nk-file-item">
                                                                         <div class="nk-file-info">
                                                                             <div class="dropdown">
-                                                                                <div class="tb-head dropdown-toggle dropdown-indicator-caret"
-                                                                                    data-toggle="dropdown">Last Opened
-                                                                                </div>
                                                                                 <div
                                                                                     class="dropdown-menu dropdown-menu-xs">
                                                                                     <ul class="link-list-opt no-bdr">
@@ -258,10 +248,6 @@
                                                                         </div>
                                                                         <div class="nk-file-actions">
                                                                             <div class="dropdown">
-                                                                                <a href=""
-                                                                                    class="dropdown-toggle btn btn-sm btn-icon btn-trigger"
-                                                                                    data-toggle="dropdown"><em
-                                                                                        class="icon ni ni-more-h"></em></a>
                                                                                 <div
                                                                                     class="dropdown-menu dropdown-menu-right">
                                                                                     <ul class="link-list-opt no-bdr">
