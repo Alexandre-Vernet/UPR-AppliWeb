@@ -122,9 +122,10 @@
                                                     <ul class="nk-block-tools g-3">
                                                         <li>
                                                             <div class="dropdown">
-                                                                <a class="btn btn-light" data-toggle="dropdown"><em
+                                                                <a class="btn btn-light" data-toggle="dropdown"
+                                                                    (click)="focusUpload()"><em
                                                                         class="icon ni ni-plus"></em>
-                                                                    <span (click)="focusUpload()">Upload</span></a>
+                                                                    <span>Upload</span></a>
 
                                                                 <input type="file" (change)="uploadFile($event)"
                                                                     id="file_upload" style="display: none">

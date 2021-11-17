@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getFirestore } from 'firebase/firestore';
-import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, list, listAll, ref, uploadBytes } from "firebase/storage";
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
 import Swal from 'sweetalert2';
@@ -22,15 +22,31 @@ export class StorageService {
 
         const filesRef = ref(this.storage, 'files');
 
+        const firstPage = await list(filesRef, { maxResults: 1 });
+        //   processItems(firstPage.items)
+
+
+
         listAll(filesRef)
             .then((res) => {
                 res.items.forEach((itemRef) => {
                     const name = itemRef.name;
 
+                    // Get URL file
                     getDownloadURL(ref(this.storage, `files/${name}`))
-                        .then((url) => {
+                        .then(async (url) => {
                             const file = new File(name, url, new Date());
                             this.files.push(file);
+
+                            // Pagination
+                            if (firstPage.nextPageToken) {
+                                const secondPage = await list(filesRef, {
+                                    maxResults: 100,
+                                    pageToken: firstPage.nextPageToken,
+                                });
+                                // processItems(secondPage.items)
+                                // processPrefixes(secondPage.prefixes)
+                            }
                         })
                         .catch((error) => {
                             console.log('error: ', error)
