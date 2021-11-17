@@ -14,6 +14,7 @@ export class StorageComponent implements OnInit {
 
     storage = getStorage();
 
+    query: string;
     constructor(private storageService: StorageService) { }
 
     ngOnInit(): void {

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { getStorage, listAll, ref, uploadBytes } from "firebase/storage";
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
-import { AuthenticationService } from '../authentication/authentication.service';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -17,7 +16,7 @@ export class StorageService {
     storage = getStorage();
     db = getFirestore();
 
-    constructor(private auth: AuthenticationService) { }
+    constructor() { }
 
     async getFiles(): Promise<File[]> {
 
@@ -26,6 +25,7 @@ export class StorageService {
         listAll(filesRef)
             .then((res) => {
                 res.items.forEach((itemRef) => {
+                    console.log('itemRef: ', itemRef)
                     const name = itemRef.name;
                     const file = new File(name);
 
@@ -70,7 +70,8 @@ export class StorageService {
             // });
 
         }).catch((error) => {
-            console.log('error: ', error)
+            console.log('error: ', error);
+
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
@@ -80,6 +81,4 @@ export class StorageService {
             });
         })
     };
-
-
 }

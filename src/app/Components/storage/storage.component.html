@@ -121,7 +121,7 @@
                                                     <em class="icon ni ni-search"></em>
                                                     <input type="text"
                                                         class="form-control border-transparent form-focus-none"
-                                                        placeholder="Search files, folders">
+                                                        placeholder="Search files, folders" [(ngModel)]="query">
                                                 </div>
                                                 <div class="nk-fmg-actions">
                                                     <ul class="nk-block-tools g-3">
@@ -385,7 +385,7 @@
                                                                     </div>.nk-file -->
 
 
-                                                                    <div *ngFor="let file of files"
+                                                                    <div *ngFor="let file of files | search:query"
                                                                         class="nk-file-item nk-file">
                                                                         <div class="nk-file-info">
                                                                             <div class="nk-file-title">
@@ -2162,8 +2162,8 @@
                                                                         <div class="nk-file-members">
                                                                             <div class="user-avatar-group">
                                                                                 <div class="user-avatar xs">
-                                                                                    <img src="./images/avatar/b-sm.jpg"
-                                                                                        alt="">
+                                                                                    <!-- <img src="./images/avatar/b-sm.jpg"
+                                                                                        alt=""> -->
                                                                                 </div>
                                                                                 <div class="user-avatar xs bg-purple">
                                                                                     <span>IH</span>
@@ -2502,8 +2502,8 @@
                                                                                     <span>IH</span>
                                                                                 </div>
                                                                                 <div class="user-avatar xs">
-                                                                                    <img src="./images/avatar/b-sm.jpg"
-                                                                                        alt="">
+                                                                                    <!-- <img src="./images/avatar/b-sm.jpg"
+                                                                                        alt=""> -->
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -3406,7 +3406,7 @@
                                 <div class="nk-file-details-col">
                                     <div class="user-avatar-group">
                                         <div class="user-avatar xs">
-                                            <img src="./images/avatar/b-sm.jpg" alt="">
+                                            <!-- <img src="./images/avatar/b-sm.jpg" alt=""> -->
                                         </div>
                                         <div class="user-avatar xs bg-purple">
                                             <span>IH</span>
