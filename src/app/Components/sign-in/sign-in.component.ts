@@ -54,7 +54,7 @@ export class SignInComponent implements OnInit {
         this.firebaseError = this.auth.signIn(email, password);
     };
 
-    googleSignUp = () => {
+    googleSignIn = () => {
         this.auth.googleSignUp();
     };
 

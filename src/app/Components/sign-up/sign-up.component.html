@@ -1,9 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="form.valid && signUp()">
-    <input type="email" formControlName="firstName" placeholder="FirstName">
-    <input type="email" formControlName="lastName" placeholder="LastName">
+    <input type="text" formControlName="firstName" placeholder="FirstName">
+    <input type="text" formControlName="lastName" placeholder="LastName">
     <input type="email" formControlName="email" placeholder="Email">
-    <input type="email" formControlName="password" placeholder="password">
-    <input type="email" formControlName="confirmPassword" placeholder="confirmPassword">
+    <input type="password" formControlName="password" placeholder="password">
+    <input type="password" formControlName="confirmPassword" placeholder="confirmPassword">
     <input type="submit" [disabled]="!form.valid" value="Submit">
 </form>
 
