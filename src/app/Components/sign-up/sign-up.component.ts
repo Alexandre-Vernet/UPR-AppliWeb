@@ -12,8 +12,8 @@ export class SignUpComponent implements OnInit {
     _viewPassword: boolean = false;
 
     form = new FormGroup({
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
+        firstName: new FormControl('alexandre', [Validators.required]),
+        lastName: new FormControl('vernet', [Validators.required]),
         email: new FormControl('alexandre.vernet@g-mail.fr', [Validators.required, Validators.email]),
         password: new FormControl('alexandre', [
             Validators.required,
