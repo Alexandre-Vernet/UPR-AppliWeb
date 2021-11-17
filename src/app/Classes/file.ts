@@ -1,18 +1,12 @@
 export class File {
-    private _id: number;
     private _name: string;
+    private _emplacement: string;
     private _date: Date;
 
-    constructor(name: string) {
+    constructor(name: string, emplacement: string, date: Date) {
         this._name = name;
-    }
-
-    /**
-     * Getter id
-     * @return {number}
-     */
-    public get id(): number {
-        return this._id;
+        this._emplacement = emplacement;
+        this._date = date;
     }
 
     /**
@@ -24,19 +18,19 @@ export class File {
     }
 
     /**
+     * Getter emplacement
+     * @return {string}
+     */
+    public get emplacement(): string {
+        return this._emplacement;
+    }
+
+    /**
      * Getter date
      * @return {Date}
      */
     public get date(): Date {
         return this._date;
-    }
-
-    /**
-     * Setter id
-     * @param {number} value
-     */
-    public set id(value: number) {
-        this._id = value;
     }
 
     /**
@@ -48,10 +42,19 @@ export class File {
     }
 
     /**
+     * Setter emplacement
+     * @param {string} value
+     */
+    public set emplacement(value: string) {
+        this._emplacement = value;
+    }
+
+    /**
      * Setter date
      * @param {Date} value
      */
     public set date(value: Date) {
         this._date = value;
     }
+
 }

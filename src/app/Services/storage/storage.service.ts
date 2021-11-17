@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getFirestore } from 'firebase/firestore';
-import { getStorage, listAll, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from "firebase/storage";
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
 import Swal from 'sweetalert2';
@@ -25,14 +25,36 @@ export class StorageService {
         listAll(filesRef)
             .then((res) => {
                 res.items.forEach((itemRef) => {
-                    console.log('itemRef: ', itemRef)
                     const name = itemRef.name;
-                    const file = new File(name);
 
-                    this.files.push(file);
+                    getDownloadURL(ref(this.storage, `files/${name}`))
+                        .then((url) => {
+                            const file = new File(name, url, new Date());
+                            this.files.push(file);
+                        })
+                        .catch((error) => {
+                            console.log('error: ', error)
+
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: `Error while getting URL files ${error}`,
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        });
+
                 });
             }).catch((error) => {
                 console.log('error: ', error);
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Error while getting files ${error}`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
             });
 
         return this.files;
