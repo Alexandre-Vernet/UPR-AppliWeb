@@ -228,7 +228,7 @@
   }
 
   ;
-  NioApp.coms.docReady.push(jqvmap_init); // Charts 
+  NioApp.coms.docReady.push(jqvmap_init); // Charts
 
   var deviceStatusData = {
     labels: ["Desktop", "Mobile", "Tablet"],
