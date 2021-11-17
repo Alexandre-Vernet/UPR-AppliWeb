@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/Services/storage/storage.service';
 import { File } from 'src/app/Classes/file';
+import { getStorage } from 'firebase/storage';
 
 @Component({
     selector: 'app-storage',
@@ -10,6 +11,8 @@ import { File } from 'src/app/Classes/file';
 export class StorageComponent implements OnInit {
 
     files: File[] = [];
+
+    storage = getStorage();
 
     constructor(private storageService: StorageService) { }
 
@@ -22,4 +25,12 @@ export class StorageComponent implements OnInit {
             this.files = files;
         });
     }
+
+    focusUpload = () => {
+        document.getElementById('file_upload')?.click();
+    };
+
+    uploadFile = (event) => {
+        this.storageService.sendFile(event);
+    };
 }

@@ -127,10 +127,13 @@
                                                     <ul class="nk-block-tools g-3">
                                                         <li>
                                                             <div class="dropdown">
-                                                                <a href="#" class="btn btn-light"
-                                                                    data-toggle="dropdown"><em
+                                                                <a class="btn btn-light" data-toggle="dropdown"><em
                                                                         class="icon ni ni-plus"></em>
-                                                                    <span>Create</span></a>
+                                                                    <span (click)="focusUpload()">Upload</span></a>
+
+                                                                <input type="file" (change)="uploadFile($event)"
+                                                                    id="file_upload" style="display: none">
+
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
                                                                         <li><a href="#file-upload"
@@ -147,10 +150,6 @@
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                        <li><a href="#file-upload" class="btn btn-primary"
-                                                                data-toggle="modal"><em
-                                                                    class="icon ni ni-upload-cloud"></em>
-                                                                <span>Upload</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
