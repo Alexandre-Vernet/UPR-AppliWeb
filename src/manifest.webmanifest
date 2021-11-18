@@ -1,0 +1,16 @@
+{
+    "lang": "fr",
+    "name": "Angular PWA",
+    "display": "fullscreen",
+    "start_url": "https://upr-appliweb.web.app/",
+    "short_name": "Angular PWA",
+    "theme_color": "#fff",
+    "description": "Sample PWA App",
+    "background_color": "transparent",
+    "icons": [
+      {
+        "src": "./favicon.ico",
+        "sizes": "228x228"
+      }
+    ]
+  }
