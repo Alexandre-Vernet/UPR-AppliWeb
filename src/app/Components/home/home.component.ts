@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PwaUpdateService} from "../../Services/pwa/pwa-update.service";
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public pwaUpdateService: PwaUpdateService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  installPwa(): void {
+    this.pwaUpdateService.promptEvent.prompt();
+  }
 }

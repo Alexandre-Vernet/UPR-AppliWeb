@@ -1,3 +1,7 @@
 <p>home works!</p>
 <button [routerLink]="['sign-in']">Connexion</button>
 <button [routerLink]="['sign-up']">Inscription</button>
+
+<button *ngIf="pwaUpdateService.promptEvent" (click)="installPwa()">
+  Install
+</button>
