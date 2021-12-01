@@ -13,6 +13,7 @@ export class AdminGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
+      if (!this.authService.user) return false
       if (this.authService.user.role === 'ADMIN') return true;
       return false;
   }
