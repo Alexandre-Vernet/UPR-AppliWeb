@@ -39,6 +39,7 @@ export class StorageService {
 								name,
 								url,
 								extensionFile,
+								10,
 								new Date()
 							);
 							this.files.push(file);

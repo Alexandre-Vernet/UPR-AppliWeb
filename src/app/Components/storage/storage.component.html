@@ -185,12 +185,12 @@
                                                                             <div class="nk-file-title">
                                                                                 <div class="nk-file-icon">
                                                                                     <a class="nk-file-icon-link"
-                                                                                        href="{{ file.emplacement }}"
+                                                                                        href="{{ file.url }}"
                                                                                         target="_blank">
                                                                                         <span class="nk-file-icon-type">
-                                                                                            <img src=" {{ file.icon === 'png' ? 'assets/images/icons/jpg.png' : 
+                                                                                            <img src=" {{ file.extension === 'png' ? 'assets/images/icons/jpg.png' : 
                                                                                             'assets/images/icons/pdf.png' }} "
-                                                                                                alt=" {{ file.icon }} ">
+                                                                                                alt=" {{ file.extension }} ">
                                                                                         </span>
                                                                                     </a>
                                                                                 </div>

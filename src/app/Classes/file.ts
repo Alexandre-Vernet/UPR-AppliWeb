@@ -1,82 +1,101 @@
 export class File {
-    private _name: string;
-    private _emplacement: string;
-    private _extensionFile: string;
-    private _date: Date;
+	private _name: string;
+	private _url: string;
+	private _extension: string;
+	private _size: number;
+	private _date: Date;
 
-    constructor(
-        name: string,
-        emplacement: string,
-        extensionFile: string,
-        date: Date
-    ) {
-        this._name = name;
-        this._emplacement = emplacement;
-        this._extensionFile = extensionFile;
-        this._date = date;
-    }
+	constructor(
+		name: string,
+		url: string,
+		extension: string,
+		size: number,
+		date: Date
+	) {
+		this._name = name;
+		this._url = url;
+		this._extension = extension;
+		this._size = size;
+		this._date = date;
+	}
 
-    /**
-     * Getter name
-     * @return {string}
-     */
-    public get name(): string {
-        return this._name;
-    }
+	/**
+	 * Getter name
+	 * @return {string}
+	 */
+	public get name(): string {
+		return this._name;
+	}
 
-    /**
-     * Getter emplacement
-     * @return {string}
-     */
-    public get emplacement(): string {
-        return this._emplacement;
-    }
+	/**
+	 * Getter url
+	 * @return {string}
+	 */
+	public get url(): string {
+		return this._url;
+	}
 
-    /**
-     * Getter extensionFile
-     * @return {string}
-     */
-    public get extensionFile(): string {
-        return this._extensionFile;
-    }
+	/**
+	 * Getter extension
+	 * @return {string}
+	 */
+	public get extension(): string {
+		return this._extension;
+	}
 
-    /**
-     * Getter date
-     * @return {Date}
-     */
-    public get date(): Date {
-        return this._date;
-    }
+	/**
+	 * Getter size
+	 * @return {number}
+	 */
+	public get size(): number {
+		return this._size;
+	}
 
-    /**
-     * Setter name
-     * @param {string} value
-     */
-    public set name(value: string) {
-        this._name = value;
-    }
+	/**
+	 * Getter date
+	 * @return {Date}
+	 */
+	public get date(): Date {
+		return this._date;
+	}
 
-    /**
-     * Setter emplacement
-     * @param {string} value
-     */
-    public set emplacement(value: string) {
-        this._emplacement = value;
-    }
+	/**
+	 * Setter name
+	 * @param {string} value
+	 */
+	public set name(value: string) {
+		this._name = value;
+	}
 
-    /**
-     * Setter extensionFile
-     * @param {string} value
-     */
-    public set extensionFile(value: string) {
-        this._extensionFile = value;
-    }
+	/**
+	 * Setter url
+	 * @param {string} value
+	 */
+	public set url(value: string) {
+		this._url = value;
+	}
 
-    /**
-     * Setter date
-     * @param {Date} value
-     */
-    public set date(value: Date) {
-        this._date = value;
-    }
+	/**
+	 * Setter extension
+	 * @param {string} value
+	 */
+	public set extension(value: string) {
+		this._extension = value;
+	}
+
+	/**
+	 * Setter size
+	 * @param {number} value
+	 */
+	public set size(value: number) {
+		this._size = value;
+	}
+
+	/**
+	 * Setter date
+	 * @param {Date} value
+	 */
+	public set date(value: Date) {
+		this._date = value;
+	}
 }
