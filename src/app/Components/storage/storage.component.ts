@@ -30,7 +30,7 @@ export class StorageComponent implements OnInit {
 	};
 
 	uploadFile = (event) => {
-		this.storageService.sendFile(event);
+		this.storageService.uploadFile(event);
 	};
 
 	deleteFile(file: File) {

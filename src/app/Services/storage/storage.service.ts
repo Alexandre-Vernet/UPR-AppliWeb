@@ -31,21 +31,21 @@ export class StorageService {
 	constructor() {}
 
 	async getFiles(): Promise<File[]> {
-		const filesRef = ref(this.storage, 'files');
+		// Get all files from firestore
+		const q = query(collection(this.db, 'files'));
+		const querySnapshot = await getDocs(q);
 
-		listAll(filesRef)
-			.then((res) => {
-				res.items.forEach((itemRef) => {
-					const name = itemRef.name;
+		querySnapshot.forEach((doc) => {
+			const filesRef = ref(this.storage, 'files');
 
-					// Get URL file
-					getDownloadURL(ref(this.storage, `files/${name}`))
-						.then(async (url) => {
-							const q = query(collection(this.db, 'files'));
+			listAll(filesRef)
+				.then((res) => {
+					res.items.forEach((itemRef) => {
+						const name = itemRef.name;
 
-							// Get all files from firestore
-							const querySnapshot = await getDocs(q);
-							querySnapshot.forEach((doc) => {
+						// Get URL file
+						getDownloadURL(ref(this.storage, `files/${name}`))
+							.then(async (url) => {
 								const id = doc.get('id');
 								const name = doc.get('name');
 								const extensionFile = name.split('.')[1];
@@ -62,91 +62,108 @@ export class StorageService {
 								);
 
 								this.files.push(file);
-							});
-						})
-						.catch((error) => {
-							console.log('error: ', error);
+							})
+							.catch((error) => {
+								console.log('error: ', error);
 
-							Swal.fire({
-								position: 'top-end',
-								icon: 'success',
-								title: `Error while getting URL files ${error}`,
-								showConfirmButton: false,
-								timer: 1500,
+								Swal.fire({
+									position: 'top-end',
+									icon: 'success',
+									title: `Error while getting URL files ${error}`,
+									showConfirmButton: false,
+									timer: 4000,
+								});
 							});
-						});
-				});
-			})
-			.catch((error) => {
-				console.log('error: ', error);
+					});
+				})
+				.catch((error) => {
+					console.log('error: ', error);
 
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: `Error while getting files ${error}`,
-					showConfirmButton: false,
-					timer: 4000,
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: `Error while getting files ${error}`,
+						showConfirmButton: false,
+						timer: 4000,
+					});
 				});
-			});
+		});
 
 		return this.files;
 	}
 
 	/**
-	 * Send file
+	 * Upload file
 	 * @param event
 	 */
-	sendFile = (event) => {
+	uploadFile = async (event) => {
 		// Get file
 		const file = event.target.files[0];
-		console.log('file: ', file);
-
 		const storageRef = ref(this.storage, `files/${file.name}`);
 
-		// Upload to storage
-		uploadBytes(storageRef, file)
-			.then(async (image) => {
-				// Upload to firestore
-				await addDoc(collection(this.db, 'files'), {
-					name: file.name,
-					url: image.ref.fullPath,
-					size: file.size,
-					firstName: 'Alex',
-					lastName: 'Vernet',
-					email: 'alexandre.vernet@g-mail.fr',
-					date: new Date(),
-				});
+		const q = query(collection(this.db, 'files'));
 
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'File has been uploaded successfully',
-					showConfirmButton: false,
-					timer: 1500,
-				});
-			})
-			.catch((error) => {
-				console.log('error: ', error);
+		const querySnapshot = await getDocs(q);
+		const documents = [];
+		// Add duplicate file to array 'documents'
+		querySnapshot.forEach((doc) => {
+			const name = doc.get('name');
+			documents.push(name);
+		});
 
-				Swal.fire({
-					position: 'top-end',
-					icon: 'error',
-					title: `Error ${error}`,
-					showConfirmButton: false,
-					timer: 4000,
-				});
+		// If file already exists
+		if (documents.includes(file.name)) {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'error',
+				title: 'File already exists',
+				showConfirmButton: false,
+				timer: 1500,
 			});
+		} else {
+			// Upload file
+			uploadBytes(storageRef, file)
+				.then(async (image) => {
+					// Upload to firestore
+					await addDoc(collection(this.db, 'files'), {
+						name: file.name,
+						url: image.ref.fullPath,
+						size: file.size,
+						firstName: 'Alex',
+						lastName: 'Vernet',
+						email: 'alexandre.vernet@g-mail.fr',
+						date: new Date(),
+					});
+
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'File has been uploaded successfully',
+						showConfirmButton: false,
+						timer: 1500,
+					});
+				})
+				.catch((error) => {
+					console.log('error: ', error);
+
+					Swal.fire({
+						position: 'top-end',
+						icon: 'error',
+						title: `Error ${error}`,
+						showConfirmButton: false,
+						timer: 4000,
+					});
+				});
+		}
 	};
 
 	async deleteFile(file: File) {
 		// Create a reference to the file to delete
-		const desertRef = ref(this.storage, `files/${file.name}`);
+		const fileRef = ref(this.storage, `files/${file.name}`);
 
 		// Delete the file
-		deleteObject(desertRef)
+		deleteObject(fileRef)
 			.then(() => {
-				// File deleted successfully
-
 				Swal.fire({
 					position: 'top-end',
 					icon: 'success',
