@@ -1,11 +1,8 @@
-<div class="nk-content ">
+<div class="nk-content">
   <div class="container-fluid">
     <div class="nk-content-inner">
       <div class="nk-content-body">
-        <p>home works!</p>
-        <button [routerLink]="['/sign-in']">Connexion</button>
-        <button [routerLink]="['/sign-up']">Inscription</button>
-
+        <h3>Dashboard</h3>
         <button *ngIf="pwaUpdateService.promptEvent" (click)="installPwa()">
           Install
         </button>
@@ -13,4 +10,3 @@
     </div>
   </div>
 </div>
-

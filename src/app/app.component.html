@@ -8,7 +8,7 @@
           <a [routerLink]="['/home']" class="logo-link nk-sidebar-logo">
 <!--            <img class="logo-light logo-img" src="../../../../assets/logo.png" srcset="../../../../assets/logo2x.png 2x" alt="logo">-->
             <div class="d-inline-flex align-center">
-              <img class="logo-small logo-img logo-img-small" src="../../../../assets/icons/favicon.png" srcset="../../../../assets/icons/favicon2x.png 2x" alt="logo-small">
+              <img class="logo-small logo-img logo-img-small" src="../../../../assets/icons/favicon.png"  alt="logo-small">
               <span style="font-family: 'Potsdam', cursive; color: white; font-size: 25px;" class="ml-2">Useless Pride</span>
             </div>
           </a>
@@ -57,6 +57,10 @@
                   <span class="nk-menu-icon"><em class="icon ni ni-users-fill text-danger"></em></span>
                   <span class="nk-menu-text">Gestion des utilisateurs</span>
                 </a>
+              </li>
+              <li>
+                <div><button [routerLink]="['/sign-in']">Connexion</button></div>
+                <div><button [routerLink]="['/sign-up']">Inscription</button></div>
               </li><!-- .nk-menu-item --><!-- .nk-menu-item -->
 <!--              <li class="nk-menu-item has-sub">-->
 <!--                <a href="#" class="nk-menu-link nk-menu-toggle">-->
@@ -86,8 +90,7 @@
             </div>
             <div class="nk-header-brand d-xl-none">
               <a href="html/index.html" class="logo-link">
-                <img class="logo-light logo-img" src="../../../../assets/logo.png" srcset="../../../../assets/logo2x.png 2x" alt="logo">
-                <img class="logo-dark logo-img" src="../../../../assets/logo-dark.png" srcset="../../../../assets/logo-dark2x.png 2x" alt="logo-dark">
+                <h1 style="font-size: 30px; font-family: 'Potsdam';">Useless Pride Record</h1>
               </a>
             </div><!-- .nk-header-brand -->
             <div class="nk-header-tools">
