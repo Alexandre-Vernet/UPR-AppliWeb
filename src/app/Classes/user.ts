@@ -2,6 +2,8 @@ export class User {
     private _firstName: string;
     private _lastName: string;
     private _email: string;
+    private _role: string;
+    private _status: boolean;
     private _profilePicture: string;
     private _dateCreation: Date;
 
@@ -9,12 +11,16 @@ export class User {
         firstName: string,
         lastName: string,
         email: string,
+        role: string,
+        status: boolean,
         profilePicture: string,
         dateCreation: Date
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.role = role;
+        this.status = status;
         this.profilePicture = profilePicture;
         this.dateCreation = dateCreation;
     }
@@ -41,6 +47,22 @@ export class User {
      */
     public get email(): string {
         return this._email;
+    }
+
+    /**
+     * Getter role
+     * @return {string}
+     */
+    public get role(): string {
+        return this._role;
+    }
+
+    /**
+     * Getter status
+     * @return {boolean}
+     */
+    public get status(): boolean {
+        return this._status;
     }
 
     /**
@@ -81,6 +103,22 @@ export class User {
      */
     public set email(value: string) {
         this._email = value;
+    }
+
+    /**
+     * Setter role
+     * @param {string} value
+     */
+    public set role(value: string) {
+        this._role = value;
+    }
+
+    /**
+     * Setter status
+     * @param {boolean} value
+     */
+    public set status(value: boolean) {
+        this._status = value;
     }
 
     /**

@@ -66,6 +66,7 @@ export class AuthenticationService {
                     let firstName = docSnap.data()?.firstName;
                     let lastName = docSnap.data()?.lastName;
                     let email = docSnap.data()?.email;
+                    let role = docSnap.data()?.role;
                     let profilePicture = docSnap.data()?.profilePicture;
                     let dateCreation = docSnap.data()?.dateCreation;
 
@@ -73,6 +74,8 @@ export class AuthenticationService {
                         firstName,
                         lastName,
                         email,
+                        role,
+                        true,
                         profilePicture,
                         dateCreation.toDate()
                     );
@@ -83,6 +86,12 @@ export class AuthenticationService {
 
                     // Clear error
                     this.firebaseError = '';
+
+                    //set status to connected
+                    const userRef = doc(this.db, "users", user.uid);
+                    await updateDoc(userRef, {
+                        status: true
+                    });
 
                     let url = window.location.pathname;
                     if (url != '/sign-in') this.router.navigate([url]);
@@ -124,6 +133,8 @@ export class AuthenticationService {
                 await setDoc(doc(this.db, "users", user.uid), {
                     firstName: firstName,
                     lastName: lastName,
+                    role: 'USER',
+                    status: false,
                     email: email,
                     dateCreation: new Date(),
                 }).then(() => {
@@ -175,14 +186,16 @@ export class AuthenticationService {
                 const profilePicture = result.user?.photoURL;
 
                 // Set users data
-                this.user = new User(firstName, lastName, email, profilePicture, new Date());
+                this.user = new User(firstName, lastName, email, null, true, profilePicture, new Date());
 
                 await setDoc(doc(this.db, "users", user.uid), {
                     firstName: firstName,
                     lastName: lastName,
+                    role: 'USER',
+                    status: true,
                     email: email,
                     dateCreation: new Date(),
-                }).then(() => {
+                }).then((user) => {
                     //  User data has been created
                     console.log('User is logged with google account');
 
@@ -352,9 +365,15 @@ export class AuthenticationService {
      */
     signOut = () => {
 
-        signOut(this.auth).then(() => {
+        signOut(this.auth).then(async () => {
             // Delete cookie
             this.cookieService.delete('password');
+
+            //set status to connected
+            const userRef = doc(this.db, "users", this.auth.currentUser.uid);
+            await updateDoc(userRef, {
+                status: false
+            });
 
             this.router.navigate(['/sign-in']);
         }).catch((error) => {

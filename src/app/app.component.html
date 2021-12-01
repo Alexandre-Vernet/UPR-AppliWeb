@@ -26,38 +26,38 @@
                 <h6 class="overline-title text-primary-alt">Dashboards</h6>
               </li><!-- .nk-menu-item -->
               <li class="nk-menu-item">
-                <a [routerLink]="['/home']" class="nk-menu-link" [class.active]="getRoute() == '**'" >
+                <a [routerLink]="['/home']" class="nk-menu-link" [class.active]="getRoute() === '**'" >
                   <span class="nk-menu-icon"><em class="icon ni ni-home-fill"></em></span>
                   <span class="nk-menu-text">Home</span>
                 </a>
               </li><!-- .nk-menu-item -->
               <li class="nk-menu-item">
-                <a [routerLink]="['/storage']" class="nk-menu-link" [class.active]="getRoute() == '/storage'" >
+                <a [routerLink]="['/storage']" class="nk-menu-link" [class.active]="getRoute() === '/storage'" >
                   <span class="nk-menu-icon"><em class="icon ni ni-hard-drive"></em></span>
                   <span class="nk-menu-text">Stockage</span>
                 </a>
               </li><!-- .nk-menu-item -->
               <li class="nk-menu-item">
-                <a [routerLink]="['/calendar']" class="nk-menu-link" [class.active]="getRoute() == '/calendar'" >
+                <a [routerLink]="['/calendar']" class="nk-menu-link" [class.active]="getRoute() === '/calendar'" >
                   <span class="nk-menu-icon"><em class="icon ni ni-calender-date"></em></span>
                   <span class="nk-menu-text">Calendrier</span>
                 </a>
               </li>
               <li class="nk-menu-item">
-                <a [routerLink]="['/messaging']" class="nk-menu-link" [class.active]="getRoute() == '/messaging'" >
+                <a [routerLink]="['/messaging']" class="nk-menu-link" [class.active]="getRoute() === '/messaging'" >
                   <span class="nk-menu-icon"><em class="icon ni ni-chat-fill"></em></span>
                   <span class="nk-menu-text">Messagerie</span>
                 </a>
               </li>
-              <li class="nk-menu-heading">
-              <h6 class="overline-title text-danger">Administrateur</h6>
-              </li>
-              <li class="nk-menu-item">
-                <a  [routerLink]="['/admin']" [class.active]="getRoute() == '/admin'" class="nk-menu-link text-danger">
-                  <span class="nk-menu-icon"><em class="icon ni ni-users-fill text-danger"></em></span>
-                  <span class="nk-menu-text">Gestion des utilisateurs</span>
-                </a>
-              </li>
+                <li class="nk-menu-heading">
+                  <h6 class="overline-title text-danger">Administrateur</h6>  
+                </li>
+                <li class="nk-menu-item">
+                  <a  [routerLink]="['/admin']" [class.active]="getRoute() === '/admin'" class="nk-menu-link text-danger">
+                    <span class="nk-menu-icon"><em class="icon ni ni-users-fill text-danger"></em></span>
+                    <span class="nk-menu-text">Gestion des utilisateurs</span>
+                  </a>
+                </li>
               <li>
                 <div><button [routerLink]="['/sign-in']">Connexion</button></div>
                 <div><button [routerLink]="['/sign-up']">Inscription</button></div>
