@@ -217,6 +217,7 @@
                                                                                     class="dropdown-menu dropdown-menu-right">
                                                                                     <ul class="link-list-plain no-bdr">
                                                                                         <li><a href="#file-details"
+                                                                                                (click)="fileDetails(file)"
                                                                                                 data-toggle="modal"><em
                                                                                                     class="icon ni ni-eye"></em><span>Details</span></a>
                                                                                         </li>
@@ -677,11 +678,11 @@
                         <div class="nk-file-details">
                             <div class="nk-file-details-row">
                                 <div class="nk-file-details-col">Type</div>
-                                <div class="nk-file-details-col">Folder</div>
+                                <div class="nk-file-details-col">Fichier</div>
                             </div>
                             <div class="nk-file-details-row">
                                 <div class="nk-file-details-col">Size</div>
-                                <div class="nk-file-details-col">35.48 MB</div>
+                                <div class="nk-file-details-col"> {{file?.size}} octets </div>
                             </div>
                             <div class="nk-file-details-row">
                                 <div class="nk-file-details-col">Location</div>
@@ -693,8 +694,12 @@
                                 </div>
                             </div>
                             <div class="nk-file-details-row">
-                                <div class="nk-file-details-col">Created</div>
-                                <div class="nk-file-details-col">Feb 19, 2020</div>
+                                <div class="nk-file-details-col">Créé le</div>
+                                <div class="nk-file-details-col">{{file?.date}}</div>
+                            </div>
+                            <div class="nk-file-details-row">
+                                <div class="nk-file-details-col">Ajouté par</div>
+                                <div class="nk-file-details-col">Alex Vernet</div>
                             </div>
                         </div>
                     </div><!-- .modal-body -->

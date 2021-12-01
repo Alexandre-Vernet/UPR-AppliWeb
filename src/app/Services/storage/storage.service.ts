@@ -42,6 +42,7 @@ export class StorageService {
 				.then((res) => {
 					res.items.forEach((itemRef) => {
 						const name = itemRef.name;
+						console.log('name: ', name);
 
 						// Get URL file
 						getDownloadURL(ref(this.storage, `files/${name}`))

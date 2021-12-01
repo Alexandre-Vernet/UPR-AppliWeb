@@ -10,6 +10,7 @@ import { getStorage } from 'firebase/storage';
 })
 export class StorageComponent implements OnInit {
 	storage = getStorage();
+	file: File;
 	files: File[] = [];
 	searchBar: string;
 
@@ -23,6 +24,10 @@ export class StorageComponent implements OnInit {
 		this.storageService.getFiles().then((files: File[]) => {
 			this.files = files;
 		});
+	}
+
+	fileDetails(file: File) {
+		this.file = file;
 	}
 
 	focusUpload = () => {
