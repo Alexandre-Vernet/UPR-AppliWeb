@@ -26,6 +26,20 @@ export class StorageComponent implements OnInit {
 		});
 	}
 
+	getIcon(file: File): string {
+		const source = 'assets/images/icons';
+		switch (file.extension) {
+			case 'png':
+			case 'jpg':
+			case 'jpeg':
+				return `${source}/png.png`;
+			case 'pdf':
+				return `${source}/pdf.png`;
+			default:
+				return `${source}/bat.png`;
+		}
+	}
+
 	fileDetails(file: File) {
 		this.file = file;
 	}

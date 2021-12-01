@@ -187,9 +187,8 @@
                                                                                         href="{{ file.url }}"
                                                                                         target="_blank">
                                                                                         <span class="nk-file-icon-type">
-                                                                                            <img src=" {{ file.extension === 'png' ? 'assets/images/icons/jpg.png' : 
-                                                                                            'assets/images/icons/pdf.png' }} "
-                                                                                                alt=" {{ file.extension }} ">
+                                                                                            <img src=" {{ getIcon(file) }} "
+                                                                                                alt=" {{ file.url }} ">
                                                                                         </span>
                                                                                     </a>
                                                                                 </div>
