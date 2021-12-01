@@ -1,11 +1,18 @@
 export class File {
     private _name: string;
     private _emplacement: string;
+    private _extensionFile: string;
     private _date: Date;
 
-    constructor(name: string, emplacement: string, date: Date) {
+    constructor(
+        name: string,
+        emplacement: string,
+        extensionFile: string,
+        date: Date
+    ) {
         this._name = name;
         this._emplacement = emplacement;
+        this._extensionFile = extensionFile;
         this._date = date;
     }
 
@@ -23,6 +30,14 @@ export class File {
      */
     public get emplacement(): string {
         return this._emplacement;
+    }
+
+    /**
+     * Getter extensionFile
+     * @return {string}
+     */
+    public get extensionFile(): string {
+        return this._extensionFile;
     }
 
     /**
@@ -50,11 +65,18 @@ export class File {
     }
 
     /**
+     * Setter extensionFile
+     * @param {string} value
+     */
+    public set extensionFile(value: string) {
+        this._extensionFile = value;
+    }
+
+    /**
      * Setter date
      * @param {Date} value
      */
     public set date(value: Date) {
         this._date = value;
     }
-
 }

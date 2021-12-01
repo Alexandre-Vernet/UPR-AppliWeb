@@ -6,16 +6,14 @@ import { getStorage } from 'firebase/storage';
 @Component({
     selector: 'app-storage',
     templateUrl: './storage.component.html',
-    styleUrls: ['./storage.component.scss']
+    styleUrls: ['./storage.component.scss'],
 })
 export class StorageComponent implements OnInit {
-
     files: File[] = [];
-
     storage = getStorage();
+    searchBar: string;
 
-    query: string;
-    constructor(private storageService: StorageService) { }
+    constructor(private storageService: StorageService) {}
 
     ngOnInit(): void {
         this.getFiles();

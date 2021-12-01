@@ -116,7 +116,7 @@
                                                     <em class="icon ni ni-search"></em>
                                                     <input type="text"
                                                         class="form-control border-transparent form-focus-none"
-                                                        placeholder="Search files, folders" [(ngModel)]="query">
+                                                        placeholder="Search files, folders" [(ngModel)]="searchBar">
                                                 </div>
                                                 <div class="nk-fmg-actions">
                                                     <ul class="nk-block-tools g-3">
@@ -367,13 +367,13 @@
                                                                     </div>.nk-file -->
 
 
-                                                                    <div *ngFor="let file of files | search:query"
+                                                                    <div *ngFor="let file of files | search:searchBar"
                                                                         class="nk-file-item nk-file">
                                                                         <div class="nk-file-info">
                                                                             <div class="nk-file-title">
                                                                                 <div class="nk-file-icon">
                                                                                     <a class="nk-file-icon-link"
-                                                                                        href="{{file.emplacement}}"
+                                                                                        href="{{ file.emplacement }}"
                                                                                         target="_blank">
                                                                                         <span class="nk-file-icon-type">
                                                                                             <!-- <svg xmlns="http://www.w3.org/2000/svg"
@@ -391,7 +391,10 @@
                                                                                                     d="M42,31H30a3.0033,3.0033,0,0,0-3,3V45a3.0033,3.0033,0,0,0,3,3H42a3.0033,3.0033,0,0,0,3-3V34A3.0033,3.0033,0,0,0,42,31ZM29,38h6v3H29Zm8,0h6v3H37Zm6-4v2H37V33h5A1.001,1.001,0,0,1,43,34ZM30,33h5v3H29V34A1.001,1.001,0,0,1,30,33ZM29,45V43h6v3H30A1.001,1.001,0,0,1,29,45Zm13,1H37V43h6v2A1.001,1.001,0,0,1,42,46Z"
                                                                                                     style="fill:#36c684" />
                                                                                             </svg> -->
-                                                                                            <img src="assets/images/icons/pdf.png"
+                                                                                            <!-- <img src="assets/images/icons/pdf.png"
+                                                                                                alt=""> -->
+                                                                                            <img src=" {{ file.icon === 'png' ? 'assets/images/icons/jpg.png' : 
+                                                                                            'assets/images/icons/pdf.png' }} "
                                                                                                 alt="">
                                                                                         </span>
                                                                                     </a>
@@ -399,7 +402,7 @@
                                                                                 <div class="nk-file-name">
                                                                                     <div class="nk-file-name-text">
                                                                                         <a href="#" class="title">
-                                                                                            {{file.name}} </a>
+                                                                                            {{ file.name }} </a>
                                                                                         <div class="asterisk"><a
                                                                                                 href="#"><em
                                                                                                     class="asterisk-off icon ni ni-star"></em><em
@@ -409,7 +412,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <ul class="nk-file-desc">
-                                                                                <li class="date">Yesterday</li>
+                                                                                <li class="date"> {{ file.date }} </li>
                                                                                 <li class="size">235 KB</li>
                                                                                 <li class="members">3 Members</li>
                                                                             </ul>
