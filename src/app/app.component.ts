@@ -11,14 +11,15 @@ import {PwaUpdateService} from "./Services/pwa/pwa-update.service";
 export class AppComponent {
     title = 'UPR-AppliWeb';
     app = initializeApp(firebaseConfig);
+    public url = ''
 
     constructor(
       private pwaUpdater: PwaUpdateService
     ) {}
 
 
-    ngOnInit() {
-      this.pwaUpdater.askUserToUpdate();
+    getRoute() {
+      return window.location.pathname;
     }
 }
 
