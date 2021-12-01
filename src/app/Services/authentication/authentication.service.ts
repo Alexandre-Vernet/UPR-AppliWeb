@@ -50,7 +50,7 @@ export class AuthenticationService {
 
         signInWithEmailAndPassword(this.auth, email, password)
             .then(async (userCredential) => {
-                // Signed in 
+                // Signed in
                 const user = userCredential.user;
                 console.log(user);
 
@@ -117,7 +117,7 @@ export class AuthenticationService {
 
         createUserWithEmailAndPassword(this.auth, email, password)
             .then(async (userCredential) => {
-                // Signed in 
+                // Signed in
                 const user = userCredential.user;
                 console.log('user: ', user.uid)
 
@@ -213,22 +213,26 @@ export class AuthenticationService {
         sendPasswordResetEmail(this.auth, emailAddress)
             .then(() => {
                 // Email sent
-                console.log('Email sent !');
-
+                console.log('Email envoyer !');
                 Swal.fire({
-                    position: 'top-end',
                     icon: 'success',
-                    title: `E-mail has been sent to ${emailAddress}`,
+                    title: `Un email a été envoyé à ${emailAddress}`,
                     showConfirmButton: false,
                     timer: 1500,
                 });
             })
             .catch((error) => {
+              let errorCode = ""
                 // An error occurred
-                console.log('error: ', error);
+                switch (error.message) {
+                  case "Firebase: Error (auth/user-not-found).":
+                    errorCode = "Utilisateur Introuvable"
+                    break
+                }
+                console.log('error: ', error.message);
                 Swal.fire({
                     icon: 'error',
-                    title: error,
+                    title: errorCode,
                     showConfirmButton: true,
                 });
             });

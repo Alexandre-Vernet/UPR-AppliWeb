@@ -7,22 +7,32 @@ import { StorageComponent } from './Components/storage/storage.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { HomeComponent } from './Components/home/home.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SignUpComponent,
-        SignInComponent,
-        StorageComponent,
-        SearchPipe
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		SignUpComponent,
+		SignInComponent,
+		StorageComponent,
+		SearchPipe,
+		HomeComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
+		ServiceWorkerModule.register('ngsw-worker.js', {
+			enabled: environment.production,
+			// Register the ServiceWorker as soon as the app is stable
+			// or after 30 seconds (whichever comes first).
+			registrationStrategy: 'registerWhenStable:30000',
+		}),
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

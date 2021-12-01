@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationService } from 'src/app/Services/authentication/authentication.service';
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-sign-in',
@@ -59,14 +60,18 @@ export class SignInComponent implements OnInit {
     };
 
     resetPassword = () => {
-        // Hide modalResetPassword
-        this.modalResetPassword.nativeElement.click();
-
-        // Get email
-        const emailAddress = this.formReset.value.emailReset;
-
-        // Send email reset password
-        this.auth.resetPassword(emailAddress);
+      Swal.fire({
+        title: "Reinitialisation de mot de passe",
+        input: 'email',
+        inputPlaceholder: 'john.doe@gmail.com',
+        showCancelButton: true
+      }).then((result) => {
+        if (result.value) {
+          const userEmail = JSON.parse(JSON.stringify(result.value))
+          console.log(userEmail)
+          this.auth.resetPassword(userEmail);
+        }
+      });
     };
 
     viewPassword = () => {

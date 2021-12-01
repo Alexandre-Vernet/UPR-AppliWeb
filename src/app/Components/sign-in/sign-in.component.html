@@ -1,7 +1,72 @@
-<form [formGroup]="form" (ngSubmit)="form.valid && signIn()">
-    <input type="email" formControlName="email" placeholder="Email">
-    <input type="password" formControlName="password" placeholder="password">
-    <input type="submit" [disabled]="!form.valid" value="Submit">
-</form>
-
-<input type="button" value="Google connexion" (click)="googleSignIn()">
+<body class="nk-body bg-white npc-default pg-auth">
+<div class="nk-app-root">
+  <!-- main @s -->
+  <div class="nk-main ">
+    <!-- wrap @s -->
+    <div class="nk-wrap nk-wrap-nosidebar">
+      <!-- content @s -->
+      <div class="nk-content ">
+        <div class="nk-split nk-split-page nk-split-md">
+          <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+            <div class="nk-block nk-block-middle nk-auth-body">
+              <div class="brand-logo pb-5">
+                <a [routerLink]="['/home']" class="logo-link">
+                  <img class="logo-light logo-img logo-img-lg" src="assets/media/logo-width.webp" srcset="assets/media/logo-width.webp 2x" alt="logo">
+                  <img class="logo-dark logo-img logo-img-lg" src="assets/media/logo-width.webp" srcset="assets/media/logo-width.webp 2x" alt="logo-dark">
+                </a>
+              </div>
+              <div class="nk-block-head">
+                <div class="nk-block-head-content">
+                  <h5 class="nk-block-title">Connexion</h5>
+                  <div class="nk-block-des">
+                    <p>Connectez vous au panel Admin UPR</p>
+                  </div>
+                </div>
+              </div><!-- .nk-block-head -->
+              <form [formGroup]="form" (ngSubmit)="form.valid && signIn()">
+                <div class="form-group">
+                  <div class="form-label-group">
+                    <label class="form-label">Email</label>
+                  </div>
+                  <div class="form-control-wrap">
+                    <input type="email" class="form-control form-control-lg" formControlName="email" placeholder="Email">
+                  </div>
+                </div><!-- .form-group -->
+                <div class="form-group">
+                  <div class="form-label-group">
+                    <label class="form-label" for="password">Mot de passe</label>
+                    <a class="link link-primary link-sm" tabindex="-1" (click)="resetPassword()">Mot de passe oublié ?</a>
+                  </div>
+                  <div class="form-control-wrap">
+                    <input type="password" formControlName="password" placeholder="password" class="form-control form-control-lg" id="password">
+                  </div>
+                </div><!-- .form-group -->
+                <div class="form-group">
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!form.valid" value="Submit">Connexion</button>
+                </div>
+              </form><!-- form -->
+              <div class="form-note-s2 pt-4"> Pas encore de compte ? <a [routerLink]="['/sign-up']"><strong>Inscrivez-vous !</strong></a></div>
+                <div class="text-center pt-4 pb-3">
+                <h6 class="overline-title overline-title-sap"><span>OU</span></h6>
+              </div>
+              <ul class="nav justify-center gx-4">
+                <li class="nav-item">
+                  <a class="nav-link btn btn-dim btn-outline-light btn-action mt-3" (click)="googleSignIn()"><span>Connexion avec Google</span><em class="icon ni ni-google"></em></a>
+                </li>
+              </ul>
+            </div><!-- .nk-block -->
+            <div class="nk-block nk-auth-footer">
+              <div class="nk-block-between">
+              </div>
+            </div><!-- .nk-block -->
+          </div><!-- .nk-split-content -->
+          <div class="nk-split-content nk-split-stretch bg-upr"></div><!-- .nk-split-content -->
+        </div><!-- .nk-split -->
+      </div>
+      <!-- wrap @e -->
+    </div>
+    <!-- content @e -->
+  </div>
+  <!-- main @e -->
+</div>
+<!-- app-root @e -->

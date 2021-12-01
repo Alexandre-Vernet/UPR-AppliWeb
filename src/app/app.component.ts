@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../config";
+import {PwaUpdateService} from "./Services/pwa/pwa-update.service";
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -9,4 +11,14 @@ import { firebaseConfig } from "../config";
 export class AppComponent {
     title = 'UPR-AppliWeb';
     app = initializeApp(firebaseConfig);
+
+    constructor(
+      private pwaUpdater: PwaUpdateService
+    ) {}
+
+
+    ngOnInit() {
+      this.pwaUpdater.askUserToUpdate();
+    }
 }
+
