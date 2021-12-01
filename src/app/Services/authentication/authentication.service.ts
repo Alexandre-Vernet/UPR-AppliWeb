@@ -196,83 +196,86 @@ export class AuthenticationService {
         const lastName = result.user?.displayName?.split(' ')[1];
         const email = result.user?.email;
         const profilePicture = result.user?.photoURL;
+        let role = "";
+        let dateCreation = null;
 
-        // Set users data
+        const q = query(collection(this.db, 'users'));
+
+        const querySnapshot = await getDocs(q);
+        let userFound = null;
+        // Add duplicate file to array 'documents'
+        querySnapshot.forEach((doc) => {
+          if (doc.id === user.uid) {
+            userFound = doc.data();
+            return;
+          }
+        });
+
+        // If file already exists
+        if (!userFound) {
+          await setDoc(doc(this.db, 'users', user.uid), {
+            firstName: firstName,
+            lastName: lastName,
+            role: 'USER',
+            status: true,
+            email: email,
+            dateCreation: new Date(),
+          })
+            .then((user) => {
+              //  User data has been created
+              console.log('User is logged with google account');
+
+              role = 'USER';
+              dateCreation = new Date();
+
+              // Clear error
+              this.firebaseError = '';
+
+              // Navigate to home
+              this.router.navigate(['home']);
+            })
+            .catch((error) => {
+              console.log(
+                `Error in creation of the data of the user ${error.message}`
+              );
+              this.firebaseError = error.message;
+            });
+        } else {
+          await updateDoc(doc(this.db, 'users', user.uid), {
+            status: true,
+          })
+            .then(() => {
+              //  User data has been created
+              console.log('User is logged with google account');
+
+              console.log(user)
+
+              role = userFound.role;
+              dateCreation = userFound.dateCreation;
+
+              // Clear error
+              this.firebaseError = '';
+
+              // Navigate to home
+              this.router.navigate(['home']);
+            })
+            .catch((error) => {
+              console.log(
+                `Error in creation of the data of the user ${error.message}`
+              );
+              this.firebaseError = error.message;
+            });
+        }
+
         this.user = new User(
           firstName,
           lastName,
           email,
-          null,
+          role,
           true,
           profilePicture,
-          new Date()
+          dateCreation
         );
-        
-        const q = query(collection(this.db, 'users'));
-
-        const querySnapshot = await getDocs(q);
-        let found = false;
-        // Add duplicate file to array 'documents'
-        querySnapshot.forEach((doc) => {
-            if (doc.id === user.uid) { 
-                found = true;
-                return;
-            }
-        });
-
-        // If file already exists
-        if (!found) {
-            await setDoc(doc(this.db, 'users', user.uid), {
-                firstName: firstName,
-                lastName: lastName,
-                role: 'USER',
-                status: true,
-                email: email,
-                dateCreation: new Date(),
-                })
-                .then((user) => {
-                    //  User data has been created
-                    console.log('User is logged with google account');
-
-                    // Clear error
-                    this.firebaseError = '';
-
-                    // Navigate to home
-                    this.router.navigate(['home']);
-                })
-                .catch((error) => {
-                    console.log(
-                    `Error in creation of the data of the user ${error.message}`
-                    );
-                    this.firebaseError = error.message;
-                });
-        }
-        else {
-            await setDoc(doc(this.db, 'users', user.uid), {
-                    firstName: firstName,
-                    lastName: lastName,
-                    status: true,
-                    email: email,
-                    dateCreation: new Date(),
-                    })
-                    .then((user) => {
-                        //  User data has been created
-                        console.log('User is logged with google account');
-
-                        // Clear error
-                        this.firebaseError = '';
-
-                        // Navigate to home
-                        this.router.navigate(['home']);
-                    })
-                    .catch((error) => {
-                        console.log(
-                        `Error in creation of the data of the user ${error.message}`
-                        );
-                        this.firebaseError = error.message;
-                    });
-        }
-        
       })
       .catch((error) => {
         console.log('error: ', error);
