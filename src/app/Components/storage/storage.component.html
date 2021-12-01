@@ -40,8 +40,7 @@
                                                     <ul class="nk-block-tools g-3">
                                                         <li>
                                                             <div class="dropdown">
-                                                                <a class="btn btn-light" data-toggle="dropdown"
-                                                                    (click)="focusUpload()"><em
+                                                                <a class="btn btn-light" data-toggle="dropdown"><em
                                                                         class="icon ni ni-plus"></em>
                                                                     <span>Upload</span></a>
 
@@ -50,7 +49,7 @@
 
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#file-upload"
+                                                                        <li><a (click)="focusUpload()"
                                                                                 data-toggle="modal"><em
                                                                                     class="icon ni ni-upload-cloud"></em><span>Upload
                                                                                     File</span></a></li>

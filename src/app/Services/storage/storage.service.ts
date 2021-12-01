@@ -46,12 +46,14 @@ export class StorageService {
 							// Get all files from firestore
 							const querySnapshot = await getDocs(q);
 							querySnapshot.forEach((doc) => {
+								const id = doc.get('id');
 								const name = doc.get('name');
 								const extensionFile = name.split('.')[1];
 								const size = doc.get('size');
 								const date = doc.get('date');
 
 								const file = new File(
+									id,
 									name,
 									url,
 									extensionFile,

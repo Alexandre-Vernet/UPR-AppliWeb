@@ -1,4 +1,5 @@
 export class File {
+	private _id: string;
 	private _name: string;
 	private _url: string;
 	private _extension: string;
@@ -6,17 +7,27 @@ export class File {
 	private _date: Date;
 
 	constructor(
+		id: string,
 		name: string,
 		url: string,
 		extension: string,
 		size: number,
 		date: Date
 	) {
+		this._id = id;
 		this._name = name;
 		this._url = url;
 		this._extension = extension;
 		this._size = size;
 		this._date = date;
+	}
+
+	/**
+	 * Getter id
+	 * @return {string}
+	 */
+	public get id(): string {
+		return this._id;
 	}
 
 	/**
@@ -57,6 +68,14 @@ export class File {
 	 */
 	public get date(): Date {
 		return this._date;
+	}
+
+	/**
+	 * Setter id
+	 * @param {string} value
+	 */
+	public set id(value: string) {
+		this._id = value;
 	}
 
 	/**
