@@ -32,4 +32,15 @@ export class StorageComponent implements OnInit {
 	uploadFile = (event) => {
 		this.storageService.sendFile(event);
 	};
+
+	formatDate = (date) => {
+		const option = {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+		};
+		const time = date.toDate().toLocaleTimeString('fr-FR');
+
+		return time;
+	};
 }

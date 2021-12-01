@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	getDocs,
+	getFirestore,
+	query,
+} from 'firebase/firestore';
 import {
 	getDownloadURL,
 	getStorage,
@@ -30,19 +36,30 @@ export class StorageService {
 			.then((res) => {
 				res.items.forEach((itemRef) => {
 					const name = itemRef.name;
-					const extensionFile = name.split('.')[1];
 
 					// Get URL file
 					getDownloadURL(ref(this.storage, `files/${name}`))
 						.then(async (url) => {
-							const file = new File(
-								name,
-								url,
-								extensionFile,
-								10,
-								new Date()
-							);
-							this.files.push(file);
+							const q = query(collection(this.db, 'files'));
+
+							// Get all files from firestore
+							const querySnapshot = await getDocs(q);
+							querySnapshot.forEach((doc) => {
+								const name = doc.get('name');
+								const extensionFile = name.split('.')[1];
+								const size = doc.get('size');
+								const date = doc.get('date');
+
+								const file = new File(
+									name,
+									url,
+									extensionFile,
+									size,
+									date
+								);
+
+								this.files.push(file);
+							});
 						})
 						.catch((error) => {
 							console.log('error: ', error);
@@ -86,22 +103,23 @@ export class StorageService {
 		// Upload to storage
 		uploadBytes(storageRef, file)
 			.then(async (image) => {
+				// Upload to firestore
+				await addDoc(collection(this.db, 'files'), {
+					name: file.name,
+					url: image.ref.fullPath,
+					size: file.size,
+					firstName: 'Alex',
+					lastName: 'Vernet',
+					email: 'alexandre.vernet@g-mail.fr',
+					date: new Date(),
+				});
+
 				Swal.fire({
 					position: 'top-end',
 					icon: 'success',
 					title: 'File has been uploaded successfully',
 					showConfirmButton: false,
 					timer: 1500,
-				});
-
-				// Upload to firestore
-				await addDoc(collection(this.db, 'files'), {
-					name: file.name,
-					size: file.size,
-					firstName: 'Alex',
-					lastName: 'Vernet',
-					email: 'alexandre.vernet@g-mail.fr',
-					date: new Date(),
 				});
 			})
 			.catch((error) => {

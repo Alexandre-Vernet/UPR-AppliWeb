@@ -203,8 +203,10 @@
                                                                                 </div>
                                                                             </div>
                                                                             <ul class="nk-file-desc">
-                                                                                <li class="date"> {{ file.date }} </li>
-                                                                                <li class="size">235 KB</li>
+                                                                                <li class="date"> {{
+                                                                                    formatDate(file.date) }} </li>
+                                                                                <li class="size">{{ file.size }} octets
+                                                                                </li>
                                                                                 <li class="members">3 Members</li>
                                                                             </ul>
                                                                         </div>
