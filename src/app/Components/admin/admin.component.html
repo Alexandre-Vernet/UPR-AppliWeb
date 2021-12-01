@@ -83,7 +83,8 @@
                                 <a href="html/ecommerce/customer-details.html">
                                     <div class="user-card">
                                         <div class="user-avatar bg-primary">
-                                            <span>AB</span>
+                                            <span *ngIf="!user.profilePicture">{{ user.firstName.charAt(0).toUpperCase() }}{{ user.lastName.charAt(0).toUpperCase() }}</span>
+                                            <img src="user.profilePicture" alt="profile picture" *ngIf="user.profilePicture">
                                         </div>
                                         <div class="user-info">
                                             <span class="tb-lead">{{ user.firstName }} {{ user.lastName }} <span class="dot dot-success d-md-none ml-1"></span></span>
