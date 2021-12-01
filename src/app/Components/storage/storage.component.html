@@ -207,7 +207,6 @@
                                                                                     formatDate(file.date) }} </li>
                                                                                 <li class="size">{{ file.size }} octets
                                                                                 </li>
-                                                                                <li class="members">3 Members</li>
                                                                             </ul>
                                                                         </div>
                                                                         <div class="nk-file-actions">
@@ -241,7 +240,8 @@
                                                                                         <li><a href="#"><em
                                                                                                     class="icon ni ni-pen"></em><span>Rename</span></a>
                                                                                         </li>
-                                                                                        <li><a href="#"><em
+                                                                                        <li><a
+                                                                                                (click)="deleteFile(file)"><em
                                                                                                     class="icon ni ni-trash"></em><span>Delete</span></a>
                                                                                         </li>
                                                                                     </ul>
@@ -692,37 +692,6 @@
                                         <li class="breadcrumb-item">Project</li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="nk-file-details-row">
-                                <div class="nk-file-details-col">Owner</div>
-                                <div class="nk-file-details-col">Me</div>
-                            </div>
-                            <div class="nk-file-details-row">
-                                <div class="nk-file-details-col">Shared with</div>
-                                <div class="nk-file-details-col">
-                                    <div class="user-avatar-group">
-                                        <div class="user-avatar xs">
-                                            <!-- <img src="./images/avatar/b-sm.jpg" alt=""> -->
-                                        </div>
-                                        <div class="user-avatar xs bg-purple">
-                                            <span>IH</span>
-                                        </div>
-                                        <div class="user-avatar xs bg-pink">
-                                            <span>AB</span>
-                                        </div>
-                                        <div class="user-avatar xs bg-light">
-                                            <span>+2</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="nk-file-details-row">
-                                <div class="nk-file-details-col">Modified</div>
-                                <div class="nk-file-details-col">Feb 19, 2020 by Abu Bit Istiyak</div>
-                            </div>
-                            <div class="nk-file-details-row">
-                                <div class="nk-file-details-col">Opened</div>
-                                <div class="nk-file-details-col">Apr 23, 2020 by Me</div>
                             </div>
                             <div class="nk-file-details-row">
                                 <div class="nk-file-details-col">Created</div>

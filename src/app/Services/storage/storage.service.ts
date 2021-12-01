@@ -7,6 +7,7 @@ import {
 	query,
 } from 'firebase/firestore';
 import {
+	deleteObject,
 	getDownloadURL,
 	getStorage,
 	listAll,
@@ -21,11 +22,11 @@ import Swal from 'sweetalert2';
 	providedIn: 'root',
 })
 export class StorageService {
-	user: User;
-	files: File[] = [];
-
 	storage = getStorage();
 	db = getFirestore();
+
+	user: User;
+	files: File[] = [];
 
 	constructor() {}
 
@@ -82,7 +83,7 @@ export class StorageService {
 					icon: 'success',
 					title: `Error while getting files ${error}`,
 					showConfirmButton: false,
-					timer: 1500,
+					timer: 4000,
 				});
 			});
 
@@ -130,8 +131,36 @@ export class StorageService {
 					icon: 'error',
 					title: `Error ${error}`,
 					showConfirmButton: false,
-					timer: 1500,
+					timer: 4000,
 				});
 			});
 	};
+
+	async deleteFile(file: File) {
+		// Create a reference to the file to delete
+		const desertRef = ref(this.storage, `files/${file.name}`);
+
+		// Delete the file
+		deleteObject(desertRef)
+			.then(() => {
+				// File deleted successfully
+
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'File has been deleted successfully',
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			})
+			.catch((error) => {
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: `Error while deleting file ${error}`,
+					showConfirmButton: false,
+					timer: 4000,
+				});
+			});
+	}
 }

@@ -9,8 +9,8 @@ import { getStorage } from 'firebase/storage';
 	styleUrls: ['./storage.component.scss'],
 })
 export class StorageComponent implements OnInit {
-	files: File[] = [];
 	storage = getStorage();
+	files: File[] = [];
 	searchBar: string;
 
 	constructor(private storageService: StorageService) {}
@@ -32,6 +32,11 @@ export class StorageComponent implements OnInit {
 	uploadFile = (event) => {
 		this.storageService.sendFile(event);
 	};
+
+	deleteFile(file: File) {
+		console.log(file);
+		this.storageService.deleteFile(file);
+	}
 
 	formatDate = (date) => {
 		const option = {
