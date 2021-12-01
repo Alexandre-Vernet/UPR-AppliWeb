@@ -34,7 +34,6 @@ export class StorageComponent implements OnInit {
 	};
 
 	deleteFile(file: File) {
-		console.log(file);
 		this.storageService.deleteFile(file);
 	}
 
