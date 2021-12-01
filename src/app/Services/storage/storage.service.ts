@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { getFirestore } from 'firebase/firestore';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import {
     getDownloadURL,
     getStorage,
-    list,
     listAll,
     ref,
     uploadBytes,
@@ -83,10 +82,9 @@ export class StorageService {
 
         const storageRef = ref(this.storage, `files/${file.name}`);
 
+        // Upload to storage
         uploadBytes(storageRef, file)
             .then(async (image) => {
-                console.log('image: ', image);
-
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -95,13 +93,14 @@ export class StorageService {
                     timer: 1500,
                 });
 
-                // await addDoc(collection(this.db, "messages"), {
-                //     email: this.auth.user.email,
-                //     firstName: this.auth.user.firstName,
-                //     lastName: this.auth.user.lastName,
-                //     image: image.ref.fullPath,
-                //     date: new Date(),
-                // });
+                // Upload to firestore
+                await addDoc(collection(this.db, 'files'), {
+                    name: file.name,
+                    firstName: 'Alex',
+                    lastName: 'Vernet',
+                    email: 'alexandre.vernet@g-mail.fr',
+                    date: new Date(),
+                });
             })
             .catch((error) => {
                 console.log('error: ', error);
