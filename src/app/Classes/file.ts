@@ -1,9 +1,12 @@
+import { User } from './user';
+
 export class File {
 	private _id: string;
 	private _name: string;
 	private _url: string;
 	private _extension: string;
 	private _size: number;
+	private _addBy: User;
 	private _date: Date;
 
 	constructor(
@@ -12,6 +15,7 @@ export class File {
 		url: string,
 		extension: string,
 		size: number,
+		addBy: User,
 		date: Date
 	) {
 		this._id = id;
@@ -19,6 +23,7 @@ export class File {
 		this._url = url;
 		this._extension = extension;
 		this._size = size;
+		this._addBy = addBy;
 		this._date = date;
 	}
 
@@ -60,6 +65,14 @@ export class File {
 	 */
 	public get size(): number {
 		return this._size;
+	}
+
+	/**
+	 * Getter addBy
+	 * @return {User}
+	 */
+	public get addBy(): User {
+		return this._addBy;
 	}
 
 	/**
@@ -108,6 +121,14 @@ export class File {
 	 */
 	public set size(value: number) {
 		this._size = value;
+	}
+
+	/**
+	 * Setter addBy
+	 * @param {User} value
+	 */
+	public set addBy(value: User) {
+		this._addBy = value;
 	}
 
 	/**

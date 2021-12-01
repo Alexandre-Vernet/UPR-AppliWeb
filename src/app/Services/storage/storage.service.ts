@@ -53,12 +53,24 @@ export class StorageService {
 								const size = doc.get('size');
 								const date = doc.get('date');
 
+								const email = doc.get('email');
+								const firstName = doc.get('firstName');
+								const lastName = doc.get('lastName');
+								const user = new User(
+									firstName,
+									lastName,
+									email,
+									null,
+									null
+								);
+
 								const file = new File(
 									id,
 									name,
 									url,
 									extensionFile,
 									size,
+									user,
 									date
 								);
 

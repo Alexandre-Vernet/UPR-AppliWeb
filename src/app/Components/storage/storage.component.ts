@@ -52,4 +52,14 @@ export class StorageComponent implements OnInit {
 
 		return time;
 	};
+
+	formatDate2 = (date) => {
+		// const now = new Date();
+		// console.log('now: ', now);
+		// const y = now.getFullYear();
+		// const m = now.getMonth() + 1;
+		// const d = now.getDate();
+		// const formatedDate = `${y}-${m}-${d}`;
+		// return formatedDate;
+	};
 }
