@@ -16,13 +16,13 @@ export class NavbarTopComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		await this.getUser();
+		setTimeout(async () => {
+			this.user = await this.auth.getAuth();
+		}, 1500);
 	}
 
-	async getUser() {
-		this.auth.getAuth().then((user) => {
-			this.user = user;
-			console.log(user);
-		});
+	signOut(): void {
+		this.user = null;
+		this.auth.signOut();
 	}
 }
