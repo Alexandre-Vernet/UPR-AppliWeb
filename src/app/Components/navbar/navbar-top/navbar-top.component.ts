@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "../../Services/authentication/authentication.service";
-import { User } from "../../Classes/user";
+import { AuthenticationService } from "../../../Services/authentication/authentication.service";
+import { User } from "../../../Classes/user";
 
 @Component({
 	selector: "app-navbar-top",

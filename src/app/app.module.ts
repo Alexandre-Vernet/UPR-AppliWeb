@@ -11,7 +11,9 @@ import { HomeComponent } from "./Components/home/home.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { CommonModule } from "@angular/common";
-import { NavbarTopComponent } from "./Components/navbar-top/navbar-top.component";
+import { NavbarTopComponent } from "./Components/navbar/navbar-top/navbar-top.component";
+import { NavbarMessagesComponent } from "./Components/navbar/navbar-messages/navbar-messages.component";
+import { NavbarSideComponent } from "./Components/navbar/navbar-side/navbar-side.component";
 
 @NgModule({
 	declarations: [
@@ -21,7 +23,9 @@ import { NavbarTopComponent } from "./Components/navbar-top/navbar-top.component
 		StorageComponent,
 		SearchPipe,
 		HomeComponent,
-		NavbarTopComponent
+		NavbarTopComponent,
+		NavbarMessagesComponent,
+		NavbarSideComponent
 	],
 	imports: [
         CommonModule,
