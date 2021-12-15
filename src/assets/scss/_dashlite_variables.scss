@@ -7,20 +7,20 @@
 $white:		#fff;
 $black: 	#000;
 
-$light-100: #7B7B7C;
-$light-200: #7B7B7C;
-$light-300: #7B7B7C;
-$light-400: #7B7B7C;
-$light-500: #7B7B7C;
-$light-600: #7B7B7C;
-$light-700: #7B7B7C;
-$light-800: #BDBDBE;
-$light-900: #FFFFFF;
+$light-100: #ebeef2;
+$light-200: #e5e9f2;
+$light-300: #dbdfea;
+$light-400: #b7c2d0;
+$light-500: #8091a7;
+$light-600: #3c4d62;
+$light-700: #344357;
+$light-800: #2b3748;
+$light-900: #1f2b3a;
 
-$lighter:	#E9E9E9;
+$lighter:	#f5f6fa;
 $light:		$light-100;
 $dark:		$light-900;
-$darker:	#7B7B7C;
+$darker:	#101924;
 
 
 $red: 		#e85347;
@@ -36,29 +36,29 @@ $orange: 	#ffa353;
 $teal:		#20c997;
 
 // Base/Default color @used for text
-$base-100:  		#7B7B7C;
-$base-200:  		#7B7B7C;
-$base-300:  		#7B7B7C;
-$base-400:  		#7B7B7C;
-$base-500:  		#7B7B7C;
+$base-100:  		#ecf2ff;
+$base-200:  		#dfe9fe;
+$base-300:  		#b6c6e3;
+$base-400:  		#8094ae;
+$base-500:  		#526484;
 
-$base-color:  		#919192;
-$base-dark:  		#7B7B7C;
+$base-color:  		#364a63;
+$base-dark:  		#1c2b46;
 $base-text:  		$base-500;
 $base-light:  		$base-400;
 $base-dim:  		mix($base-color,$white, 8%);
 
 // Base/Default color @used for text
-$accent-100:        #7B7B7C;
-$accent-200:        #7B7B7C;
-$accent-300:        #7B7B7C;
-$accent-400:        #7B7B7C;
-$accent-500:        #7B7B7C;
+$accent-100:        #f0eaff;
+$accent-200:        #e7dcff;
+$accent-300:        #d4c2ff;
+$accent-400:        #b695ff;
+$accent-500:        #9d72ff;
 
-$accent-color:      #919192;
+$accent-color:      #854fff;
 $accent-light:      $accent-300;
-$accent-dark:       #7B7B7C;
-$accent-dim:  	    #E9E9E9;
+$accent-dark:       #3a2272;
+$accent-dim:  	    #e3e7fe;
 
 
 $body-bg:			$lighter;
@@ -86,29 +86,29 @@ $brand-color-google:        #de5246;
 
 $extend-mix:                #fff;
 $extend-colors: (
-    "blue":            $blue,
-    "azure":           $azure,
-    "indigo":          $indigo,
-    "purple":          $purple,
-    "pink":            $pink,
-    "orange":          $orange,
-    "teal":            $teal,
-    "blue-dim":        mix($blue, $extend-mix, 13%),
-    "azure-dim":       mix($azure, $extend-mix, 13%),
-    "indigo-dim":      mix($indigo, $extend-mix, 13%),
-    "purple-dim":      mix($purple, $extend-mix, 13%),
-    "pink-dim":        mix($pink, $extend-mix, 13%),
-    "orange-dim":      mix($orange, $extend-mix, 13%),
-    "teal-dim":        mix($teal, $extend-mix, 13%),
-    // for bootstrap
-    "primary-dim":     mix($accent-color, $extend-mix, 13%),
-    "success-dim":     mix($success, $extend-mix, 13%),
-    "info-dim":        mix($info, $extend-mix, 13%),
-    "warning-dim":     mix($warning, $extend-mix, 13%),
-    "danger-dim":      mix($danger, $extend-mix, 13%),
-    "secondary-dim":   #e5ecf5,
-    "dark-dim":        #d9e1ef,
-    "gray-dim":        #edf2f9
+  "blue":            $blue,
+  "azure":           $azure,
+  "indigo":          $indigo,
+  "purple":          $purple,
+  "pink":            $pink,
+  "orange":          $orange,
+  "teal":            $teal,
+  "blue-dim":        mix($blue, $extend-mix, 13%),
+  "azure-dim":       mix($azure, $extend-mix, 13%),
+  "indigo-dim":      mix($indigo, $extend-mix, 13%),
+  "purple-dim":      mix($purple, $extend-mix, 13%),
+  "pink-dim":        mix($pink, $extend-mix, 13%),
+  "orange-dim":      mix($orange, $extend-mix, 13%),
+  "teal-dim":        mix($teal, $extend-mix, 13%),
+  // for bootstrap
+  "primary-dim":     mix($accent-color, $extend-mix, 13%),
+  "success-dim":     mix($success, $extend-mix, 13%),
+  "info-dim":        mix($info, $extend-mix, 13%),
+  "warning-dim":     mix($warning, $extend-mix, 13%),
+  "danger-dim":      mix($danger, $extend-mix, 13%),
+  "secondary-dim":   #e5ecf5,
+  "dark-dim":        #d9e1ef,
+  "gray-dim":        #edf2f9
 );
 
 /////////    GLOBAL UTILITY    //////////

@@ -10,6 +10,8 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { HomeComponent } from './Components/home/home.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CommonModule } from '@angular/common';
+import { AdminModule } from './Components/admin/admin.module';
 
 @NgModule({
 	declarations: [
@@ -21,6 +23,7 @@ import { environment } from '../environments/environment';
 		HomeComponent,
 	],
 	imports: [
+        CommonModule,
 		BrowserModule,
 		AppRoutingModule,
 		FormsModule,
