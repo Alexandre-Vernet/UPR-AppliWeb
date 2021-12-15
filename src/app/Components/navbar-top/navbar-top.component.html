@@ -1,0 +1,120 @@
+<div class="nk-header nk-header-fixed is-light">
+	<div class="container-fluid">
+		<div class="nk-header-wrap">
+			<div class="nk-menu-trigger d-xl-none ml-n1">
+				<a class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu" href="#"><em
+					class="icon ni ni-menu"></em></a>
+			</div>
+			<div class="nk-header-brand d-xl-none">
+				<a class="logo-link" href="html/index.html">
+					<h1 style="font-size: 30px; font-family: 'Potsdam';">Useless Pride</h1>
+				</a>
+			</div><!-- .nk-header-brand -->
+			<div class="nk-header-tools">
+				<ul class="nk-quick-nav">
+					<li class="dropdown chats-dropdown hide-mb-xs">
+						<a class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" href="#">
+							<div class="icon-status icon-status-na"><em class="icon ni ni-comments"></em>
+							</div>
+						</a>
+						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+							<div class="dropdown-head">
+								<span class="sub-title nk-dropdown-title">Derniers messages</span>
+							</div>
+							<div class="dropdown-body">
+								<ul class="chat-list">
+									<li class="chat-item">
+										<a class="chat-link" href="html/apps-chats.html">
+											<div class="chat-media user-avatar">
+												<span>IH</span>
+												<span class="status dot dot-lg dot-gray"></span>
+											</div>
+											<div class="chat-info">
+												<div class="chat-from">
+													<div class="name">Michel de la compta</div>
+													<span class="time">Now</span>
+												</div>
+												<div class="chat-context">
+													<div class="text">Vous: Michel c'est le brésil ?</div>
+													<div class="status delivered">
+														<em class="icon ni ni-check-circle-fill"></em>
+													</div>
+												</div>
+											</div>
+										</a>
+									</li><!-- .chat-item -->
+									<li class="chat-item is-unread">
+										<a class="chat-link" href="html/apps-chats.html">
+											<div class="chat-media user-avatar bg-pink">
+												<span>AB</span>
+												<span class="status dot dot-lg dot-success"></span>
+											</div>
+											<div class="chat-info">
+												<div class="chat-from">
+													<div class="name">Jean-Luc</div>
+													<span class="time">4:49 AM</span>
+												</div>
+												<div class="chat-context">
+													<div class="text">Il dance la samba</div>
+													<div class="status unread">
+														<em class="icon ni ni-bullet-fill"></em>
+													</div>
+												</div>
+											</div>
+										</a>
+									</li><!-- .chat-item -->
+								</ul><!-- .chat-list -->
+							</div><!-- .nk-dropdown-body -->
+							<div class="dropdown-foot center">
+								<a href="html/apps-chats.html">Voir tout</a>
+							</div>
+						</div>
+					</li>
+					<li class="dropdown user-dropdown">
+						<a class="dropdown-toggle mr-n1" data-toggle="dropdown" href="#">
+							<div class="user-toggle">
+								<div class="user-avatar sm">
+									<em class="icon ni ni-user-alt"></em>
+								</div>
+								<div class="user-info d-none d-xl-block">
+									<div class="user-status user-status-unverified">Administrateur</div>
+									<div class="user-name dropdown-indicator">{{user?.firstName}}</div>
+								</div>
+							</div>
+						</a>
+						<div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+							<div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+								<div class="user-card">
+									<div class="user-avatar">
+										<span>AB</span>
+									</div>
+									<div class="user-info">
+													<span
+														class="lead-text">{{user?.firstName}} {{user?.lastName}}</span>
+										<span class="sub-text">{{user?.email}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="dropdown-inner">
+								<ul class="link-list">
+									<li><a href="html/user-profile-setting.html"><em
+										class="icon ni ni-setting-alt"></em><span>Gestion de compte</span></a>
+									</li>
+									<li><a class="dark-switch" href="#"><em
+										class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+								</ul>
+							</div>
+							<div class="dropdown-inner">
+								<ul class="link-list">
+									<li><a class="text-danger" href="#"><em
+										class="icon ni ni-signout text-danger"></em><span>Déconnexion</span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div><!-- .nk-header-wrap -->
+	</div><!-- .container-fliud -->
+</div>

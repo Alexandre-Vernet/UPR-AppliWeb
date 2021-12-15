@@ -1,32 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import Swal from 'sweetalert2';
-import { User } from 'src/app/Classes/user';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
+import Swal from "sweetalert2";
+import { User } from "src/app/Classes/user";
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  updateEmail,
-  updatePassword,
-  deleteUser,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from 'firebase/auth';
+    createUserWithEmailAndPassword,
+    deleteUser,
+    getAuth,
+    GoogleAuthProvider,
+    sendPasswordResetEmail,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
+    updateEmail,
+    updatePassword
+} from "firebase/auth";
 import {
-  doc,
-  setDoc,
-  getDoc,
-  getFirestore,
-  updateDoc,
-  deleteDoc,
-  getDocs,
-  collection,
-  query,
-} from 'firebase/firestore';
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    getFirestore,
+    query,
+    setDoc,
+    updateDoc
+} from "firebase/firestore";
 
 declare var $: any;
 @Injectable({
@@ -48,26 +48,30 @@ export class AuthenticationService {
    * @return {string }
    */
   public get firebaseError(): string {
-    return this._firebaseError;
+      return this._firebaseError;
   }
 
-  /**
-   * Setter firebaseError
-   * @param {string } value
-   */
-  public set firebaseError(value: string) {
-    this._firebaseError = value;
-  }
+    /**
+     * Setter firebaseError
+     * @param {string } value
+     */
+    public set firebaseError(value: string) {
+        this._firebaseError = value;
+    }
 
-  /**
-   * Sign in
-   * @param email
-   * @param password
-   */
-  signIn = (email: string, password: string) => {
-    signInWithEmailAndPassword(this.auth, email, password)
-      .then(async (userCredential) => {
-        // Signed in
+    async getAuth(): Promise<User> {
+        return this.user;
+    }
+
+    /**
+     * Sign in
+     * @param email
+     * @param password
+     */
+    signIn = (email: string, password: string) => {
+        signInWithEmailAndPassword(this.auth, email, password)
+            .then(async (userCredential) => {
+                // Signed in
         const user = userCredential.user;
         console.log(user);
 
