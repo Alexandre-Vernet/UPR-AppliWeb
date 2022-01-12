@@ -32,7 +32,7 @@ export class StorageComponent implements OnInit {
 			case 'png':
 			case 'jpg':
 			case 'jpeg':
-				return `${source}/png.png`;
+				return `${source}/jpg.png`;
 			case 'pdf':
 				return `${source}/pdf.png`;
 			default:
