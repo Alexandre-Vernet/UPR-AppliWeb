@@ -1,25 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthenticationService } from 'src/app/Services/authentication/authentication.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { CookieService } from "ngx-cookie-service";
+import { AuthenticationService } from "src/app/Services/authentication/authentication.service";
 import Swal from "sweetalert2";
 
 @Component({
-    selector: 'app-sign-in',
-    templateUrl: './sign-in.component.html',
-    styleUrls: ['./sign-in.component.scss'],
+    selector: "app-sign-in",
+    templateUrl: "./sign-in.component.html",
+    styleUrls: ["./sign-in.component.scss"]
 })
 export class SignInComponent implements OnInit {
-    firebaseError: string = '';
+    firebaseError: string = "";
     _viewPassword: boolean = false;
 
     email!: string;
     form = new FormGroup({
-        email: new FormControl('alexandre.vernet@g-mail.fr', [Validators.required, Validators.email]),
-        password: new FormControl('alexandre', [
+        email: new FormControl("", [Validators.required, Validators.email]),
+        password: new FormControl("", [
             Validators.required,
-            Validators.minLength(6),
-        ]),
+            Validators.minLength(6)
+        ])
     });
 
     formReset = new FormGroup({

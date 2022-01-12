@@ -1,25 +1,12 @@
-import { Injectable } from '@angular/core';
-import {
-	addDoc,
-	collection,
-	getDocs,
-	getFirestore,
-	query,
-} from 'firebase/firestore';
-import {
-	deleteObject,
-	getDownloadURL,
-	getStorage,
-	listAll,
-	ref,
-	uploadBytes,
-} from 'firebase/storage';
-import { User } from 'src/app/Classes/user';
-import { File } from 'src/app/Classes/file';
-import Swal from 'sweetalert2';
+import { Injectable } from "@angular/core";
+import { addDoc, collection, getDocs, getFirestore, query } from "firebase/firestore";
+import { deleteObject, getDownloadURL, getStorage, listAll, ref, uploadBytes } from "firebase/storage";
+import { User } from "src/app/Classes/user";
+import { File } from "src/app/Classes/file";
+import Swal from "sweetalert2";
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: "root"
 })
 export class StorageService {
 	storage = getStorage();
@@ -42,7 +29,6 @@ export class StorageService {
 				.then((res) => {
 					res.items.forEach((itemRef) => {
 						const name = itemRef.name;
-						console.log('name: ', name);
 
 						// Get URL file
 						getDownloadURL(ref(this.storage, `files/${name}`))

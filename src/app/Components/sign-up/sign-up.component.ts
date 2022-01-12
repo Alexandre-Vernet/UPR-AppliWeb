@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/Services/authentication/authentication.service';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthenticationService } from "src/app/Services/authentication/authentication.service";
 
 @Component({
-    selector: 'app-sign-up',
-    templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.scss'],
+    selector: "app-sign-up",
+    templateUrl: "./sign-up.component.html",
+    styleUrls: ["./sign-up.component.scss"]
 })
 export class SignUpComponent implements OnInit {
-    firebaseError: string = '';
+    firebaseError: string = "";
     _viewPassword: boolean = false;
 
     form = new FormGroup({
-        firstName: new FormControl('alexandre', [Validators.required]),
-        lastName: new FormControl('vernet', [Validators.required]),
-        email: new FormControl('alexandre.vernet@g-mail.fr', [Validators.required, Validators.email]),
-        password: new FormControl('alexandre', [
+        firstName: new FormControl("", [Validators.required]),
+        lastName: new FormControl("", [Validators.required]),
+        email: new FormControl("", [Validators.required, Validators.email]),
+        password: new FormControl("", [
             Validators.required,
-            Validators.minLength(6),
+            Validators.minLength(6)
         ]),
-        confirmPassword: new FormControl('alexandre', [
+        confirmPassword: new FormControl("alexandre", [
             Validators.required,
-            Validators.minLength(6),
-        ]),
+            Validators.minLength(6)
+        ])
     });
 
     constructor(private auth: AuthenticationService) { }
