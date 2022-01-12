@@ -18,6 +18,7 @@ export class StorageService {
 	constructor() {}
 
 	async getFiles(): Promise<File[]> {
+		let files: File[] = [];
 		// Get all files from firestore
 		const q = query(collection(this.db, 'files'));
 		const querySnapshot = await getDocs(q);
@@ -62,7 +63,7 @@ export class StorageService {
 									date
 								);
 
-								this.files.push(file);
+								files.push(file);
 							})
 							.catch((error) => {
 								console.log('error: ', error);
@@ -89,6 +90,7 @@ export class StorageService {
 					});
 				});
 		});
+		this.files = files;
 
 		return this.files;
 	}
