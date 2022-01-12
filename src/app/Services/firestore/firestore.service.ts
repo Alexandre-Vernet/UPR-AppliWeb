@@ -15,6 +15,8 @@ export class FirestoreService {
   constructor() { }
 
   async getUsers(): Promise<User[]> {
+    let users = [];
+
     const q = query(collection(this.db, 'users'));
     const querySnapshot = await getDocs(q);
 
@@ -28,9 +30,11 @@ export class FirestoreService {
         null,
         doc.data().dateCreation
       );
-      this.users.push(user);
+      users.push(user);
     })
-    
+
+    this.users = users;
+
     return this.users;
   }
 }
