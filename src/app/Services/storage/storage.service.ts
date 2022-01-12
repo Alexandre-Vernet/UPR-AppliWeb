@@ -32,7 +32,8 @@ export class StorageService {
             snapshot.docChanges().forEach(async(change) => {
                 if (change.type === 'added') {
                     const id = change.doc.id;
-                    const { name, url, extensionFile, size, date, userId } = change.doc.data();
+                    const { name, url, size, date, userId } = change.doc.data();
+                    const extensionFile = name.split(".")[1];
 
                     await this.auth.getById(userId).then((userData) => {
                         const user = new User(
