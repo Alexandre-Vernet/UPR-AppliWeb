@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, getDocs, getFirestore, onSnapshot, query } from 'firebase/firestore';
-import { deleteObject, getDownloadURL, getStorage, listAll, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,12 @@ export class StorageService {
     user: User;
     files: File[] = [];
 
-    constructor() {
+    constructor(private auth: AuthenticationService) {
+       setTimeout(() => {
+           this.auth.getAuth().then(user => {
+               this.user = user;
+           });
+       }, 1500);
     }
 
     async getFiles(): Promise<File[]> {
@@ -102,9 +108,9 @@ export class StorageService {
                             name: file.name,
                             url: url,
                             size: file.size,
-                            firstName: 'Alex',
-                            lastName: 'Vernet',
-                            email: 'alexandre.vernet@g-mail.fr',
+                            firstName: this.user.firstName,
+                            lastName: this.user.lastName,
+                            email: this.user.email,
                             date: new Date(),
                         });
 
