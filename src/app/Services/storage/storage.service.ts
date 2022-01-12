@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, getDocs, getFirestore, query } from 'firebase/firestore';
+import { addDoc, collection, getDocs, getFirestore, onSnapshot, query } from 'firebase/firestore';
 import { deleteObject, getDownloadURL, getStorage, listAll, ref, uploadBytes } from 'firebase/storage';
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
@@ -20,79 +20,44 @@ export class StorageService {
 
     async getFiles(): Promise<File[]> {
         let files: File[] = [];
-        // Get all files from firestore
+
         const q = query(collection(this.db, 'files'));
-        const querySnapshot = await getDocs(q);
+        onSnapshot(q, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === 'added') {
+                    const id = change.doc.id;
+                    const { name, url, extensionFile, size, date, email, firstName, lastName } = change.doc.data();
+                    const user = new User(
+                        firstName,
+                        lastName,
+                        email,
+                        null,
+                        null,
+                        null,
+                        null
+                    );
 
-        querySnapshot.forEach((doc) => {
-            const filesRef = ref(this.storage, 'files');
+                    const file = new File(
+                        id,
+                        name,
+                        url,
+                        extensionFile,
+                        size,
+                        user,
+                        date
+                    );
 
-            listAll(filesRef)
-                .then((res) => {
-                    res.items.forEach((itemRef) => {
-                        const name = itemRef.name;
-
-                        // Get URL file
-                        getDownloadURL(ref(this.storage, `files/${ name }`))
-                            .then(async (url) => {
-                                const id = doc.get('id');
-                                const name = doc.get('name');
-                                const extensionFile = name.split('.')[1];
-                                const size = doc.get('size');
-                                const date = doc.get('date');
-
-                                const email = doc.get('email');
-                                const firstName = doc.get('firstName');
-                                const lastName = doc.get('lastName');
-                                const user = new User(
-                                    firstName,
-                                    lastName,
-                                    email,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                                );
-
-                                const file = new File(
-                                    id,
-                                    name,
-                                    url,
-                                    extensionFile,
-                                    size,
-                                    user,
-                                    date
-                                );
-
-                                files.push(file);
-                            })
-                            .catch((error) => {
-                                console.log('error: ', error);
-
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: `Error while getting URL files ${ error }`,
-                                    showConfirmButton: false,
-                                    timer: 4000,
-                                });
-                            });
-                    });
-                })
-                .catch((error) => {
-                    console.log('error: ', error);
-
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: `Error while getting files ${ error }`,
-                        showConfirmButton: false,
-                        timer: 4000,
-                    });
-                });
+                    files.push(file);
+                }
+                if (change.type === 'modified') {
+                    console.log('Modified city: ', change.doc.data());
+                }
+                if (change.type === 'removed') {
+                    console.log('Removed city: ', change.doc.data());
+                }
+            });
         });
         this.files = files;
-
         return this.files;
     }
 
@@ -130,8 +95,8 @@ export class StorageService {
             // Upload file
             const storageRef = ref(this.storage, fileSource);
             uploadBytes(storageRef, file).then(() => {
-                    getDownloadURL(ref(this.storage, fileSource))
-                        .then(async (url) => {
+                getDownloadURL(ref(this.storage, fileSource))
+                    .then(async (url) => {
                         // Upload to firestore
                         await addDoc(collection(this.db, 'files'), {
                             name: file.name,
@@ -151,7 +116,7 @@ export class StorageService {
                             timer: 1500,
                         });
                     });
-                })
+            })
                 .catch((error) => {
                     console.log('error: ', error);
 
