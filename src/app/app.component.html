@@ -2,7 +2,94 @@
 	<!-- main @s -->
 	<div class="nk-main ">
 		<!-- sidebar @s -->
-		<app-navbar-side></app-navbar-side>
+		<div class="nk-sidebar nk-sidebar-fixed is-dark" data-content="sidebarMenu">
+			<div class="nk-sidebar-element nk-sidebar-head">
+				<div class="nk-sidebar-brand">
+					<a [routerLink]="['/home']" class="logo-link nk-sidebar-logo">
+						<!--            <img class="logo-light logo-img" src="../../../../assets/logo.png" srcset="../../../../assets/logo2x.png 2x" alt="logo">-->
+						<div class="d-inline-flex align-center">
+							<img alt="logo-small" class="logo-small logo-img logo-img-small"
+								 src="../../../../assets/icons/favicon.png">
+							<span class="ml-2" style="font-family: 'Potsdam', cursive; color: white; font-size: 25px;">Useless Pride</span>
+						</div>
+					</a>
+				</div>
+				<div class="nk-menu-trigger mr-n2">
+					<a class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu" href="#"><em
+						class="icon ni ni-arrow-left"></em></a>
+					<a class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"
+					   href="#"><em class="icon ni ni-menu"></em></a>
+				</div>
+			</div><!-- .nk-sidebar-element -->
+			<div class="nk-sidebar-element">
+				<div class="nk-sidebar-content">
+					<div class="nk-sidebar-menu" data-simplebar>
+						<ul class="nk-menu">
+							<li class="nk-menu-heading">
+								<h6 class="overline-title text-primary-alt">Dashboards</h6>
+							</li><!-- .nk-menu-item -->
+							<li class="nk-menu-item">
+								<a [class.active]="getRoute() === '**'" [routerLink]="['/home']" class="nk-menu-link">
+									<span class="nk-menu-icon"><em class="icon ni ni-home-fill"></em></span>
+									<span class="nk-menu-text">Home</span>
+								</a>
+							</li><!-- .nk-menu-item -->
+							<li class="nk-menu-item">
+								<a [class.active]="getRoute() === '/storage'" [routerLink]="['/storage']"
+								   class="nk-menu-link">
+									<span class="nk-menu-icon"><em class="icon ni ni-hard-drive"></em></span>
+									<span class="nk-menu-text">Stockage</span>
+								</a>
+							</li><!-- .nk-menu-item -->
+							<li class="nk-menu-item">
+								<a [class.active]="getRoute() === '/calendar'" [routerLink]="['/calendar']"
+								   class="nk-menu-link">
+									<span class="nk-menu-icon"><em class="icon ni ni-calender-date"></em></span>
+									<span class="nk-menu-text">Calendrier</span>
+								</a>
+							</li>
+							<li class="nk-menu-item">
+								<a [class.active]="getRoute() === '/messaging'" [routerLink]="['/messaging']"
+								   class="nk-menu-link">
+									<span class="nk-menu-icon"><em class="icon ni ni-chat-fill"></em></span>
+									<span class="nk-menu-text">Messagerie</span>
+								</a>
+							</li>
+							<li class="nk-menu-heading">
+								<h6 class="overline-title text-danger">Administrateur</h6>
+							</li>
+							<li class="nk-menu-item">
+								<a [class.active]="getRoute() === '/admin'" [routerLink]="['/admin']"
+								   class="nk-menu-link text-danger">
+									<span class="nk-menu-icon"><em
+										class="icon ni ni-users-fill text-danger"></em></span>
+									<span class="nk-menu-text">Gestion des utilisateurs</span>
+								</a>
+							</li>
+							<li>
+								<div>
+									<button [routerLink]="['/sign-in']">Connexion</button>
+								</div>
+								<div>
+									<button [routerLink]="['/sign-up']">Inscription</button>
+								</div>
+							</li><!-- .nk-menu-item --><!-- .nk-menu-item -->
+							<!--              <li class="nk-menu-item has-sub">-->
+							<!--                <a href="#" class="nk-menu-link nk-menu-toggle">-->
+							<!--                  <span class="nk-menu-icon"><em class="icon ni ni-files-fill"></em></span>-->
+							<!--                  <span class="nk-menu-text">Other Pages</span>-->
+							<!--                </a>-->
+							<!--                <ul class="nk-menu-sub">-->
+							<!--                  <li class="nk-menu-item">-->
+							<!--                    <a href="html/_blank.html" class="nk-menu-link"><span class="nk-menu-text">Blank / Startup</span></a>-->
+							<!--                  </li>-->
+							<!--                </ul>&lt;!&ndash; .nk-menu-sub &ndash;&gt;-->
+							<!--              </li>--><!-- .nk-menu-item -->
+						</ul><!-- .nk-menu -->
+					</div><!-- .nk-sidebar-menu -->
+				</div><!-- .nk-sidebar-content -->
+			</div><!-- .nk-sidebar-element -->
+		</div>
 		<!-- sidebar @e -->
 		<!-- wrap @s -->
 		<div class="nk-wrap ">

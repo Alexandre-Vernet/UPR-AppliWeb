@@ -14,7 +14,6 @@ import { AuthenticationService } from "./Services/authentication/authentication.
 export class AppComponent implements OnInit {
 
 	app = initializeApp(firebaseConfig);
-	title = "UPR-AppliWeb";
 
 	constructor(
 		private pwaUpdater: PwaUpdateService,
@@ -41,6 +40,11 @@ export class AppComponent implements OnInit {
 			if (url == "/sign-up") this.router.navigate(["/sign-up"]);
 			else this.router.navigate(["sign-in"]);
 		}
+	}
+
+
+	getRoute() {
+		return window.location.pathname;
 	}
 }
 

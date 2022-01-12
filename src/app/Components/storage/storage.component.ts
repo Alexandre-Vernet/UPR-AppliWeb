@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from 'src/app/Services/storage/storage.service';
-import { File } from 'src/app/Classes/file';
-import { getStorage } from 'firebase/storage';
+import { Component, OnInit } from "@angular/core";
+import { StorageService } from "src/app/Services/storage/storage.service";
+import { File } from "src/app/Classes/file";
+import { getStorage } from "firebase/storage";
 
 @Component({
-	selector: 'app-storage',
-	templateUrl: './storage.component.html',
-	styleUrls: ['./storage.component.scss'],
+	selector: "app-storage",
+	templateUrl: "./storage.component.html",
+	styleUrls: ["./storage.component.scss"]
 })
 export class StorageComponent implements OnInit {
 	storage = getStorage();
@@ -57,11 +57,6 @@ export class StorageComponent implements OnInit {
 	}
 
 	formatDate = (date) => {
-		const option = {
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-		};
 		const time = date.toDate().toLocaleTimeString('fr-FR');
 
 		return time;
