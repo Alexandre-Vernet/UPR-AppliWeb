@@ -75,15 +75,12 @@ export class AuthenticationService {
 			.then(async (userCredential) => {
 				// Signed in
 				const user = userCredential.user;
-				console.log(user);
 
-				// Get user datas
+				// Get user data
 				const docRef = doc(this.db, "users", user.uid);
 				const docSnap = await getDoc(docRef);
 
 				if (docSnap.exists()) {
-					console.log("Document data:", docSnap.data());
-
 					//  Set data
 					let firstName = docSnap.data()?.firstName;
 					let lastName = docSnap.data()?.lastName;
@@ -402,7 +399,7 @@ export class AuthenticationService {
 
 	/**
 	 * Update password
-	 * @param password
+	 * @param newPassword
 	 */
 	updatePassword = (newPassword: string) => {
 		const user = this.auth.currentUser;
