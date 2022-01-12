@@ -28,8 +28,6 @@ import {
 } from "firebase/firestore";
 import { CryptoService } from "../crypto/crypto.service";
 
-declare var $: any;
-
 @Injectable({
 	providedIn: "root"
 })
@@ -65,6 +63,42 @@ export class AuthenticationService {
 		return this.user;
 	}
 
+	async getById(userId: string) {
+		const docRef = doc(this.db, 'users', userId);
+		const docSnap = await getDoc(docRef);
+		let user: User;
+
+		if (docSnap.exists()) {
+			const id = docSnap.id;
+			const {
+				firstName,
+				lastName,
+				email,
+				role,
+				status,
+				profilePicture,
+				dateCreation,
+			} = docSnap.data();
+
+			user = new User(
+				id,
+				firstName,
+				lastName,
+				email,
+				role,
+				status,
+				profilePicture,
+				dateCreation,
+			);
+		} else {
+			// doc.data() will be undefined in this case
+			console.log('No such document!');
+		}
+
+		return user;
+	}
+
+
 	/**
 	 * Sign in
 	 * @param email
@@ -82,14 +116,18 @@ export class AuthenticationService {
 
 				if (docSnap.exists()) {
 					//  Set data
-					let firstName = docSnap.data()?.firstName;
-					let lastName = docSnap.data()?.lastName;
-					let email = docSnap.data()?.email;
-					let role = docSnap.data()?.role;
-					let profilePicture = docSnap.data()?.profilePicture;
-					let dateCreation = docSnap.data()?.dateCreation;
+					const id = docSnap.id;
+					const {
+						firstName,
+						lastName,
+						email,
+						role,
+						profilePicture,
+						dateCreation,
+					} = docSnap.data();
 
 					this.user = new User(
+						id,
 						firstName,
 						lastName,
 						email,
@@ -218,6 +256,7 @@ export class AuthenticationService {
 				// If file already exists
 				if (!userFound) {
 					await setDoc(doc(this.db, "users", user.uid), {
+						id: user.uid,
 						firstName: firstName,
 						lastName: lastName,
 						role: "USER",
@@ -272,6 +311,7 @@ export class AuthenticationService {
 				}
 
 				this.user = new User(
+					user.uid,
 					firstName,
 					lastName,
 					email,

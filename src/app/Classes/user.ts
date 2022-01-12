@@ -1,4 +1,5 @@
 export class User {
+    private _id: string;
     private _firstName: string;
     private _lastName: string;
     private _email: string;
@@ -7,133 +8,79 @@ export class User {
     private _profilePicture: string;
     private _dateCreation: Date;
 
-    constructor(
-        firstName: string,
-        lastName: string,
-        email: string,
-        role: string,
-        status: boolean,
-        profilePicture: string,
-        dateCreation: Date
-    ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.role = role;
-        this.status = status;
-        this.profilePicture = profilePicture;
-        this.dateCreation = dateCreation;
+    constructor(id: string, firstName: string, lastName: string, email: string, role: string, status: boolean, profilePicture: string, dateCreation: Date) {
+        this._id = id;
+        this._firstName = firstName;
+        this._lastName = lastName;
+        this._email = email;
+        this._role = role;
+        this._status = status;
+        this._profilePicture = profilePicture;
+        this._dateCreation = dateCreation;
     }
 
-    /**
-     * Getter firstName
-     * @return {string}
-     */
-    public get firstName(): string {
+
+    get id(): string {
+        return this._id;
+    }
+
+    set id(value: string) {
+        this._id = value;
+    }
+
+    get firstName(): string {
         return this._firstName;
     }
 
-    /**
-     * Getter lastName
-     * @return {string}
-     */
-    public get lastName(): string {
-        return this._lastName;
-    }
-
-    /**
-     * Getter email
-     * @return {string}
-     */
-    public get email(): string {
-        return this._email;
-    }
-
-    /**
-     * Getter role
-     * @return {string}
-     */
-    public get role(): string {
-        return this._role;
-    }
-
-    /**
-     * Getter status
-     * @return {boolean}
-     */
-    public get status(): boolean {
-        return this._status;
-    }
-
-    /**
-     * Getter profilePicture
-     * @return {string}
-     */
-    public get profilePicture(): string {
-        return this._profilePicture;
-    }
-
-    /**
-     * Getter dateCreation
-     * @return {Date}
-     */
-    public get dateCreation(): Date {
-        return this._dateCreation;
-    }
-
-    /**
-     * Setter firstName
-     * @param {string} value
-     */
-    public set firstName(value: string) {
+    set firstName(value: string) {
         this._firstName = value;
     }
 
-    /**
-     * Setter lastName
-     * @param {string} value
-     */
-    public set lastName(value: string) {
+    get lastName(): string {
+        return this._lastName;
+    }
+
+    set lastName(value: string) {
         this._lastName = value;
     }
 
-    /**
-     * Setter email
-     * @param {string} value
-     */
-    public set email(value: string) {
+    get email(): string {
+        return this._email;
+    }
+
+    set email(value: string) {
         this._email = value;
     }
 
-    /**
-     * Setter role
-     * @param {string} value
-     */
-    public set role(value: string) {
+    get role(): string {
+        return this._role;
+    }
+
+    set role(value: string) {
         this._role = value;
     }
 
-    /**
-     * Setter status
-     * @param {boolean} value
-     */
-    public set status(value: boolean) {
+    get status(): boolean {
+        return this._status;
+    }
+
+    set status(value: boolean) {
         this._status = value;
     }
 
-    /**
-     * Setter profilePicture
-     * @param {string} value
-     */
-    public set profilePicture(value: string) {
+    get profilePicture(): string {
+        return this._profilePicture;
+    }
+
+    set profilePicture(value: string) {
         this._profilePicture = value;
     }
 
-    /**
-     * Setter dateCreation
-     * @param {Date} value
-     */
-    public set dateCreation(value: Date) {
+    get dateCreation(): Date {
+        return this._dateCreation;
+    }
+
+    set dateCreation(value: Date) {
         this._dateCreation = value;
     }
 }

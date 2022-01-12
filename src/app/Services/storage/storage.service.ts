@@ -17,11 +17,11 @@ export class StorageService {
     files: File[] = [];
 
     constructor(private auth: AuthenticationService) {
-       setTimeout(() => {
-           this.auth.getAuth().then(user => {
-               this.user = user;
-           });
-       }, 1500);
+        setTimeout(() => {
+            this.auth.getAuth().then(user => {
+                this.user = user;
+            });
+        }, 1500);
     }
 
     async getFiles(): Promise<File[]> {
@@ -29,31 +29,36 @@ export class StorageService {
 
         const q = query(collection(this.db, 'files'));
         onSnapshot(q, (snapshot) => {
-            snapshot.docChanges().forEach((change) => {
+            snapshot.docChanges().forEach(async(change) => {
                 if (change.type === 'added') {
                     const id = change.doc.id;
-                    const { name, url, extensionFile, size, date, email, firstName, lastName } = change.doc.data();
-                    const user = new User(
-                        firstName,
-                        lastName,
-                        email,
-                        null,
-                        null,
-                        null,
-                        null
-                    );
+                    const { name, url, extensionFile, size, date, userId } = change.doc.data();
 
-                    const file = new File(
-                        id,
-                        name,
-                        url,
-                        extensionFile,
-                        size,
-                        user,
-                        date
-                    );
+                    await this.auth.getById(userId).then((userData) => {
+                        const user = new User(
+                            userData.id,
+                            userData.firstName,
+                            userData.lastName,
+                            userData.email,
+                            userData.role,
+                            userData.status,
+                            userData.profilePicture,
+                            userData.dateCreation
+                        );
 
-                    files.push(file);
+                        const file = new File(
+                            id,
+                            name,
+                            url,
+                            extensionFile,
+                            size,
+                            user,
+                            date
+                        );
+
+                        files.push(file);
+                    });
+
                 }
                 if (change.type === 'modified') {
                     console.log('Modified city: ', change.doc.data());
@@ -108,10 +113,8 @@ export class StorageService {
                             name: file.name,
                             url: url,
                             size: file.size,
-                            firstName: this.user.firstName,
-                            lastName: this.user.lastName,
-                            email: this.user.email,
                             date: new Date(),
+                            userId: this.user.id,
                         });
 
                         Swal.fire({
