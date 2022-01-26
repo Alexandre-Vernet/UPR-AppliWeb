@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from 'src/app/Services/storage/storage.service';
 import { File } from 'src/app/Classes/file';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,8 @@ export class StorageComponent implements OnInit {
     file: File;
     files: File[] = [];
     searchBar: string;
+
+    @ViewChild('modalCloseRenameFile') modalCloseRenameFile;
 
     // Rename file
     formRenameFile = new FormGroup({
@@ -71,6 +73,16 @@ export class StorageComponent implements OnInit {
 
     async renameFile() {
         const newFile = this.formRenameFile.value.file;
-        await this.storageService.renameFile(this.file, newFile);
+        this.storageService.renameFile(this.file, newFile).then(() => {
+            // Close modal
+            this.modalCloseRenameFile.nativeElement.click();
+            
+            // Update file name
+            this.files.forEach((file: File, index: number) => {
+                if (file.id === this.file.id) {
+                    this.files[index].name = newFile;
+                }
+            });
+        });
     }
 }
