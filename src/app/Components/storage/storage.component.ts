@@ -23,7 +23,6 @@ export class StorageComponent implements OnInit {
 
     getFiles() {
         this.storageService.getFiles().then((files: File[]) => {
-            console.log(files);
             this.files = files;
         });
     }
@@ -59,7 +58,8 @@ export class StorageComponent implements OnInit {
     }
 
     formatDate(date) {
-        return date.toDate().toLocaleTimeString('fr-FR');
+        return date;
+        // return date.toDate().toLocaleTimeString('fr-FR');
     };
 
     // Convert octets to kilo octets

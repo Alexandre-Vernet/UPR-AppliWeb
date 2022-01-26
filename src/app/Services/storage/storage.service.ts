@@ -5,6 +5,7 @@ import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
 import Swal from 'sweetalert2';
 import { AuthenticationService } from '../authentication/authentication.service';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root'
@@ -32,8 +33,11 @@ export class StorageService {
             snapshot.docChanges().forEach(async(change) => {
                 if (change.type === 'added') {
                     const id = change.doc.id;
-                    const { name, url, size, date, userId } = change.doc.data();
+                    const { name, url, size, userId } = change.doc.data();
                     const extensionFile = name.split(".")[1];
+
+                    moment.locale('fr-FR');
+                    const date = moment(change.doc.data().date.toDate()).startOf('minutes').fromNow();  /* il a 12 minutes*/
 
                     await this.auth.getById(userId).then((userData) => {
                         const user = new User(
@@ -46,6 +50,7 @@ export class StorageService {
                             userData.profilePicture,
                             userData.dateCreation
                         );
+
 
                         const file = new File(
                             id,
