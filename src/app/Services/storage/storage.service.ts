@@ -135,14 +135,6 @@ export class StorageService {
                             date: new Date(),
                             userId: this.user.id,
                         });
-
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'File has been uploaded successfully',
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
                     });
             })
                 .catch((error) => {
@@ -167,25 +159,18 @@ export class StorageService {
         deleteObject(fileRef)
             .then(async () => {
                 // Delete file details
-                deleteDoc(doc(this.db, 'files', file.id)).then(() => {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'File has been deleted successfully',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-                }).catch((error) => {
-                    console.log('error: ', error);
+                deleteDoc(doc(this.db, 'files', file.id))
+                    .catch((error) => {
+                        console.log('error: ', error);
 
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: `Error ${ error }`,
-                        showConfirmButton: false,
-                        timer: 4000,
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: `Error ${ error }`,
+                            showConfirmButton: false,
+                            timer: 4000,
+                        });
                     });
-                });
             })
             .catch((error) => {
                 Swal.fire({

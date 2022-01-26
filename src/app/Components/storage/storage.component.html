@@ -110,60 +110,6 @@
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="file-grid-view">
                                                         <div class="nk-files nk-files-view-grid">
-                                                            <div class="nk-files-head">
-                                                                <div class="nk-file-item">
-                                                                    <div class="nk-file-info">
-                                                                        <div class="dropdown">
-                                                                            <div class="dropdown-menu dropdown-menu-xs">
-                                                                                <ul class="link-list-opt no-bdr">
-                                                                                    <li>
-                                                                                        <a class="active"
-                                                                                           href="#">
-                                                                                            <span>Last Opened</span></a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#"><span>Name</span></a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#"><span>Size</span></a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="nk-file-actions">
-                                                                        <div class="dropdown">
-                                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                                <ul class="link-list-opt no-bdr">
-                                                                                    <li>
-                                                                                        <a data-toggle="modal"><em
-                                                                                                class="icon ni ni-share"></em><span>Share</span></a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a data-toggle="modal"><em
-                                                                                                class="icon ni ni-copy"></em><span>Copy</span></a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a id="#file-move"
-                                                                                           data-toggle="modal"><em
-                                                                                                class="icon ni ni-forward-arrow"></em><span>Move</span></a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="{{file?.url}}"
-                                                                                           target="_blank"
-                                                                                           class="file-dl-toast"><em
-                                                                                                class="icon ni ni-download"></em><span>Download</span></a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#"><em
-                                                                                                class="icon ni ni-trash"></em><span>Delete</span></a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             <div class="nk-files-list">
                                                                 <div *ngFor="let file of files | search:searchBar"
                                                                      class="nk-file-item nk-file">
@@ -214,7 +160,8 @@
                                                                                                 class="icon ni ni-forward-arrow"></em><span>Déplacer</span></a>
                                                                                     </li>
                                                                                     <li>
-                                                                                        <a href="#"
+                                                                                        <a href="{{ file?.url }}"
+                                                                                           target="_blank"
                                                                                            class="file-dl-toast"><em
                                                                                                 class="icon ni ni-download"></em><span>Télécharger</span></a>
                                                                                     </li>
@@ -485,7 +432,7 @@
                     </div>
                 </div><!-- .modal-footer -->
             </div><!-- .modal-content -->
-        </div><!-- .modla-dialog -->
+        </div><!-- .modal-dialog -->
     </div><!-- .modal -->
 
     <!-- Rename file -->
