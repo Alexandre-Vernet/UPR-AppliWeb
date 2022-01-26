@@ -76,11 +76,11 @@ export class StorageComponent implements OnInit {
         this.storageService.renameFile(this.file, newFile).then(() => {
             // Close modal
             this.modalCloseRenameFile.nativeElement.click();
-            
+
             // Update file name
-            this.files.forEach((file: File, index: number) => {
+            this.files.map((file: File) => {
                 if (file.id === this.file.id) {
-                    this.files[index].name = newFile;
+                    file.name = newFile;
                 }
             });
         });
