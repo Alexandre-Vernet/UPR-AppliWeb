@@ -26,19 +26,22 @@ export class StorageService {
     }
 
     async getFiles(): Promise<File[]> {
-        let files: File[] = [];
 
         const q = query(collection(this.db, 'files'));
         onSnapshot(q, (snapshot) => {
             snapshot.docChanges().forEach(async (change) => {
-                if (change.type === 'added') {
+
+                // Listen for new files or edited files
+                if (change.type === 'added' || change.type === 'modified') {
                     const id = change.doc.id;
                     const { name, url, size, userId } = change.doc.data();
                     const extensionFile = name.split('.')[1];
 
+                    // Format date to 'il a 12 minutes'
                     moment.locale('fr-FR');
-                    const date = moment(change.doc.data().date.toDate()).startOf('minutes').fromNow();  /* il a 12 minutes*/
+                    const date = moment(change.doc.data().date.toDate()).startOf('minutes').fromNow();
 
+                    // Get user which upload the file
                     await this.auth.getById(userId).then((userData) => {
                         const user = new User(
                             userData.id,
@@ -51,7 +54,6 @@ export class StorageService {
                             userData.dateCreation
                         );
 
-
                         const file = new File(
                             id,
                             name,
@@ -62,19 +64,20 @@ export class StorageService {
                             date
                         );
 
-                        files.push(file);
+                        // If file doesn't exist, add it to array
+                        // Else, update it
+                        this.files.findIndex(x => x.id === id) === -1 ? this.files.push(file) : this.files.find(x => x.id === id).id = id;
                     });
+                }
 
-                }
-                if (change.type === 'modified') {
-                    console.log('Modified city: ', change.doc.data());
-                }
+                // Message deleted
                 if (change.type === 'removed') {
-                    console.log('Removed city: ', change.doc.data());
+                    const id = change.doc.id;
+                    const index = this.files.findIndex((m) => m.id === id);
+                    this.files.splice(index, 1);
                 }
             });
         });
-        this.files = files;
         return this.files;
     }
 
