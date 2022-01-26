@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, getDocs, getFirestore, onSnapshot, query } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, onSnapshot, query } from 'firebase/firestore';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
@@ -30,11 +30,11 @@ export class StorageService {
 
         const q = query(collection(this.db, 'files'));
         onSnapshot(q, (snapshot) => {
-            snapshot.docChanges().forEach(async(change) => {
+            snapshot.docChanges().forEach(async (change) => {
                 if (change.type === 'added') {
                     const id = change.doc.id;
                     const { name, url, size, userId } = change.doc.data();
-                    const extensionFile = name.split(".")[1];
+                    const extensionFile = name.split('.')[1];
 
                     moment.locale('fr-FR');
                     const date = moment(change.doc.data().date.toDate()).startOf('minutes').fromNow();  /* il a 12 minutes*/
@@ -150,15 +150,28 @@ export class StorageService {
         // Create a reference to the file to delete
         const fileRef = ref(this.storage, `files/${ file.name }`);
 
-        // Delete the file
+        // Delete file in storage
         deleteObject(fileRef)
-            .then(() => {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'File has been deleted successfully',
-                    showConfirmButton: false,
-                    timer: 1500,
+            .then(async () => {
+                // Delete file details
+                deleteDoc(doc(this.db, 'files', file.id)).then(() => {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'File has been deleted successfully',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }).catch((error) => {
+                    console.log('error: ', error);
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: `Error ${ error }`,
+                        showConfirmButton: false,
+                        timer: 4000,
+                    });
                 });
             })
             .catch((error) => {

@@ -53,8 +53,8 @@ export class StorageComponent implements OnInit {
         this.storageService.uploadFile(event);
     };
 
-    deleteFile(file: File) {
-        this.storageService.deleteFile(file);
+    async deleteFile(file: File) {
+        await this.storageService.deleteFile(file);
     }
 
     formatDate(date) {
