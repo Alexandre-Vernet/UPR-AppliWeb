@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/Services/storage/storage.service';
 import { File } from 'src/app/Classes/file';
-import { getStorage } from 'firebase/storage';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-storage',
@@ -9,10 +9,14 @@ import { getStorage } from 'firebase/storage';
     styleUrls: ['./storage.component.scss']
 })
 export class StorageComponent implements OnInit {
-    storage = getStorage();
     file: File;
     files: File[] = [];
     searchBar: string;
+
+    // Rename file
+    formRenameFile = new FormGroup({
+        file: new FormControl('', [Validators.required]),
+    });
 
     constructor(private storageService: StorageService) {
     }
@@ -43,27 +47,30 @@ export class StorageComponent implements OnInit {
 
     fileDetails(file: File) {
         this.file = file;
+
+        // Set message in modal
+        this.formRenameFile.get('file').setValue(file.name);
     }
 
     focusUpload() {
         document.getElementById('file_upload')?.click();
-    };
+    }
 
-    uploadFile(event) {
-        this.storageService.uploadFile(event);
-    };
+    async uploadFile(event) {
+        await this.storageService.uploadFile(event);
+    }
 
     async deleteFile(file: File) {
         await this.storageService.deleteFile(file);
     }
 
-    formatDate(date) {
-        return date;
-        // return date.toDate().toLocaleTimeString('fr-FR');
-    };
-
     // Convert octets to kilo octets
     convertOctets(fileSize: number) {
         return fileSize / 1000;
+    }
+
+    async renameFile() {
+        const newFile = this.formRenameFile.value.file;
+        await this.storageService.renameFile(this.file, newFile);
     }
 }

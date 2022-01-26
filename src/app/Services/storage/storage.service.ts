@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, onSnapshot, query } from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDocs,
+    getFirestore,
+    onSnapshot,
+    query,
+    updateDoc
+} from 'firebase/firestore';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
@@ -186,5 +196,13 @@ export class StorageService {
                     timer: 4000,
                 });
             });
+    }
+
+    async renameFile(oldFile: File, newFileName: File) {
+
+        const fileRef = doc(this.db, 'files', oldFile.id);
+        await updateDoc(fileRef, {
+            name: newFileName,
+        });
     }
 }

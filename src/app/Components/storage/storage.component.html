@@ -38,14 +38,11 @@
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li><a (click)="focusUpload()"
                                                                            data-toggle="modal"><em
-                                                                            class="icon ni ni-upload-cloud"></em><span>Upload
-                                                                                    File</span></a></li>
+                                                                            class="icon ni ni-upload-cloud"></em><span>Importer
+                                                                                    un fichier</span></a></li>
                                                                     <li><a href="#" data-toggle="modal"><em
-                                                                            class="icon ni ni-file-plus"></em><span>Create
-                                                                                    File</span></a></li>
-                                                                    <li><a href="#" data-toggle="modal"><em
-                                                                            class="icon ni ni-folder-plus"></em><span>Create
-                                                                                    Folder</span></a></li>
+                                                                            class="icon ni ni-folder-plus"></em><span>Créer un dossier</span></a>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -117,18 +114,18 @@
                                                                 <div class="nk-file-item">
                                                                     <div class="nk-file-info">
                                                                         <div class="dropdown">
-                                                                            <div
-                                                                                    class="dropdown-menu dropdown-menu-xs">
+                                                                            <div class="dropdown-menu dropdown-menu-xs">
                                                                                 <ul class="link-list-opt no-bdr">
-                                                                                    <li><a class="active"
-                                                                                           href="#"><span>Last
-                                                                                                    Opened</span></a>
+                                                                                    <li>
+                                                                                        <a class="active"
+                                                                                           href="#">
+                                                                                            <span>Last Opened</span></a>
                                                                                     </li>
-                                                                                    <li><a
-                                                                                            href="#"><span>Name</span></a>
+                                                                                    <li>
+                                                                                        <a href="#"><span>Name</span></a>
                                                                                     </li>
-                                                                                    <li><a
-                                                                                            href="#"><span>Size</span></a>
+                                                                                    <li>
+                                                                                        <a href="#"><span>Size</span></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -136,28 +133,30 @@
                                                                     </div>
                                                                     <div class="nk-file-actions">
                                                                         <div class="dropdown">
-                                                                            <div
-                                                                                    class="dropdown-menu dropdown-menu-right">
+                                                                            <div class="dropdown-menu dropdown-menu-right">
                                                                                 <ul class="link-list-opt no-bdr">
-                                                                                    <li><a
-                                                                                            data-toggle="modal"><em
-                                                                                            class="icon ni ni-share"></em><span>Share</span></a>
+                                                                                    <li>
+                                                                                        <a data-toggle="modal"><em
+                                                                                                class="icon ni ni-share"></em><span>Share</span></a>
                                                                                     </li>
-                                                                                    <li><a
-                                                                                            data-toggle="modal"><em
-                                                                                            class="icon ni ni-copy"></em><span>Copy</span></a>
+                                                                                    <li>
+                                                                                        <a data-toggle="modal"><em
+                                                                                                class="icon ni ni-copy"></em><span>Copy</span></a>
                                                                                     </li>
-                                                                                    <li><a id="#file-move"
+                                                                                    <li>
+                                                                                        <a id="#file-move"
                                                                                            data-toggle="modal"><em
-                                                                                            class="icon ni ni-forward-arrow"></em><span>Move</span></a>
+                                                                                                class="icon ni ni-forward-arrow"></em><span>Move</span></a>
                                                                                     </li>
-                                                                                    <li><a href="{{file?.url}}"
+                                                                                    <li>
+                                                                                        <a href="{{file?.url}}"
                                                                                            target="_blank"
                                                                                            class="file-dl-toast"><em
-                                                                                            class="icon ni ni-download"></em><span>Download</span></a>
+                                                                                                class="icon ni ni-download"></em><span>Download</span></a>
                                                                                     </li>
-                                                                                    <li><a href="#"><em
-                                                                                            class="icon ni ni-trash"></em><span>Delete</span></a>
+                                                                                    <li>
+                                                                                        <a href="#"><em
+                                                                                                class="icon ni ni-trash"></em><span>Delete</span></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -189,8 +188,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <ul class="nk-file-desc">
-                                                                            <li class="date"> {{
-                                                                                formatDate(file.date) }} </li>
+                                                                            <li class="date"> {{ file.date }} </li>
                                                                             <li class="size">{{ convertOctets(file?.size) }}
                                                                                 Ko
                                                                             </li>
@@ -204,25 +202,31 @@
                                                                             <div
                                                                                     class="dropdown-menu dropdown-menu-right">
                                                                                 <ul class="link-list-plain no-bdr">
-                                                                                    <li><a href="#file-details"
+                                                                                    <li>
+                                                                                        <a href="#file-details"
                                                                                            (click)="fileDetails(file)"
                                                                                            data-toggle="modal"><em
-                                                                                            class="icon ni ni-eye"></em><span>Details</span></a>
+                                                                                                class="icon ni ni-eye"></em><span>Détails</span></a>
                                                                                     </li>
-                                                                                    <li><a href="#file-move"
+                                                                                    <li>
+                                                                                        <a href="#file-move"
                                                                                            data-toggle="modal"><em
-                                                                                            class="icon ni ni-forward-arrow"></em><span>Move</span></a>
+                                                                                                class="icon ni ni-forward-arrow"></em><span>Déplacer</span></a>
                                                                                     </li>
-                                                                                    <li><a href="#"
+                                                                                    <li>
+                                                                                        <a href="#"
                                                                                            class="file-dl-toast"><em
-                                                                                            class="icon ni ni-download"></em><span>Download</span></a>
+                                                                                                class="icon ni ni-download"></em><span>Télécharger</span></a>
                                                                                     </li>
-                                                                                    <li><a href="#"><em
-                                                                                            class="icon ni ni-pen"></em><span>Rename</span></a>
+                                                                                    <li>
+                                                                                        <a href="#file-rename"
+                                                                                           data-toggle="modal"
+                                                                                           (click)="fileDetails(file)"><em
+                                                                                                class="icon ni ni-pen"></em><span>Renommer</span></a>
                                                                                     </li>
-                                                                                    <li><a
-                                                                                            (click)="deleteFile(file)"><em
-                                                                                            class="icon ni ni-trash"></em><span>Delete</span></a>
+                                                                                    <li>
+                                                                                        <a (click)="deleteFile(file)"><em
+                                                                                                class="icon ni ni-trash"></em><span>Supprimer</span></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -248,6 +252,79 @@
     </div>
     <!-- main @e -->
 
+
+    <!-- @@ Details Modal @e -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="file-details">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header align-center">
+                    <div class="nk-file-title">
+                        <div class="nk-file-icon">
+                                <span class="nk-file-icon-type">
+<!--                                   <img src=" {{ getIcon(file) }} "-->
+                                    <!--                                        alt=" {{ file?.name }} ">-->
+                                </span>
+                        </div>
+                        <div class="nk-file-name">
+                            <div class="nk-file-name-text"><span class="title">{{file?.name}}</span></div>
+                            <div class="nk-file-name-sub">Project</div>
+                        </div>
+                    </div>
+                    <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                </div>
+                <div class="modal-body">
+                    <div class="nk-file-details">
+                        <div class="nk-file-details-row">
+                            <div class="nk-file-details-col">Type</div>
+                            <div class="nk-file-details-col">Fichier</div>
+                        </div>
+                        <div class="nk-file-details-row">
+                            <div class="nk-file-details-col">Taille</div>
+                            <div class="nk-file-details-col"> {{convertOctets(file?.size)}} Ko</div>
+                        </div>
+                        <div class="nk-file-details-row">
+                            <div class="nk-file-details-col">Emplacement</div>
+                            <div class="nk-file-details-col">
+                                <ul class="breadcrumb breadcrumb-sm breadcrumb-alt breadcrumb-arrow">
+                                    <li class="breadcrumb-item">ThemeForest</li>
+                                    <li class="breadcrumb-item">Project</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="nk-file-details-row">
+                            <div class="nk-file-details-col">Ajouté</div>
+                            <div class="nk-file-details-col">{{ file?.date }}</div>
+                        </div>
+                        <div class="nk-file-details-row">
+                            <div class="nk-file-details-col">Ajouté par</div>
+                            <div class="nk-file-details-col">
+                                <ul class="breadcrumb breadcrumb-sm breadcrumb-alt breadcrumb-arrow">
+                                    <li class="breadcrumb-item"> {{ file?.addBy?.email }} </li>
+                                    <li class="breadcrumb-item"> {{ file?.addBy?.firstName }} {{
+                                        file?.addBy?.lastName}} </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .modal-body -->
+                <div class="modal-footer modal-footer-stretch bg-light">
+                    <div class="modal-footer-between">
+                        <div class="g">
+                            <a href="#" class="link link-primary">View All Activity</a>
+                        </div>
+                        <div class="g">
+                            <ul class="btn-toolbar g-3">
+                                <li><a data-toggle="modal" data-dismiss="modal"
+                                       class="btn btn-outline-light btn-white">Share</a></li>
+                                <li><a class="btn btn-primary file-dl-toast" href="{{file?.url}}" target="_blank">Télécharger</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- .modal-footer -->
+            </div><!-- .modal-content -->
+        </div><!-- .modla-dialog -->
+    </div><!-- .modal -->
 
     <!-- @@ Move File Modal @e -->
     <div class="modal fade" tabindex="-1" role="dialog" id="file-move">
@@ -411,80 +488,35 @@
         </div><!-- .modla-dialog -->
     </div><!-- .modal -->
 
-
-    <!-- @@ File Details Modal @e -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="file-details">
-        <div class="modal-dialog modal-md" role="document">
+    <!-- Rename file -->
+    <div class="modal fade" tabindex="-1" id="file-rename">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header align-center">
-                    <div class="nk-file-title">
-                        <div class="nk-file-icon">
-                                <span class="nk-file-icon-type">
-<!--                                   <img src=" {{ getIcon(file) }} "-->
-                                    <!--                                        alt=" {{ file?.name }} ">-->
-                                </span>
-                        </div>
-                        <div class="nk-file-name">
-                            <div class="nk-file-name-text"><span class="title">{{file?.name}}</span></div>
-                            <div class="nk-file-name-sub">Project</div>
-                        </div>
-                    </div>
-                    <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-header">
+                    <h5 class="modal-title">Renommer</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
                 </div>
                 <div class="modal-body">
-                    <div class="nk-file-details">
-                        <div class="nk-file-details-row">
-                            <div class="nk-file-details-col">Type</div>
-                            <div class="nk-file-details-col">Fichier</div>
-                        </div>
-                        <div class="nk-file-details-row">
-                            <div class="nk-file-details-col">Taille</div>
-                            <div class="nk-file-details-col"> {{convertOctets(file?.size)}} Ko</div>
-                        </div>
-                        <div class="nk-file-details-row">
-                            <div class="nk-file-details-col">Emplacement</div>
-                            <div class="nk-file-details-col">
-                                <ul class="breadcrumb breadcrumb-sm breadcrumb-alt breadcrumb-arrow">
-                                    <li class="breadcrumb-item">ThemeForest</li>
-                                    <li class="breadcrumb-item">Project</li>
-                                </ul>
+                    <form [formGroup]="formRenameFile" (ngSubmit)="formRenameFile.valid && renameFile()"
+                          class="form-validate is-alter">
+                        <div class="form-group">
+                            <label class="form-label" for="full-name">Nom</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="full-name" formControlName="file">
                             </div>
                         </div>
-                        <div class="nk-file-details-row">
-                            <div class="nk-file-details-col">Ajouté</div>
-                            <div class="nk-file-details-col">{{ file?.date }}</div>
+                        <div class="form-group">
+                            <button type="submit" [disabled]="!formRenameFile.valid" class="btn btn-lg btn-primary">
+                                Sauvegarder
+                            </button>
                         </div>
-                        <div class="nk-file-details-row">
-                            <div class="nk-file-details-col">Ajouté par</div>
-                            <div class="nk-file-details-col">
-                                <ul class="breadcrumb breadcrumb-sm breadcrumb-alt breadcrumb-arrow">
-                                    <li class="breadcrumb-item"> {{ file?.addBy?.email }} </li>
-                                    <li class="breadcrumb-item"> {{ file?.addBy?.firstName }} {{
-                                        file?.addBy?.lastName}} </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- .modal-body -->
-                <div class="modal-footer modal-footer-stretch bg-light">
-                    <div class="modal-footer-between">
-                        <div class="g">
-                            <a href="#" class="link link-primary">View All Activity</a>
-                        </div>
-                        <div class="g">
-                            <ul class="btn-toolbar g-3">
-                                <li><a data-toggle="modal" data-dismiss="modal"
-                                       class="btn btn-outline-light btn-white">Share</a></li>
-                                <li><a class="btn btn-primary file-dl-toast" href="{{file?.url}}" target="_blank">Télécharger</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!-- .modal-footer -->
-            </div><!-- .modal-content -->
-        </div><!-- .modla-dialog -->
-    </div><!-- .modal -->
-
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- app-root @e -->
 <!-- JavaScript -->
