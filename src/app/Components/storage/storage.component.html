@@ -73,8 +73,7 @@
 
                                                                         <input type="file"
                                                                                (change)="uploadFile($event)"
-                                                                               id="file_upload"
-                                                                               style="display: none"></a>
+                                                                               class="hidden"></a>
 
                                                                 </div>
                                                             </li>
@@ -154,11 +153,11 @@
                                                                                            data-toggle="modal"><em
                                                                                                 class="icon ni ni-eye"></em><span>Détails</span></a>
                                                                                     </li>
-<!--                                                                                    <li>-->
-<!--                                                                                        <a href="#file-move"-->
-<!--                                                                                           data-toggle="modal"><em-->
-<!--                                                                                                class="icon ni ni-forward-arrow"></em><span>Déplacer</span></a>-->
-<!--                                                                                    </li>-->
+                                                                                    <!--                                                                                    <li>-->
+                                                                                    <!--                                                                                        <a href="#file-move"-->
+                                                                                    <!--                                                                                           data-toggle="modal"><em-->
+                                                                                    <!--                                                                                                class="icon ni ni-forward-arrow"></em><span>Déplacer</span></a>-->
+                                                                                    <!--                                                                                    </li>-->
                                                                                     <li>
                                                                                         <a href="{{ file?.url }}"
                                                                                            target="_blank"
@@ -229,15 +228,15 @@
                             <div class="nk-file-details-col">Taille</div>
                             <div class="nk-file-details-col"> {{convertOctets(file?.size)}}</div>
                         </div>
-<!--                        <div class="nk-file-details-row">-->
-<!--                            <div class="nk-file-details-col">Emplacement</div>-->
-<!--                            <div class="nk-file-details-col">-->
-<!--                                <ul class="breadcrumb breadcrumb-sm breadcrumb-alt breadcrumb-arrow">-->
-<!--                                    <li class="breadcrumb-item">ThemeForest</li>-->
-<!--                                    <li class="breadcrumb-item">Project</li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="nk-file-details-row">-->
+                        <!--                            <div class="nk-file-details-col">Emplacement</div>-->
+                        <!--                            <div class="nk-file-details-col">-->
+                        <!--                                <ul class="breadcrumb breadcrumb-sm breadcrumb-alt breadcrumb-arrow">-->
+                        <!--                                    <li class="breadcrumb-item">ThemeForest</li>-->
+                        <!--                                    <li class="breadcrumb-item">Project</li>-->
+                        <!--                                </ul>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <div class="nk-file-details-row">
                             <div class="nk-file-details-col">Ajouté</div>
                             <div class="nk-file-details-col">{{ file?.date }}</div>
