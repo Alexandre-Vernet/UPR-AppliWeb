@@ -66,9 +66,17 @@ export class StorageComponent implements OnInit {
         await this.storageService.deleteFile(file);
     }
 
-    // Convert octets to kilo octets
+    // Convert octets to Ko, Mo, Go
     convertOctets(fileSize: number) {
-        return fileSize / 1000;
+        if (fileSize < 1024) {
+            return `${ fileSize } octets`;
+        } else if (fileSize < 1048576) {
+            return `${ Math.round(fileSize / 1024) } Ko`;
+        } else if (fileSize < 1073741824) {
+            return `${ Math.round(fileSize / 1048576) } Mo`;
+        } else {
+            return `${ Math.round(fileSize / 1073741824) } Go`;
+        }
     }
 
     async renameFile() {

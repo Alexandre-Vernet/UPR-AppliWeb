@@ -135,8 +135,8 @@
                                                                         </div>
                                                                         <ul class="nk-file-desc">
                                                                             <li class="date"> {{ file.date }} </li>
-                                                                            <li class="size">{{ convertOctets(file?.size) }}
-                                                                                Ko
+                                                                            <li class="size">
+                                                                                {{ convertOctets(file?.size) }}
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -227,7 +227,7 @@
                         </div>
                         <div class="nk-file-details-row">
                             <div class="nk-file-details-col">Taille</div>
-                            <div class="nk-file-details-col"> {{convertOctets(file?.size)}} Ko</div>
+                            <div class="nk-file-details-col"> {{convertOctets(file?.size)}}</div>
                         </div>
 <!--                        <div class="nk-file-details-row">-->
 <!--                            <div class="nk-file-details-col">Emplacement</div>-->
