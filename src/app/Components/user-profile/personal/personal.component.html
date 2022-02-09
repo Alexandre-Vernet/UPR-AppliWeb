@@ -1,0 +1,167 @@
+<div class="card-inner card-inner-lg">
+    <div class="nk-block-head">
+        <div class="nk-block-head-content">
+            <h4 class="nk-block-title">Informations personnelles</h4>
+        </div>
+    </div><!-- .nk-block-head -->
+    <div class="nk-block">
+        <div class="nk-data data-list data-list-s2">
+
+            <!-- First name -->
+            <div class="data-item" data-target="#modalUpdateProfile"
+                 data-toggle="modal">
+                <div class="data-col">
+                    <span class="data-label">Prénom</span>
+                    <span class="data-value"> {{user?.firstName}}</span>
+                </div>
+                <div class="data-col data-col-end"><span
+                        class="data-more"><em
+                        class="icon ni ni-forward-ios"></em></span>
+                </div>
+            </div>
+
+            <!-- Last name -->
+            <div class="data-item" data-target="#modalUpdateProfile"
+                 data-toggle="modal">
+                <div class="data-col">
+                    <span class="data-label">Nom</span>
+                    <span class="data-value"> {{user?.lastName}} </span>
+                </div>
+                <div class="data-col data-col-end"><span
+                        class="data-more"><em
+                        class="icon ni ni-forward-ios"></em></span>
+                </div>
+            </div>
+
+
+            <!-- Email -->
+            <div class="data-item">
+                <div class="data-col">
+                    <span class="data-label">Email</span>
+                    <span class="data-value">{{user?.email}}</span>
+                </div>
+                <div class="data-col data-col-end"><span
+                        class="data-more disable"><em
+                        class="icon ni ni-lock-alt"></em></span>
+                </div>
+            </div>
+
+            <!-- Photo -->
+            <div (click)="uploadProfilePicture()" class="data-item"
+                 data-toggle="modal">
+                <div class="data-col">
+                    <span class="data-label">Image de profil</span>
+                    <span class="data-value">
+                        <ng-container *ngIf="user?.profilePicture">
+                            <img alt="profilePicture" class="profilePicture"
+                                 src="{{user?.profilePicture}}">
+                        </ng-container>
+                        <ng-container *ngIf="!user?.profilePicture">
+                              Pas d'image de profil
+                        </ng-container>
+                    </span>
+                </div>
+                <div class="form-control-wrap">
+                    <div class="custom-file">
+                        <a class="btn btn-sm btn-icon btn-trigger text-primary toggle-opt"
+                           data-target="chat-upload">
+                            <input (change)="updateProfilePicture($event)"
+                                   accept="image/*"
+                                   class="icon ni ni-forward-ios" id="file_upload"
+                                   style="display: none"
+                                   type="file">
+                            <em class="icon ni ni-forward-ios"></em></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date of creation account -->
+            <div class="data-item">
+                <div class="data-col">
+                    <span class="data-label">Date de création du compte</span>
+                    <span *ngIf="user?.dateCreation" class="data-value">{{user?.dateCreation}}</span>
+                </div>
+                <div class="data-col data-col-end"><span
+                        class="data-more disable"><em
+                        class="icon ni ni-lock-alt"></em></span>
+                </div>
+            </div>
+    </div><!-- .nk-block -->
+</div><!-- .card-inner -->
+
+
+<!-- Update account -->
+<div class="modal fade" id="modalUpdateProfile" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="title">Update Profile</h5>
+                <a class="close" data-dismiss="modal" href="#">
+                    <em #modalUpdateProfile class="icon ni ni-cross-sm"></em>
+                </a>
+            </div>
+
+            <div class="modal-body ">
+                <form (ngSubmit)="formUpdateProfile.valid && updateProfile()" [formGroup]="formUpdateProfile">
+                    <div class="row gy-4">
+
+
+                        <!-- First name -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input [ngClass]="{'is-invalid': formUpdateProfile.get('firstName')?.touched && formUpdateProfile.get('firstName')?.invalid}"
+                                       class="form-control form-control-lg" formControlName="firstName"
+                                       id="firstName" placeholder="Enter first name"
+                                       type="text">
+
+
+                                <div *ngIf="formUpdateProfile.get('firstName')?.touched && formUpdateProfile.get('firstName')?.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="formUpdateProfile.get('firstName')?.errors?.required">
+                                        First name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Last name -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input [ngClass]="{'is-invalid': formUpdateProfile.get('lastName')?.touched && formUpdateProfile.get('lastName')?.invalid}"
+                                       class="form-control form-control-lg" formControlName="lastName"
+                                       id="lastName" placeholder="Enter last name"
+                                       type="text">
+
+
+                                <div *ngIf="formUpdateProfile.get('lastName')?.touched && formUpdateProfile.get('lastName')?.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="formUpdateProfile.get('lastName')?.errors?.required">
+                                        Last name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="col-12 my-3">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button [disabled]="!formUpdateProfile.valid" class="btn btn-lg btn-primary"
+                                            type="submit">Update
+                                        Profile
+                                    </button>
+                                </li>
+                                <li>
+                                    <a class="link link-light ml-3" data-dismiss="modal" href="#">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div><!-- .modal -->
+</div>

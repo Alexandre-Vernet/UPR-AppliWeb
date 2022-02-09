@@ -17,6 +17,10 @@ const routes: Routes = [
 		loadChildren: () => import("./Components/admin/admin.module").then(module => module.AdminModule),
 		canLoad: [AdminGuard]
 	},
+  {
+    path: "user-profile",
+    loadChildren: () => import("./Components/user-profile/user-profile.module").then(module => module.UserProfileModule)
+  },
 	{ path: "**", component: HomeComponent }
 ];
 

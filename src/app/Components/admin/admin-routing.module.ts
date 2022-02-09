@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: AdminComponent
+  },
+  {
+    path: 'edit-user',
+    loadChildren: () => import("../../Components/user-profile/user-profile.module").then(module => module.UserProfileModule)
   }
 ];
 
