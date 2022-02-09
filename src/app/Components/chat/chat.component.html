@@ -1,0 +1,297 @@
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container wide-xl">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-content-wrap">
+                                <div class="nk-block-head nk-block-head-md">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Chats</h3>
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-chat nk-chat-boxed">
+
+                                    <!-- List contacts -->
+                                    <app-contacts></app-contacts>
+
+                                    <!-- Conversation -->
+                                    <div class="nk-chat-body profile-shown">
+                                        <!-- Header -->
+                                        <app-head [conversationId]="conversationId"></app-head>
+
+
+                                        <div #scrollMe (click)="focusTextArea()" [scrollTop]="scrollMe.scrollHeight"
+                                             class="nk-chat-panel"
+                                             data-simplebar>
+
+                                            <!-- Check no messages -->
+                                            <div *ngIf="messages.length <= 0" class="d-flex justify-content-center">
+                                                <h4>No message</h4>
+                                            </div>
+
+                                            <!-- Get all messages -->
+                                            <div *ngFor="let message of messages">
+                                                <div *ngIf="message?.user.email !== user?.email">
+
+                                                    <!-- Other's messages -->
+                                                    <div class="chat is-you">
+                                                        <div class="chat-avatar">
+                                                            <div class="user-avatar bg-purple">
+                                                                <span> {{message.user.firstName.charAt(0) + "" +
+                                                                message.user.lastName.charAt(0)}} </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chat-content">
+                                                            <div class="chat-bubbles">
+                                                                <div class="chat-bubble">
+
+                                                                    <!-- Message -->
+                                                                    <div *ngIf="message.message"
+                                                                         class="chat-msg">
+                                                                        {{message.message}}
+                                                                    </div>
+
+                                                                    <!-- File -->
+                                                                    <ng-container *ngIf="message.file">
+
+                                                                        <!-- Image -->
+                                                                        <ng-container
+                                                                                *ngIf="message?.file.type === 'image'">
+                                                                            <a href="{{message.file.url}}"
+                                                                               target="_blank">
+                                                                                <img alt="{{message.file.name}}"
+                                                                                     class="media"
+                                                                                     src="{{message.file.url}}">
+                                                                            </a>
+                                                                        </ng-container>
+
+                                                                        <!-- Video -->
+                                                                        <ng-container
+                                                                                *ngIf="message?.file.type === 'video'">
+                                                                            <a href="{{message.file.url}}"
+                                                                               target="_blank">
+                                                                                <video class="media" controls>
+                                                                                    <source src="{{message.file.url}}">
+                                                                                    Your browser does not support the
+                                                                                    video tag.
+                                                                                </video>
+                                                                            </a>
+                                                                        </ng-container>
+
+                                                                        <!-- Audio -->
+                                                                        <ng-container
+                                                                                *ngIf="message?.file.type === 'audio'">
+                                                                            <audio controls>
+                                                                                <source src="{{message.file.url}}">
+                                                                                Your browser does not support the
+                                                                                audio tag.
+                                                                            </audio>
+                                                                        </ng-container>
+
+                                                                        <!-- Other type -->
+                                                                        <ng-container
+                                                                                *ngIf="message.file.type !== 'video' &&
+                                                                                    message.file.type !== 'image' &&
+                                                                                    message.file.type !== 'audio'">
+                                                                            <a href="{{message.file.url}}"
+                                                                               target="_blank">
+                                                                                <h6>{{message.file.name}}</h6>
+                                                                            </a>
+                                                                        </ng-container>
+                                                                    </ng-container>
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- User & Date -->
+                                                            <ul class="chat-meta">
+                                                                <li> {{message.user.firstName + " " + message.user.lastName}}
+                                                                </li>
+                                                                <li> {{formatDate(message.date)}} </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- User's messages -->
+                                                <div *ngIf="message?.user.email === user?.email">
+
+                                                    <div class="chat is-me">
+                                                        <div class="chat-content">
+                                                            <div class="chat-bubbles">
+                                                                <div class="chat-bubble">
+
+                                                                    <!-- Message -->
+                                                                    <div *ngIf="message.message"
+                                                                         class="chat-msg">
+                                                                        {{message.message}}
+                                                                    </div>
+
+                                                                    <!-- File -->
+                                                                    <ng-container *ngIf="message.file">
+
+                                                                        <!-- Image -->
+                                                                        <ng-container
+                                                                                *ngIf="message?.file.type === 'image'">
+                                                                            <a href="{{message.file.url}}"
+                                                                               target="_blank">
+                                                                                <img alt="{{message.file.name}}"
+                                                                                     class="media"
+                                                                                     src="{{message.file.url}}">
+                                                                            </a>
+                                                                        </ng-container>
+
+                                                                        <!-- Video -->
+                                                                        <ng-container
+                                                                                *ngIf="message?.file.type === 'video'">
+                                                                            <a href="{{message.file.url}}"
+                                                                               target="_blank">
+                                                                                <video class="media" controls>
+                                                                                    <source src="{{message.file.url}}">
+                                                                                    Your browser does not support the
+                                                                                    video tag.
+                                                                                </video>
+                                                                            </a>
+                                                                        </ng-container>
+
+                                                                        <!-- Audio -->
+                                                                        <ng-container
+                                                                                *ngIf="message?.file.type === 'audio'">
+                                                                            <audio controls>
+                                                                                <source src="{{message.file.url}}">
+                                                                                Your browser does not support the
+                                                                                audio tag.
+                                                                            </audio>
+                                                                        </ng-container>
+
+                                                                        <!-- Other type -->
+                                                                        <ng-container
+                                                                                *ngIf="message.file.type !== 'video' &&
+                                                                                    message.file.type !== 'image' &&
+                                                                                    message.file.type !== 'audio'">
+                                                                            <a href="{{message.file.url}}"
+                                                                               target="_blank">
+                                                                                <h6>{{message.file.name}}</h6>
+                                                                            </a>
+                                                                        </ng-container>
+                                                                    </ng-container>
+
+                                                                    <!-- Action -->
+                                                                    <ul class="chat-msg-more">
+                                                                        <li>
+                                                                            <div class="dropdown">
+                                                                                <a class="btn btn-icon btn-sm btn-trigger dropdown-toggle"
+                                                                                   data-toggle="dropdown"
+                                                                                   href="#"><em
+                                                                                        class="icon ni ni-more-h"></em></a>
+                                                                                <div
+                                                                                        class="dropdown-menu dropdown-menu-sm">
+                                                                                    <ul class="link-list-opt no-bdr">
+                                                                                        <!-- Edit -->
+                                                                                        <li *ngIf="message.message">
+                                                                                            <a (click)="getMessageId(message.id);"
+                                                                                               class="icon"
+                                                                                               data-target="#editMessage"
+                                                                                               data-toggle="modal"
+                                                                                               id="modalEditMessage"><em
+                                                                                                    class="icon ni ni-pen-alt-fill"></em>
+                                                                                                Edit</a>
+                                                                                        </li>
+
+                                                                                        <!-- Remove -->
+                                                                                        <li>
+                                                                                            <a (click)="deleteMessage(message.id)"
+                                                                                               class="icon"><em
+                                                                                                    class="icon ni ni-trash-fill"></em>
+                                                                                                Remove</a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <!-- User & Date -->
+                                                            <ul class="chat-meta">
+                                                                <li>You</li>
+                                                                <li> {{formatDate(message.date)}} </li>
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- .nk-chat-panel -->
+
+                                        <!-- Chat editor -->
+                                        <app-editor [conversationId]="conversationId"></app-editor>
+
+
+                                        <!-- Profile -->
+                                        <!--                                        <app-profile></app-profile>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+
+
+<!-- Edit message -->
+<div class="modal fade" id="editMessage" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit message</h5>
+                <a #modalEditMessage aria-label="Close" class="close" data-dismiss="modal" href="#">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="formEditMessage.valid && editMessage()" [formGroup]="formEditMessage"
+                      class="form-validate is-alter">
+                    <div class="form-group">
+                        <label class="form-label" for="editedMessage">Your edited message</label>
+                        <div class="form-control-wrap">
+                            <input [ngClass]="{'is-invalid': formEditMessage.get('editedMessage')?.touched && formEditMessage.get('editedMessage')?.invalid}"
+                                   autocomplete="off" class="form-control" formControlName="editedMessage"
+                                   id="editedMessage"
+                                   placeholder="Your edited message"
+                                   required
+                                   type="text">
+                            <div
+                                    *ngIf="formEditMessage.get('editedMessage')?.touched && formEditMessage.get('editedMessage')?.invalid"
+                                    class="invalid-feedback">
+                                <div *ngIf="formEditMessage.get('editedMessage')?.errors?.required">
+                                    Edited message is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="!formEditMessage.valid" class="btn btn-lg btn-primary"
+                                type="submit">Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input data-target="#editMessage" data-toggle="modal" hidden id="modalEditLastMessage" type="button">

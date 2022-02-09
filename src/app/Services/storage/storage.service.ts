@@ -44,7 +44,7 @@ export class StorageService {
                 // Listen for new files or edited files
                 if (change.type === 'added' || change.type === 'modified') {
                     const id = change.doc.id;
-                    const { name, url, size, userId } = change.doc.data();
+                    const { name, url, size, userId, type } = change.doc.data();
                     const extensionFile = name.split('.')[1];
 
                     // Format date to 'il a 12 minutes'
@@ -69,6 +69,7 @@ export class StorageService {
                             name,
                             url,
                             extensionFile,
+                            type,
                             size,
                             user,
                             date
@@ -90,6 +91,11 @@ export class StorageService {
         });
         return this.files;
     }
+
+    sendFile(conversationId: string, event) {
+
+    }
+
 
     /**
      * Upload file
