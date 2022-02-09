@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, getDocs, getFirestore, onSnapshot, query } from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDocs,
+    getFirestore,
+    onSnapshot,
+    query,
+    updateDoc
+} from 'firebase/firestore';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { User } from 'src/app/Classes/user';
 import { File } from 'src/app/Classes/file';
 import Swal from 'sweetalert2';
 import { AuthenticationService } from '../authentication/authentication.service';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root'
@@ -25,16 +36,22 @@ export class StorageService {
     }
 
     async getFiles(): Promise<File[]> {
-        let files: File[] = [];
 
         const q = query(collection(this.db, 'files'));
         onSnapshot(q, (snapshot) => {
-            snapshot.docChanges().forEach(async(change) => {
-                if (change.type === 'added') {
-                    const id = change.doc.id;
-                    const { name, url, size, date, userId } = change.doc.data();
-                    const extensionFile = name.split(".")[1];
+            snapshot.docChanges().forEach(async (change) => {
 
+                // Listen for new files or edited files
+                if (change.type === 'added' || change.type === 'modified') {
+                    const id = change.doc.id;
+                    const { name, url, size, userId } = change.doc.data();
+                    const extensionFile = name.split('.')[1];
+
+                    // Format date to 'il a 12 minutes'
+                    moment.locale('fr-FR');
+                    const date = moment(change.doc.data().date.toDate()).startOf('minutes').fromNow();
+
+                    // Get user which upload the file
                     await this.auth.getById(userId).then((userData) => {
                         const user = new User(
                             userData.id,
@@ -57,19 +74,20 @@ export class StorageService {
                             date
                         );
 
-                        files.push(file);
+                        // If file doesn't exist, add it to array
+                        // Else, update it
+                        this.files.findIndex(x => x.id === id) === -1 ? this.files.push(file) : this.files.find(x => x.id === id).id = id;
                     });
+                }
 
-                }
-                if (change.type === 'modified') {
-                    console.log('Modified city: ', change.doc.data());
-                }
+                // Message deleted
                 if (change.type === 'removed') {
-                    console.log('Removed city: ', change.doc.data());
+                    const id = change.doc.id;
+                    const index = this.files.findIndex((m) => m.id === id);
+                    this.files.splice(index, 1);
                 }
             });
         });
-        this.files = files;
         return this.files;
     }
 
@@ -117,14 +135,6 @@ export class StorageService {
                             date: new Date(),
                             userId: this.user.id,
                         });
-
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'File has been uploaded successfully',
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
                     });
             })
                 .catch((error) => {
@@ -145,16 +155,22 @@ export class StorageService {
         // Create a reference to the file to delete
         const fileRef = ref(this.storage, `files/${ file.name }`);
 
-        // Delete the file
+        // Delete file in storage
         deleteObject(fileRef)
-            .then(() => {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'File has been deleted successfully',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
+            .then(async () => {
+                // Delete file details
+                deleteDoc(doc(this.db, 'files', file.id))
+                    .catch((error) => {
+                        console.log('error: ', error);
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: `Error ${ error }`,
+                            showConfirmButton: false,
+                            timer: 4000,
+                        });
+                    });
             })
             .catch((error) => {
                 Swal.fire({
@@ -165,5 +181,13 @@ export class StorageService {
                     timer: 4000,
                 });
             });
+    }
+
+    async renameFile(oldFile: File, newFileName: File) {
+
+        const fileRef = doc(this.db, 'files', oldFile.id);
+        await updateDoc(fileRef, {
+            name: newFileName,
+        });
     }
 }

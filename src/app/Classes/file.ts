@@ -7,7 +7,7 @@ export class File {
 	private _extension: string;
 	private _size: number;
 	private _addBy: User;
-	private _date: Date;
+	private _date: string;
 
 	constructor(
 		id: string,
@@ -16,7 +16,7 @@ export class File {
 		extension: string,
 		size: number,
 		addBy: User,
-		date: Date
+		date: string
 	) {
 		this._id = id;
 		this._name = name;
@@ -79,7 +79,7 @@ export class File {
 	 * Getter date
 	 * @return {Date}
 	 */
-	public get date(): Date {
+	public get date(): string {
 		return this._date;
 	}
 
@@ -135,7 +135,7 @@ export class File {
 	 * Setter date
 	 * @param {Date} value
 	 */
-	public set date(value: Date) {
+	public set date(value: string) {
 		this._date = value;
 	}
 }
