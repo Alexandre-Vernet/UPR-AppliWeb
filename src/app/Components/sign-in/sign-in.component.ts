@@ -1,22 +1,22 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { CookieService } from "ngx-cookie-service";
-import { AuthenticationService } from "src/app/Services/authentication/authentication.service";
-import Swal from "sweetalert2";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthenticationService } from 'src/app/Services/authentication/authentication.service';
+import Swal from 'sweetalert2';
 
 @Component({
-    selector: "app-sign-in",
-    templateUrl: "./sign-in.component.html",
-    styleUrls: ["./sign-in.component.scss"]
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-    firebaseError: string = "";
+    firebaseError: string = '';
     _viewPassword: boolean = false;
 
     email!: string;
     form = new FormGroup({
-        email: new FormControl("", [Validators.required, Validators.email]),
-        password: new FormControl("", [
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [
             Validators.required,
             Validators.minLength(6)
         ])
@@ -34,7 +34,8 @@ export class SignInComponent implements OnInit {
     constructor(
         private auth: AuthenticationService,
         private cookieService: CookieService
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
 
@@ -55,23 +56,20 @@ export class SignInComponent implements OnInit {
         this.firebaseError = this.auth.signIn(email, password);
     };
 
-    googleSignIn = () => {
-        this.auth.googleSignUp();
-    };
 
     resetPassword = () => {
-      Swal.fire({
-        title: "Reinitialisation de mot de passe",
-        input: 'email',
-        inputPlaceholder: 'john.doe@gmail.com',
-        showCancelButton: true
-      }).then((result) => {
-        if (result.value) {
-          const userEmail = JSON.parse(JSON.stringify(result.value))
-          console.log(userEmail)
-          this.auth.resetPassword(userEmail);
-        }
-      });
+        Swal.fire({
+            title: 'Reinitialisation de mot de passe',
+            input: 'email',
+            inputPlaceholder: 'john.doe@gmail.com',
+            showCancelButton: true
+        }).then((result) => {
+            if (result.value) {
+                const userEmail = JSON.parse(JSON.stringify(result.value));
+                console.log(userEmail);
+                this.auth.resetPassword(userEmail);
+            }
+        });
     };
 
     viewPassword = () => {
