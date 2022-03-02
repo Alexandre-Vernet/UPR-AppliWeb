@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'search'
+  name: 'search'
 })
 export class SearchPipe implements PipeTransform {
 
-    transform(snapshotArr: any, searchValue: string) {
-        if (searchValue) {
-            return snapshotArr.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
-        }
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
 
-        else return snapshotArr;
-    }
 }
