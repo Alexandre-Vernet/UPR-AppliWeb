@@ -11,6 +11,7 @@ export class FirestoreService {
 
   users: User[] = [];
   usersPaginated: User[] = [];
+  limit = 3;
 
   db = getFirestore();
 
@@ -21,44 +22,81 @@ export class FirestoreService {
     const q = query(collection(this.db, 'users'));
     const querySnapshot = await getDocs(q);
 
-    return Math.ceil(querySnapshot.size/2);
+    return Math.ceil(querySnapshot.size/this.limit);
   }
 
   async getUsersPaginated(start: number): Promise<User[]> {
-    console.log(start)
-
     let users = [];
 
-    const q = query(collection(this.db, 'users'), orderBy('firstName'), startAfter(1), limit(2));
+    let limit = this.limit;
+    let index = 0;
+    let limited = 0;
 
-    const querySnapshot = await getDocs(q);
+    const allUsers = query(collection(this.db, 'users'));
+    const querySnapshot = await getDocs(allUsers);
 
     querySnapshot.forEach((doc) => {
+      if (limited < limit) {
+        if (index >= ((start-1)*limit) && index < ((start-1)*limit+limit)) {
+          limited += 1
+          const id = doc.id;
+          const {
+            firstName,
+            lastName,
+            email,
+            role,
+            status,
+            profilePicture,
+            dateCreation,
+          } = doc.data();
 
-      const id = doc.id;
-      const {
-        firstName,
-        lastName,
-        email,
-        role,
-        status,
-        profilePicture,
-        dateCreation,
-      } = doc.data();
+          const user = new User(
+            id,
+            firstName,
+            lastName,
+            email,
+            role,
+            status,
+            profilePicture,
+            dateCreation,
+          );
 
-      const user = new User(
-        id,
-        firstName,
-        lastName,
-        email,
-        role,
-        status,
-        profilePicture,
-        dateCreation,
-      );
-
-      users.push(user);
+          users.push(user);
+        }
+      }
+      index += 1;
     });
+
+    // const q = query(collection(this.db, 'users'), orderBy('firstName'), startAfter(1), limit(2));
+    //
+    // const querySnapshot = await getDocs(q);
+    //
+    // querySnapshot.forEach((doc) => {
+    //
+    //   const id = doc.id;
+    //   const {
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     role,
+    //     status,
+    //     profilePicture,
+    //     dateCreation,
+    //   } = doc.data();
+    //
+    //   const user = new User(
+    //     id,
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     role,
+    //     status,
+    //     profilePicture,
+    //     dateCreation,
+    //   );
+    //
+    //   users.push(user);
+    // });
 
     this.usersPaginated = users;
 

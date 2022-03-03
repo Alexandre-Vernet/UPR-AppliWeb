@@ -31,9 +31,9 @@ export class IndexUserComponent implements OnInit {
 
   selectPage(step: number) {
     this.firestoreService.getUsersPaginated(step).then((res) => {
-      console.log(res)
       this.users = res
     });
+    this.step = step;
   }
 
   stepToArray(step: number) {
