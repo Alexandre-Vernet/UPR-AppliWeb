@@ -11,7 +11,7 @@ export class FirestoreService {
 
   users: User[] = [];
   usersPaginated: User[] = [];
-  limit = 3;
+  limit = 5;
 
   db = getFirestore();
 

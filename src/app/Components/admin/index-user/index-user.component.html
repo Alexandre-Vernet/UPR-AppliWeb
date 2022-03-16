@@ -92,9 +92,9 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="g">
                   <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link clk"><em class="icon ni ni-chevrons-left"></em></a></li>
+                    <li class="page-item"><button class="page-link clk" [ngClass]="{'disabled':step<=1}" [disabled]="step<=1" (click)="selectPage(step-1)"><em class="icon ni ni-chevrons-left"></em></button></li>
                     <li class="page-item" *ngFor="let i of stepToArray(numberStep); let index = index"><a class="page-link clk" [ngClass]="{'active': index+1 === step}" (click)="selectPage(index+1)">{{index+1}}</a></li>
-                    <li class="page-item"><a class="page-link clk"><em class="icon ni ni-chevrons-right"></em></a></li>
+                    <li class="page-item"><button class="page-link clk" [ngClass]="{'disabled':step>=numberStep}" [disabled]="step>=numberStep" (click)="selectPage(step+1)"><em class="icon ni ni-chevrons-right"></em></button></li>
                   </ul><!-- .pagination -->
                 </div>
               </div><!-- .nk-block-between -->
