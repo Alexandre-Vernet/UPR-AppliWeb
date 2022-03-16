@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { StorageRoutingModule } from './storage-routing.module';
 import { StorageComponent } from './storage.component';
-import { SearchPipe } from '../../pipes/search.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from '../../pipes/search.pipe';
 
 
 @NgModule({
