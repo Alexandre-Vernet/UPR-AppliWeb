@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../Services/authentication/authentication.service';
-import { PwaUpdateService } from '../../Services/pwa/pwa-update.service';
 import { CryptoService } from '../../Services/crypto/crypto.service';
 
 @Injectable({
@@ -11,7 +10,6 @@ import { CryptoService } from '../../Services/crypto/crypto.service';
 export class AuthGuard implements CanActivate {
     constructor(
         private auth: AuthenticationService,
-        private pwaUpdater: PwaUpdateService,
         private cryptoService: CryptoService,
         private router: Router,
     ) {
@@ -37,5 +35,4 @@ export class AuthGuard implements CanActivate {
             }
         });
     }
-
 }
