@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../../Classes/user";
 import {FirestoreService} from "../../../Services/firestore/firestore.service";
+import {AuthenticationService} from "../../../Services/authentication/authentication.service";
 
 @Component({
   selector: 'app-index-user',
@@ -14,7 +15,10 @@ export class IndexUserComponent implements OnInit {
   step = 1;
   numberStep;
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(
+    private firestoreService: FirestoreService,
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit(): void {
     this.firestoreService.getUsersNumber(true).then(res => {
@@ -38,5 +42,9 @@ export class IndexUserComponent implements OnInit {
 
   stepToArray(step: number) {
     return Array(step);
+  }
+
+  resetPass(email) {
+    this.authService.resetPassword(email);
   }
 }

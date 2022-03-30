@@ -47,33 +47,33 @@
             </div>
 
             <!-- Photo -->
-            <div (click)="uploadProfilePicture()" class="data-item"
-                 data-toggle="modal">
-                <div class="data-col">
-                    <span class="data-label">Image de profil</span>
-                    <span class="data-value">
-                        <ng-container *ngIf="user?.profilePicture">
-                            <img alt="profilePicture" class="profilePicture"
-                                 src="{{user?.profilePicture}}">
-                        </ng-container>
-                        <ng-container *ngIf="!user?.profilePicture">
-                              Pas d'image de profil
-                        </ng-container>
-                    </span>
-                </div>
-                <div class="form-control-wrap">
-                    <div class="custom-file">
-                        <a class="btn btn-sm btn-icon btn-trigger text-primary toggle-opt"
-                           data-target="chat-upload">
-                            <input (change)="updateProfilePicture($event)"
-                                   accept="image/*"
-                                   class="icon ni ni-forward-ios" id="file_upload"
-                                   style="display: none"
-                                   type="file">
-                            <em class="icon ni ni-forward-ios"></em></a>
-                    </div>
-                </div>
-            </div>
+<!--            <div (click)="uploadProfilePicture()" class="data-item"-->
+<!--                 data-toggle="modal">-->
+<!--                <div class="data-col">-->
+<!--                    <span class="data-label">Image de profil</span>-->
+<!--                    <span class="data-value">-->
+<!--                        <ng-container *ngIf="user?.profilePicture">-->
+<!--                            <img alt="profilePicture" class="profilePicture"-->
+<!--                                 src="{{user?.profilePicture}}">-->
+<!--                        </ng-container>-->
+<!--                        <ng-container *ngIf="!user?.profilePicture">-->
+<!--                              Pas d'image de profil-->
+<!--                        </ng-container>-->
+<!--                    </span>-->
+<!--                </div>-->
+<!--                <div class="form-control-wrap">-->
+<!--                    <div class="custom-file">-->
+<!--                        <a class="btn btn-sm btn-icon btn-trigger text-primary toggle-opt"-->
+<!--                           data-target="chat-upload">-->
+<!--                            <input (change)="updateProfilePicture($event)"-->
+<!--                                   accept="image/*"-->
+<!--                                   class="icon ni ni-forward-ios" id="file_upload"-->
+<!--                                   style="display: none"-->
+<!--                                   type="file">-->
+<!--                            <em class="icon ni ni-forward-ios"></em></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <!-- Date of creation account -->
             <div class="data-item">

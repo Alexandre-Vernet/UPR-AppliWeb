@@ -19,7 +19,9 @@ export class AppComponent implements OnInit{
 
     ngOnInit() {
       this.logged = !(window.location.pathname === '/sign-in' || window.location.pathname === '/sign-up');
-      if (this.logged && this.authService.user.role === User_Roles.admin) this.admin = true;
+      setTimeout(() => {
+        if (this.logged && this.authService.user.role === User_Roles.admin) this.admin = true;
+      }, 1500);
     }
 
     getRoute() {
