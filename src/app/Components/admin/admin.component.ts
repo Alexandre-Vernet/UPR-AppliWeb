@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { User } from 'src/app/Classes/user';
-import { FirestoreService } from 'src/app/Services/firestore/firestore.service';
-import { Observable } from 'tinymce';
 
 @Component({
   selector: 'app-admin',
@@ -11,13 +7,8 @@ import { Observable } from 'tinymce';
 })
 export class AdminComponent implements OnInit {
 
-  users: User[];
-
-  constructor(private firestoreService: FirestoreService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.firestoreService.getUsers().then((res) => {
-      this.users = res
-    });
   }
 }

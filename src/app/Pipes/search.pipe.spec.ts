@@ -1,3 +1,4 @@
+// @ts-ignore
 import { SearchPipe } from './search.pipe';
 
 describe('SearchPipe', () => {

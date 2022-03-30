@@ -1,54 +1,174 @@
 import { Injectable } from '@angular/core';
-import { collection, getFirestore, query, getDocs } from 'firebase/firestore';
+import {collection, getFirestore, query, getDocs, doc, updateDoc, deleteDoc, where, startAfter, limit, orderBy } from 'firebase/firestore';
 import { User } from 'src/app/Classes/user';
+import Swal from "sweetalert2";
+import {AuthenticationService} from "../authentication/authentication.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class FirestoreService {
 
-    users: User[] = [];
+  users: User[] = [];
+  usersPaginated: User[] = [];
+  limit = 2;
 
-    db = getFirestore();
+  db = getFirestore();
 
-    constructor() {
-    }
+  constructor(private auth: AuthenticationService) {
+  }
 
-    async getUsers(): Promise<User[]> {
-        let users = [];
+  async getUsersNumber(validatedBool: boolean) {
+    const q = query(collection(this.db, 'users'), where('validated', '==', validatedBool));
+    const querySnapshot = await getDocs(q);
 
-        const q = query(collection(this.db, 'users'));
-        const querySnapshot = await getDocs(q);
+    return Math.ceil(querySnapshot.size/this.limit);
+  }
 
-        querySnapshot.forEach((doc) => {
+  async getUsersPaginated(start: number, validatedBool: boolean): Promise<User[]> {
+    let users = [];
 
-            const id = doc.id;
-            const {
-                firstName,
-                lastName,
-                email,
-                role,
-                status,
-                profilePicture,
-                dateCreation,
-            } = doc.data();
+    let limit = this.limit;
+    let index = 0;
+    let limited = 0;
 
-            const user = new User(
-                id,
-                firstName,
-                lastName,
-                email,
-                role,
-                status,
-                profilePicture,
-                dateCreation,
-            );
+    const allUsers = query(collection(this.db, 'users'), where('validated', '==', validatedBool));
+    const querySnapshot = await getDocs(allUsers);
 
-            users.push(user);
+    querySnapshot.forEach((doc) => {
+      if (limited < limit) {
+        if (index >= ((start - 1) * limit) && index < ((start - 1) * limit + limit)) {
+          limited += 1;
+
+          const id = doc.id;
+          const {
+            firstName,
+            lastName,
+            email,
+            role,
+            status,
+            profilePicture,
+            dateCreation,
+            validated
+          } = doc.data();
+
+          const user = new User(
+            id,
+            firstName,
+            lastName,
+            email,
+            role,
+            status,
+            profilePicture,
+            dateCreation,
+            validated
+          );
+
+          users.push(user);
+        }
+      }
+      index += 1;
+    });
+
+    this.usersPaginated = users;
+
+    return this.usersPaginated;
+  }
+
+  /**
+   * Update profile
+   * @param firstName
+   * @param lastName
+   * @param userId
+   */
+  updateProfile = async (firstName: string, lastName: string, userId: string) => {
+    const userRef = doc(this.db, "users", userId);
+
+    await updateDoc(userRef, {
+      firstName: firstName,
+      lastName: lastName
+    })
+      .then(() => {
+        // User has been successfully updated
+        console.log("User has been successfully updated");
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your account has been successfully updated",
+          showConfirmButton: false,
+          timer: 1500
         });
 
-        this.users = users;
+        // Update values
+        this.auth.user.firstName = firstName;
+        this.auth.user.lastName = lastName;
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
 
-        return this.users;
-    }
+        Swal.fire({
+          icon: "error",
+          title: error,
+          showConfirmButton: true
+        });
+      });
+
+    return this.auth.user;
+  };
+
+  validateUser = async (userId: string) => {
+    const userRef = doc(this.db, "users", userId);
+
+    await updateDoc(userRef, {
+      validated: true
+    })
+      .then(() => {
+        console.log("User has been successfully updated");
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User has been validated",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        // Update values
+        this.auth.user.validated = true;
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+
+        Swal.fire({
+          icon: "error",
+          title: error,
+          showConfirmButton: true
+        });
+      });
+
+    return this.auth.user;
+  };
+
+  async deleteUser(userId: string) {
+    await deleteDoc(doc(this.db, "users", userId))
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "L'utilisateur a bien été supprimé !",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: error,
+          showConfirmButton: true
+        });
+      });
+  }
 }

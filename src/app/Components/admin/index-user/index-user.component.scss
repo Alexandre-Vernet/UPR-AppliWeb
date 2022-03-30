@@ -1,0 +1,11 @@
+.active {
+  z-index: 2;
+  color: #7a3fff;
+  text-decoration: none;
+  background-color: #ebeef2;
+  border-color: #e5e9f2;
+}
+
+.disabled {
+  opacity: 0.5;
+}

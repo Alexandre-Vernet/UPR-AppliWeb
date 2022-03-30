@@ -61,7 +61,8 @@ export class StorageService {
                             userData.role,
                             userData.status,
                             userData.profilePicture,
-                            userData.dateCreation
+                            userData.dateCreation,
+                            userData.validated
                         );
 
                         const file = new File(
