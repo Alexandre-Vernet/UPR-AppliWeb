@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import Swal from "sweetalert2";
-import {User, User_Roles} from "src/app/Classes/user";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { User, User_Roles } from 'src/app/Classes/user';
 
 import {
     createUserWithEmailAndPassword,
@@ -64,34 +64,34 @@ export class AuthenticationService {
         const docSnap = await getDoc(docRef);
         let user: User;
 
-		if (docSnap.exists()) {
-			const id = docSnap.id;
-			const {
-				firstName,
-				lastName,
-				email,
-				role,
-				status,
-				profilePicture,
-				dateCreation,
-        validated
-			} = docSnap.data();
+        if (docSnap.exists()) {
+            const id = docSnap.id;
+            const {
+                firstName,
+                lastName,
+                email,
+                role,
+                status,
+                profilePicture,
+                dateCreation,
+                validated
+            } = docSnap.data();
 
-			user = new User(
-				id,
-				firstName,
-				lastName,
-				email,
-				role,
-				status,
-				profilePicture,
-				dateCreation,
-        validated
-			);
-		} else {
-			// doc.data() will be undefined in this case
-			console.log('No such document!');
-		}
+            user = new User(
+                id,
+                firstName,
+                lastName,
+                email,
+                role,
+                status,
+                profilePicture,
+                dateCreation,
+                validated
+            );
+        } else {
+            // doc.data() will be undefined in this case
+            console.log('No such document!');
+        }
 
         return user;
     }
@@ -112,30 +112,31 @@ export class AuthenticationService {
                 const docRef = doc(this.db, 'users', user.uid);
                 const docSnap = await getDoc(docRef);
 
-				if (docSnap.exists()) {
-					//  Set data
-					const id = docSnap.id;
-					const {
-						firstName,
-						lastName,
-						email,
-						role,
-						profilePicture,
-						dateCreation,
-            validated
-					} = docSnap.data();
+                if (docSnap.exists()) {
+                    //  Set data
+                    const id = docSnap.id;
+                    const {
+                        firstName,
+                        lastName,
+                        email,
+                        role,
+                        profilePicture,
+                        dateCreation,
+                        validated
+                    } = docSnap.data();
 
-					this.user = new User(
-						id,
-						firstName,
-						lastName,
-						email,
-						role,
-						true,
-						profilePicture,
-						dateCreation.toDate(),
-            validated
-					);
+                    this.user = new User(
+                        id,
+                        firstName,
+                        lastName,
+                        email,
+                        role,
+                        true,
+                        profilePicture,
+                        dateCreation.toDate(),
+                        validated
+                    );
+                    console.log(this.user);
 
                     // Store user in local storage
                     const hashPassword = this.cryptoService.encrypt(password);
@@ -186,18 +187,18 @@ export class AuthenticationService {
                 const user = userCredential.user;
                 console.log('user: ', user.uid);
 
-				await setDoc(doc(this.db, "users", user.uid), {
-					firstName: firstName,
-					lastName: lastName,
-					role: User_Roles.prod,
-					status: false,
-					email: email,
-					dateCreation: new Date(),
-          validated: false
-				})
-					.then(() => {
-						//  User data has been created
-						console.log("User data has been saved !");
+                await setDoc(doc(this.db, 'users', user.uid), {
+                    firstName: firstName,
+                    lastName: lastName,
+                    role: User_Roles.prod,
+                    status: false,
+                    email: email,
+                    dateCreation: new Date(),
+                    validated: false
+                })
+                    .then(() => {
+                        //  User data has been created
+                        console.log('User data has been saved !');
 
                         // Clear error
                         this.firebaseError = '';
