@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {collection, getFirestore, query, getDocs, doc, updateDoc, deleteDoc, startAfter, limit, orderBy } from 'firebase/firestore';
+import {collection, getFirestore, query, getDocs, doc, updateDoc, deleteDoc, where, startAfter, limit, orderBy } from 'firebase/firestore';
 import { User } from 'src/app/Classes/user';
 import Swal from "sweetalert2";
 import {AuthenticationService} from "../authentication/authentication.service";
@@ -11,34 +11,35 @@ export class FirestoreService {
 
   users: User[] = [];
   usersPaginated: User[] = [];
-  limit = 5;
+  limit = 2;
 
   db = getFirestore();
 
   constructor(private auth: AuthenticationService) {
   }
 
-  async getUsersNumber() {
-    const q = query(collection(this.db, 'users'));
+  async getUsersNumber(validatedBool: boolean) {
+    const q = query(collection(this.db, 'users'), where('validated', '==', validatedBool));
     const querySnapshot = await getDocs(q);
 
     return Math.ceil(querySnapshot.size/this.limit);
   }
 
-  async getUsersPaginated(start: number): Promise<User[]> {
+  async getUsersPaginated(start: number, validatedBool: boolean): Promise<User[]> {
     let users = [];
 
     let limit = this.limit;
     let index = 0;
     let limited = 0;
 
-    const allUsers = query(collection(this.db, 'users'));
+    const allUsers = query(collection(this.db, 'users'), where('validated', '==', validatedBool));
     const querySnapshot = await getDocs(allUsers);
 
     querySnapshot.forEach((doc) => {
       if (limited < limit) {
-        if (index >= ((start-1)*limit) && index < ((start-1)*limit+limit)) {
-          limited += 1
+        if (index >= ((start - 1) * limit) && index < ((start - 1) * limit + limit)) {
+          limited += 1;
+
           const id = doc.id;
           const {
             firstName,
@@ -48,6 +49,7 @@ export class FirestoreService {
             status,
             profilePicture,
             dateCreation,
+            validated
           } = doc.data();
 
           const user = new User(
@@ -59,6 +61,7 @@ export class FirestoreService {
             status,
             profilePicture,
             dateCreation,
+            validated
           );
 
           users.push(user);
@@ -67,78 +70,9 @@ export class FirestoreService {
       index += 1;
     });
 
-    // const q = query(collection(this.db, 'users'), orderBy('firstName'), startAfter(1), limit(2));
-    //
-    // const querySnapshot = await getDocs(q);
-    //
-    // querySnapshot.forEach((doc) => {
-    //
-    //   const id = doc.id;
-    //   const {
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     role,
-    //     status,
-    //     profilePicture,
-    //     dateCreation,
-    //   } = doc.data();
-    //
-    //   const user = new User(
-    //     id,
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     role,
-    //     status,
-    //     profilePicture,
-    //     dateCreation,
-    //   );
-    //
-    //   users.push(user);
-    // });
-
     this.usersPaginated = users;
 
     return this.usersPaginated;
-  }
-
-  async getUsers(): Promise<User[]> {
-    let users = [];
-
-    const q = query(collection(this.db, 'users'));
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-
-      const id = doc.id;
-      const {
-        firstName,
-        lastName,
-        email,
-        role,
-        status,
-        profilePicture,
-        dateCreation,
-      } = doc.data();
-
-      const user = new User(
-        id,
-        firstName,
-        lastName,
-        email,
-        role,
-        status,
-        profilePicture,
-        dateCreation,
-      );
-
-      users.push(user);
-    });
-
-    this.users = users;
-
-    return this.users;
   }
 
   /**
@@ -169,6 +103,40 @@ export class FirestoreService {
         // Update values
         this.auth.user.firstName = firstName;
         this.auth.user.lastName = lastName;
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+
+        Swal.fire({
+          icon: "error",
+          title: error,
+          showConfirmButton: true
+        });
+      });
+
+    return this.auth.user;
+  };
+
+  validateUser = async (userId: string) => {
+    const userRef = doc(this.db, "users", userId);
+
+    await updateDoc(userRef, {
+      validated: true
+    })
+      .then(() => {
+        console.log("User has been successfully updated");
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User has been validated",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        // Update values
+        this.auth.user.validated = true;
       })
       .catch((error) => {
         // The document probably doesn't exist.

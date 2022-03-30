@@ -55,13 +55,21 @@
 						<h6 class="overline-title text-danger">Administrateur</h6>
 					</li>
 					<li class="nk-menu-item">
-						<a [class.active]="getRoute() === '/admin'" [routerLink]="['/admin']"
+						<a [class.active]="getRoute() === '/admin/users'" [routerLink]="['/admin/users']"
 						   class="nk-menu-link text-danger">
 									<span class="nk-menu-icon"><em
 										class="icon ni ni-users-fill text-danger"></em></span>
 							<span class="nk-menu-text">Gestion des utilisateurs</span>
 						</a>
 					</li>
+          <li class="nk-menu-item">
+            <a [class.active]="getRoute() === '/admin/subscription'" [routerLink]="['/admin/subscription']"
+               class="nk-menu-link text-danger">
+									<span class="nk-menu-icon"><em
+                    class="icon ni ni-users-fill text-danger"></em></span>
+              <span class="nk-menu-text">Gestion des inscriptions</span>
+            </a>
+          </li>
 					<li>
 						<div>
 							<button [routerLink]="['/sign-in']">Connexion</button>

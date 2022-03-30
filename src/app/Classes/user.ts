@@ -3,12 +3,13 @@ export class User {
   private _firstName: string;
   private _lastName: string;
   private _email: string;
-  private _role: string;
+  private _role: User_Roles;
   private _status: boolean;
   private _profilePicture: string;
   private _dateCreation: string;
+  private _validated: boolean;
 
-  constructor(id: string, firstName: string, lastName: string, email: string, role: string, status: boolean, profilePicture: string, dateCreation: string) {
+  constructor(id: string, firstName: string, lastName: string, email: string, role: User_Roles, status: boolean, profilePicture: string, dateCreation: string, validated: boolean) {
     this._id = id;
     this._firstName = firstName;
     this._lastName = lastName;
@@ -17,6 +18,7 @@ export class User {
     this._status = status;
     this._profilePicture = profilePicture;
     this._dateCreation = dateCreation;
+    this._validated = validated;
   }
 
 
@@ -52,11 +54,11 @@ export class User {
     this._email = value;
   }
 
-  get role(): string {
+  get role(): User_Roles {
     return this._role;
   }
 
-  set role(value: string) {
+  set role(value: User_Roles) {
     this._role = value;
   }
 
@@ -83,4 +85,18 @@ export class User {
   set dateCreation(value: string) {
     this._dateCreation = value;
   }
+
+  get validated(): boolean {
+    return this._validated;
+  }
+
+  set validated(value: boolean) {
+    this._validated = value;
+  }
+}
+
+export enum User_Roles {
+  admin = 'ADMIN',
+  board = 'BOARD',
+  prod = 'PROD'
 }

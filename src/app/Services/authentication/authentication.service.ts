@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
-import { User } from "src/app/Classes/user";
+import {User, User_Roles} from "src/app/Classes/user";
 
 import {
 	createUserWithEmailAndPassword,
@@ -78,6 +78,7 @@ export class AuthenticationService {
 				status,
 				profilePicture,
 				dateCreation,
+        validated
 			} = docSnap.data();
 
 			user = new User(
@@ -89,6 +90,7 @@ export class AuthenticationService {
 				status,
 				profilePicture,
 				dateCreation,
+        validated
 			);
 		} else {
 			// doc.data() will be undefined in this case
@@ -124,6 +126,7 @@ export class AuthenticationService {
 						role,
 						profilePicture,
 						dateCreation,
+            validated
 					} = docSnap.data();
 
 					this.user = new User(
@@ -134,7 +137,8 @@ export class AuthenticationService {
 						role,
 						true,
 						profilePicture,
-						dateCreation.toDate()
+						dateCreation.toDate(),
+            validated
 					);
 
 					// Store user in local storage
@@ -189,10 +193,11 @@ export class AuthenticationService {
 				await setDoc(doc(this.db, "users", user.uid), {
 					firstName: firstName,
 					lastName: lastName,
-					role: "USER",
+					role: User_Roles.prod,
 					status: false,
 					email: email,
-					dateCreation: new Date()
+					dateCreation: new Date(),
+          validated: false
 				})
 					.then(() => {
 						//  User data has been created
@@ -238,8 +243,9 @@ export class AuthenticationService {
 				const lastName = result.user?.displayName?.split(" ")[1];
 				const email = result.user?.email;
 				const profilePicture = result.user?.photoURL;
-				let role = "";
+				let role = null;
 				let dateCreation = null;
+        let validated = false
 
 				const q = query(collection(this.db, "users"));
 
@@ -259,16 +265,17 @@ export class AuthenticationService {
 						id: user.uid,
 						firstName: firstName,
 						lastName: lastName,
-						role: "USER",
+						role: User_Roles.prod,
 						status: true,
 						email: email,
-						dateCreation: new Date()
+						dateCreation: new Date(),
+            validated: false
 					})
 						.then((user) => {
 							//  User data has been created
 							console.log("User is logged with google account");
 
-							role = "USER";
+							role = User_Roles.prod;
 							dateCreation = new Date();
 
 							// Clear error
@@ -309,17 +316,6 @@ export class AuthenticationService {
 							this.firebaseError = error.message;
 						});
 				}
-
-				this.user = new User(
-					user.uid,
-					firstName,
-					lastName,
-					email,
-					role,
-					true,
-					profilePicture,
-					dateCreation
-				);
 			})
 			.catch((error) => {
 				console.log("error: ", error);
