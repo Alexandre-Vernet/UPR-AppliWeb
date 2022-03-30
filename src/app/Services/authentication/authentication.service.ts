@@ -15,12 +15,12 @@ import {
     updatePassword
 } from 'firebase/auth';
 import {
-    deleteDoc,
-    doc,
-    getDoc,
-    getFirestore,
-    setDoc,
-    updateDoc
+  deleteDoc,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc, where
 } from 'firebase/firestore';
 import { CryptoService } from '../crypto/crypto.service';
 
@@ -112,7 +112,7 @@ export class AuthenticationService {
                 const docRef = doc(this.db, 'users', user.uid);
                 const docSnap = await getDoc(docRef);
 
-                if (docSnap.exists()) {
+                if (docSnap.exists() && docSnap.data().validated == true) {
                     //  Set data
                     const id = docSnap.id;
                     const {
@@ -136,7 +136,6 @@ export class AuthenticationService {
                         dateCreation.toDate(),
                         validated
                     );
-                    console.log(this.user);
 
                     // Store user in local storage
                     const hashPassword = this.cryptoService.encrypt(password);
@@ -154,10 +153,15 @@ export class AuthenticationService {
 
                     let url = window.location.pathname;
                     if (url != '/sign-in') this.router.navigate([url]);
-                    else this.router.navigate(['/home']);
+                    else window.location.assign('/home');
                 } else {
-                    // doc.data() will be undefined in this case
-                    console.log('No such document!');
+                  Swal.fire({
+                    position: 'bottom-end',
+                    icon: 'error',
+                    title: "Ce compte n'existe pas ou il n'a pas été validé",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
                 }
             })
             .catch((error) => {
@@ -203,7 +207,13 @@ export class AuthenticationService {
                         // Clear error
                         this.firebaseError = '';
 
-                        this.signIn(email, password);
+                        Swal.fire({
+                          position: 'bottom-end',
+                          icon: 'success',
+                          title: 'Inscription réussi, un administrateur doit maintenant la valider',
+                          showConfirmButton: false,
+                          timer: 1500
+                        });
                     })
                     .catch((error) => {
                         console.log(
@@ -375,7 +385,7 @@ export class AuthenticationService {
                 // 	status: false
                 // });
 
-                this.router.navigate(['/sign-in']);
+                window.location.assign('/sign-in');
             })
             .catch((error) => {
                 console.log('error: ', error);

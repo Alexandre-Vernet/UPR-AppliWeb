@@ -2,11 +2,10 @@
 	<!-- main @s -->
 	<div class="nk-main ">
 		<!-- sidebar @s -->
-		<div class="nk-sidebar nk-sidebar-fixed is-dark" data-content="sidebarMenu">
+		<div class="nk-sidebar nk-sidebar-fixed is-dark" data-content="sidebarMenu" *ngIf="logged">
 			<div class="nk-sidebar-element nk-sidebar-head">
 				<div class="nk-sidebar-brand">
 					<a [routerLink]="['/home']" class="logo-link nk-sidebar-logo">
-						<!--            <img class="logo-light logo-img" src="../../../../assets/logo.png" srcset="../../../../assets/logo2x.png 2x" alt="logo">-->
 						<div class="d-inline-flex align-center">
 							<img alt="logo-small" class="logo-small logo-img logo-img-small"
 								 src="../../../../assets/icons/favicon.png">
@@ -55,44 +54,27 @@
 									<span class="nk-menu-text">Messagerie</span>
 								</a>
 							</li>
-							<li class="nk-menu-heading">
-								<h6 class="overline-title text-danger">Administrateur</h6>
-							</li>
-							<li class="nk-menu-item">
-								<a [class.link-active]="getRoute() === '/admin/users'" [routerLink]="['/admin/users']"
-								   class="nk-menu-link text-danger">
-									<span class="nk-menu-icon"><em
-										class="icon ni ni-users-fill text-danger"></em></span>
-									<span class="nk-menu-text">Gestion des utilisateurs</span>
-								</a>
-							</li>
-              <li class="nk-menu-item">
-                <a [class.link-active]="getRoute() === '/admin/subscription'" [routerLink]="['/admin/subscription']"
-                   class="nk-menu-link text-danger">
+              <ng-template *ngIf="">
+                <li class="nk-menu-heading">
+                  <h6 class="overline-title text-danger">Administrateur</h6>
+                </li>
+                <li class="nk-menu-item">
+                  <a [class.link-active]="getRoute() === '/admin/users'" [routerLink]="['/admin/users']"
+                     class="nk-menu-link text-danger">
 									<span class="nk-menu-icon"><em
                     class="icon ni ni-users-fill text-danger"></em></span>
-                  <span class="nk-menu-text">Gestion des inscriptions</span>
-                </a>
-              </li>
-							<li>
-								<div>
-									<button [routerLink]="['/sign-in']">Connexion</button>
-								</div>
-								<div>
-									<button [routerLink]="['/sign-up']">Inscription</button>
-								</div>
-							</li><!-- .nk-menu-item --><!-- .nk-menu-item -->
-							<!--              <li class="nk-menu-item has-sub">-->
-							<!--                <a href="#" class="nk-menu-link nk-menu-toggle">-->
-							<!--                  <span class="nk-menu-icon"><em class="icon ni ni-files-fill"></em></span>-->
-							<!--                  <span class="nk-menu-text">Other Pages</span>-->
-							<!--                </a>-->
-							<!--                <ul class="nk-menu-sub">-->
-							<!--                  <li class="nk-menu-item">-->
-							<!--                    <a href="html/_blank.html" class="nk-menu-link"><span class="nk-menu-text">Blank / Startup</span></a>-->
-							<!--                  </li>-->
-							<!--                </ul>&lt;!&ndash; .nk-menu-sub &ndash;&gt;-->
-							<!--              </li>--><!-- .nk-menu-item -->
+                    <span class="nk-menu-text">Gestion des utilisateurs</span>
+                  </a>
+                </li>
+                <li class="nk-menu-item">
+                  <a [class.link-active]="getRoute() === '/admin/subscription'" [routerLink]="['/admin/subscription']"
+                     class="nk-menu-link text-danger">
+									<span class="nk-menu-icon"><em
+                    class="icon ni ni-users-fill text-danger"></em></span>
+                    <span class="nk-menu-text">Gestion des inscriptions</span>
+                  </a>
+                </li>
+              </ng-template>
 						</ul><!-- .nk-menu -->
 					</div><!-- .nk-sidebar-menu -->
 				</div><!-- .nk-sidebar-content -->
@@ -102,7 +84,7 @@
 		<!-- wrap @s -->
 		<div class="nk-wrap ">
 			<!-- main header @s -->
-			<app-navbar-top></app-navbar-top>
+			<app-navbar-top *ngIf="logged"></app-navbar-top>
 			<!-- main header @e -->
 			<!-- content @s -->
 			<router-outlet></router-outlet>
