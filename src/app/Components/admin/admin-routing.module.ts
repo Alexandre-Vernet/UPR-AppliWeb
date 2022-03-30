@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import {AddUserComponent} from "./add-user/add-user.component";
 import {IndexUserComponent} from "./index-user/index-user.component";
+import {SubscriptionComponent} from "./subscription/subscription.component";
 
 const routes: Routes = [
   {
@@ -10,13 +11,17 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: '',
+        path: 'users',
         component: IndexUserComponent,
       },
       {
         path: 'add-user',
         component: AddUserComponent
-      }
+      },
+      {
+        path: 'subscription',
+        component: SubscriptionComponent,
+      },
     ]
   },
   {

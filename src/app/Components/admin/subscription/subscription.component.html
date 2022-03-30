@@ -1,0 +1,79 @@
+<div class="nk-content mt-5">
+  <div class="container-fluid">
+    <div class="nk-content-inner">
+      <div class="nk-content-body">
+        <div class="nk-block-head nk-block-head-sm">
+          <div class="nk-block-between">
+            <div class="nk-block-head-content">
+              <h3 class="nk-block-title page-title">Inscriptions</h3>
+            </div><!-- .nk-block-head-content -->
+          </div><!-- .nk-block-between -->
+        </div><!-- .nk-block-head -->
+        <div class="nk-block">
+          <div class="nk-tb-list is-separate mb-3">
+            <div class="nk-tb-item nk-tb-head">
+              <div class="nk-tb-col"><span class="sub-text">Utilisateur</span></div>
+              <div class="nk-tb-col"><span class="sub-text">Rôle</span></div>
+              <!--                            <div class="nk-tb-col"><span class="sub-text">Status</span></div>-->
+              <div class="nk-tb-col text-right">
+                <span class="sub-text">Actions</span>
+              </div>
+            </div><!-- .nk-tb-item -->
+            <div class="nk-tb-item" *ngFor="let user of users">
+              <div class="nk-tb-col">
+                <a [routerLink]="['edit-user/'+user.id]">
+                  <div class="user-card">
+                    <div class="user-avatar bg-primary">
+                      <span *ngIf="!user.profilePicture">{{ user.firstName.charAt(0).toUpperCase() }}{{ user.lastName.charAt(0).toUpperCase() }}</span>
+                      <img src="{{user.profilePicture}}" alt="profile picture" *ngIf="user.profilePicture">
+                    </div>
+                    <div class="user-info">
+                      <span class="tb-lead">{{ user.firstName }} {{ user.lastName }} <span class="dot dot-success d-md-none ml-1"></span></span>
+                      <span>{{ user.email }}</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="nk-tb-col">
+                <span>{{ user.role }}</span>
+              </div>
+              <!--                            <div class="nk-tb-col">-->
+              <!--                                <span [ngClass]="{'text-success': user.status === true, 'text-danger': user.status === false}" class="tb-status">-->
+              <!--                                    <span *ngIf="user.status === true">Connecté</span>-->
+              <!--                                    <span *ngIf="user.status === false">Déconnecté</span>-->
+              <!--                                </span>-->
+              <!--                            </div>-->
+              <div class="nk-tb-col nk-tb-col-tools">
+                <ul class="nk-tb-actions gx-1">
+                  <li class="nk-tb-action-hidden">
+                    <a (click)="refuseValidation(user.id)" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                      <em class="icon ni ni-cross"></em>
+                    </a>
+                  </li>
+                  <li class="nk-tb-action-hidden">
+                    <a (click)="acceptValidation(user.id)" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Valider">
+                      <em class="icon ni ni-check"></em>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div><!-- .nk-tb-item -->
+          </div><!-- .nk-tb-list -->
+          <div class="card">
+            <div class="card-inner">
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="g">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item"><button class="page-link clk" [ngClass]="{'disabled':step<=1}" [disabled]="step<=1" (click)="selectPage(step-1)"><em class="icon ni ni-chevrons-left"></em></button></li>
+                    <li class="page-item" *ngFor="let i of stepToArray(numberStep); let index = index"><a class="page-link clk" [ngClass]="{'active': index+1 === step}" (click)="selectPage(index+1)">{{index+1}}</a></li>
+                    <li class="page-item"><button class="page-link clk" [ngClass]="{'disabled':step>=numberStep}" [disabled]="step>=numberStep" (click)="selectPage(step+1)"><em class="icon ni ni-chevrons-right"></em></button></li>
+                  </ul><!-- .pagination -->
+                </div>
+              </div><!-- .nk-block-between -->
+            </div>
+          </div>
+        </div><!-- .nk-block -->
+      </div>
+    </div>
+  </div>
+</div>

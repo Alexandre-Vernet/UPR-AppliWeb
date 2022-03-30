@@ -3,11 +3,11 @@ import {User} from "../../../Classes/user";
 import {FirestoreService} from "../../../Services/firestore/firestore.service";
 
 @Component({
-  selector: 'app-index-user',
-  templateUrl: './index-user.component.html',
-  styleUrls: ['./index-user.component.scss']
+  selector: 'app-subscription',
+  templateUrl: './subscription.component.html',
+  styleUrls: ['./subscription.component.scss']
 })
-export class IndexUserComponent implements OnInit {
+export class SubscriptionComponent implements OnInit {
 
   users: User[];
 
@@ -17,20 +17,24 @@ export class IndexUserComponent implements OnInit {
   constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit(): void {
-    this.firestoreService.getUsersNumber(true).then(res => {
+    this.firestoreService.getUsersNumber(false).then(res => {
       this.numberStep = res;
     })
-    this.firestoreService.getUsersPaginated(this.step, true).then((res) => {
+    this.firestoreService.getUsersPaginated(this.step, false).then((res) => {
       this.users = res
     });
   }
 
-  deleteUser(userId: string) {
+  acceptValidation(userId: string) {
+    this.firestoreService.validateUser(userId).then(res => console.log(res));
+  }
+
+  refuseValidation(userId: string) {
     this.firestoreService.deleteUser(userId).then(res => console.log(res));
   }
 
   selectPage(step: number) {
-    this.firestoreService.getUsersPaginated(step, true).then((res) => {
+    this.firestoreService.getUsersPaginated(step, false).then((res) => {
       this.users = res
     });
     this.step = step;
