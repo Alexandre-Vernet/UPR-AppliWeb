@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
                 this.auth.signIn(email, hashPassword);
                 resolve(true);
             } else {
-                await this.router.navigateByUrl('/sign-up');
+                await this.router.navigateByUrl('/sign-in');
                 reject(false);
             }
         });
