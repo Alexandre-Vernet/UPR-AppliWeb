@@ -4,11 +4,13 @@ import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { HomeComponent } from './Components/home/home.component';
 import { AuthGuard } from './Guards/auth/auth.guard';
+import {CalendarComponent} from "./Components/calendar/calendar.component";
 
 const routes: Routes = [
-    { path: 'sign-up', component: SignUpComponent },
-    { path: 'sign-in', component: SignInComponent },
-    {
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'calendar', component: CalendarComponent },
+  {
         path: 'storage',
         loadChildren: () => import('./Components/storage/storage.module').then(module => module.StorageModule),
         canActivate: [AuthGuard],
