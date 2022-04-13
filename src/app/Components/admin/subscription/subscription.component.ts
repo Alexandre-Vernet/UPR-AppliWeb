@@ -26,11 +26,21 @@ export class SubscriptionComponent implements OnInit {
   }
 
   acceptValidation(userId: string) {
-    this.firestoreService.validateUser(userId).then(res => console.log(res));
+    this.firestoreService.validateUser(userId).then(
+      () => {
+        this.firestoreService.getUsersPaginated(this.step, false).then((res) => {
+          this.users = res
+        });
+      });
   }
 
   refuseValidation(userId: string) {
-    this.firestoreService.deleteUser(userId).then(res => console.log(res));
+    this.firestoreService.deleteUser(userId).then(
+      () => {
+        this.firestoreService.getUsersPaginated(this.step, false).then((res) => {
+          this.users = res
+        });
+      });
   }
 
   selectPage(step: number) {

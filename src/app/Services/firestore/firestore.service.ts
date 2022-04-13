@@ -90,14 +90,13 @@ export class FirestoreService {
     })
       .then(() => {
         // User has been successfully updated
-        console.log("User has been successfully updated");
 
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
-          title: "Your account has been successfully updated",
+          title: "Votre compte a bien été modifié !",
           showConfirmButton: false,
-          timer: 1500
+          timer: 2500
         });
 
         // Update values
@@ -106,9 +105,9 @@ export class FirestoreService {
       })
       .catch((error) => {
         // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
 
         Swal.fire({
+          position: "center",
           icon: "error",
           title: error,
           showConfirmButton: true
@@ -125,14 +124,13 @@ export class FirestoreService {
       validated: true
     })
       .then(() => {
-        console.log("User has been successfully updated");
 
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
-          title: "User has been validated",
+          title: "L'utilisateur a bien été validé !",
           showConfirmButton: false,
-          timer: 1500
+          timer: 2500
         });
 
         // Update values
@@ -140,9 +138,9 @@ export class FirestoreService {
       })
       .catch((error) => {
         // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
 
         Swal.fire({
+          position: "center",
           icon: "error",
           title: error,
           showConfirmButton: true
@@ -156,15 +154,16 @@ export class FirestoreService {
     await deleteDoc(doc(this.db, "users", userId))
       .then(() => {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "L'utilisateur a bien été supprimé !",
           showConfirmButton: false,
-          timer: 1500
+          timer: 2500
         });
       })
       .catch((error) => {
         Swal.fire({
+          position: "center",
           icon: "error",
           title: error,
           showConfirmButton: true
