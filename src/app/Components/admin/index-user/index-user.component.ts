@@ -30,7 +30,13 @@ export class IndexUserComponent implements OnInit {
   }
 
   deleteUser(userId: string) {
-    this.firestoreService.deleteUser(userId).then(res => console.log(res));
+    this.firestoreService.deleteUser(userId).then(
+      () => {
+        this.firestoreService.getUsersPaginated(this.step, true).then((res) => {
+          this.users = res
+        })
+      }
+    );
   }
 
   selectPage(step: number) {
